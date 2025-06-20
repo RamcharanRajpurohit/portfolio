@@ -1,0 +1,59 @@
+`fixed` – used for positioning an element relative to the viewport; use when you want an element (like navbar or button) to stay in the same place even when scrolling.
+fixed = “Bro, I ain’t movin’ no matter what you scroll.”
+
+sticky = “I’ll chill and scroll with you, but when I hit my top spot? I’mma lock in 💀.”
+
+**`top-0` – used to position an element at the top of its container or viewport (based on `position` like `sticky`, `fixed`, etc); use when you want it to stick or fix to the top edge.**
+**`start-0` – used to position an element at the start (left in LTR, right in RTL) of its container or viewport; use with `position` utilities like `absolute`, `fixed`, or `sticky`.**
+
+border-b – adds a 1px solid border to the bottom of an element; use when you want a clean bottom divider or underline effect.
+
+border-gray-200 – sets the border color to Tailwind’s light gray (#e5e7eb); use when you want a soft, subtle border for clean UI vibes.
+
+**`max-w-screen-xl` – sets the max width of an element to match the `xl` breakpoint (1280px); use when you want content to be responsive but not stretch too wide on big screens.**
+
+🧱 Translation: “Stay chill bro, no full-screen bloat allowed past XL.”
+
+flex-wrap – allows flex items to wrap onto multiple lines instead of overflowing in one row; use when you have too many items and want them to flow like Tetris.
+
+items-center – aligns flex items vertically in the center of the container; use it inside a flex container (requires flex on parent whose children you want to cneter).
+
+justify-between – distributes flex items horizontally with space between them; use with flex on the parent container.
+
+mx-auto – sets horizontal margins to auto, centering the element horizontally inside its parent; works best with a fixed width or max-w.
+p-4 – adds padding of 1rem (16px) on all sides of the element; use when you want comfy spacing inside.
+
+space-x-3 – adds horizontal spacing (0.75rem or 12px) between direct child elements in a flex row; use with flex-row.
+
+rtl:space-x-reverse – reverses the direction of horizontal spacing in RTL (right-to-left) layouts; use it with space-x-* when supporting languages like Arabic or Hebrew.
+
+self-center – aligns a single flex item vertically to the center of the container; use it on a child inside a flexbox when you want that one item to be centered.
+
+self-center – aligns a single flex item vertically to the center of the container; use it on a child inside a flexbox when you want that one item to be centered.
+
+**`order-2` – sets the flex item’s order to 2, pushing it after items with lower order (default is 0); use inside a `flex` container to rearrange item positions.**
+
+📦 Use like: `flex order-2`
+🗣️ “I’m chillin’ behind the scenes… unless you promote me 😎.”
+
+**`space-x-3` – adds horizontal spacing (0.75rem / 12px) between direct child elements in a horizontal flex row; use with `flex flex-row`.**
+
+🧱 Use like: `flex space-x-3`
+🗣️ “I keep my squad spaced out just right — no overlaps, no drama 💅.”
+
+
+rounded-lg css radius on border
+
+inline-flex – makes the element behave like inline-block but with flex layout; use when you want flex behavior without breaking inline flow (like buttons or icons in a line).
+inline will be itself who is using it
+
+**`block` – makes the element a block-level element, meaning it takes up the full width available and starts on a new line; use when you want it to behave like a div or paragraph.**
+
+📦 Use like: `block w-full`
+🗣️ “I don’t share space—I’m the main character. I take the whole line, deal with it 😤.”
+
+
+whitespace-nowrap – prevents text from wrapping to the next line; use when you want content (like buttons or labels) to stay on a single line no matter what.
+flex-col – sets flex direction to column, stacking children vertically; use with flex on the container.
+
+📦 Use like: flex flex-col

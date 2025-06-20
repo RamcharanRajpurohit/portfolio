@@ -1,0 +1,6 @@
+mkdir dir1 dir2 dir3
+// to creat multifolders
+
+mkdir -p parent1/child1 parent2/child2
+
+touch client/src/components/header.tsx

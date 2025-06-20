@@ -1,0 +1,17 @@
+npm install -D tailwindcss postcss autoprefixer
+-D means we going to use them only during development at productipn a converted css file goona be used not tailwindcss
+
+npx tailwindcss init -p
+
+//aftet this import tailwind in index.css
+/* import ts modlule here after installtion and init*/
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+// then go to tailwind.config.js and in compo use this
+content: [
+    "./src/**/*.{js,jsx,ts,tsx}",
+  ],
+
+  //taiwin is set
