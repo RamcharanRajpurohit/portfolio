@@ -20,16 +20,16 @@ function Navbar() {
   const closeMenu = () => setIsOpen(false);
 
   return (
-    <nav className="bg-base fixed w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
+    <nav className="bg-base fixed w-full z-20 top-0 start-0 border-b border-gray-200 ">
       <div className="max-w-screen-xl flex flex-wrap items-center mx-auto p-4 justify-between">
         <h1 className="flex items-center text-base text-2xl font-semibold whitespace-nowrap">
           Ramcharan Rajpurohit
         </h1>
 
-        <div className="flex md:order-2 space-x-3 md:space-x-0">
+        <div className="flex wrap:order-2 space-x-3 wrap:space-x-0">
           <button
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            className="px-4 py-2 bg-btnp  rounded"
+            className="px-4 py-2 text-base  hover:bg-secondary  rounded"
             aria-label="Toggle theme"
           >
             {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
@@ -38,7 +38,7 @@ function Navbar() {
           <button
             onClick={handleToggle}
             type="button"
-            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-base rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
+            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-base rounded-lg wrap:hidden hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-gray-200"
             aria-expanded={isOpen}
           >
             <span className="sr-only">Toggle main menu</span>
@@ -49,14 +49,14 @@ function Navbar() {
         <div
           className={`${
             isOpen ? "block" : "hidden"
-          } w-full transition-all duration-300 ease-in-out md:flex md:w-auto md:order-1`}
+          } w-full transition-all duration-300 ease-in-out wrap:flex wrap:w-auto wrap:order-1`}
         >
-          <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-base md:space-x-8 md:flex-row md:mt-0 md:border-0 md:bg-base">
+          <ul className="flex flex-col p-4 wrap:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-base wrap:space-x-8 wrap:flex-row wrap:mt-0 wrap:border-0 wrap:bg-base">
             <li>
               <a
                 href="#"
                 onClick={closeMenu}
-                className="flex items-center gap-2 py-2 px-3 text-base bg-bz rounded-sm md:bg-transparent md:text-bz md:p-0 md:dark:text-blue-500"
+                className="flex items-center gap-2 py-2 px-3 text-base bg-bz hover:bg-secondary rounded-sm wrap:bg-transparent wrap:text-bz wrap:p-0 wrap:dark:text-blue-500"
               >
                 <Home size={16} /> Home
               </a>
@@ -65,7 +65,7 @@ function Navbar() {
               <a
                 href="#"
                 onClick={closeMenu}
-                className="flex items-center gap-2 py-2 px-3 text-base rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-bz md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 md:dark:hover:bg-transparent"
+                className="flex items-center gap-2 py-2 px-3 text-base rounded-sm hover:bg-secondary wrap:hover:bg-transparent wrap:hover:text-bz wrap:p-0 wrap:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 wrap:dark:hover:bg-transparent"
               >
                 <User size={16} /> About Me
               </a>
@@ -74,7 +74,7 @@ function Navbar() {
               <a
                 href="#"
                 onClick={closeMenu}
-                className="flex items-center gap-2 py-2 px-3 text-base rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-bz md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 md:dark:hover:bg-transparent"
+                className="flex items-center gap-2 py-2 px-3 text-base rounded-sm hover:bg-secondary wrap:hover:bg-transparent wrap:hover:text-bz wrap:p-0 wrap:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 wrap:dark:hover:bg-transparent"
               >
                 <Briefcase size={16} /> Projects
               </a>
@@ -83,7 +83,7 @@ function Navbar() {
               <a
                 href="#"
                 onClick={closeMenu}
-                className="flex items-center gap-2 py-2 px-3 text-base rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-bz md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 md:dark:hover:bg-transparent"
+                className="flex items-center gap-2 py-2 px-3 text-base rounded-sm hover:bg-secondary wrap:hover:bg-transparent wrap:hover:text-bz wrap:p-0 wrap:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 wrap:dark:hover:bg-transparent"
               >
                 <Mail size={16} /> Contact
               </a>
@@ -92,7 +92,7 @@ function Navbar() {
               <a
                 href="#"
                 onClick={closeMenu}
-                className="flex items-center gap-2 py-2 px-3 text-base rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-bz md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 md:dark:hover:bg-transparent"
+                className="flex items-center gap-2 py-2 px-3 text-base rounded-sm hover:bg-secondary wrap:hover:bg-transparent wrap:hover:text-bz wrap:p-0 wrap:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 wrap:dark:hover:bg-transparent"
               >
                 <FileText size={16} /> Resume
               </a>

@@ -1,0 +1,18 @@
+git --version
+git rev-parse --is-inside-work-tree 
+
+ramcharan@fedora:~/Documents/portfolio$ git rev-parse --is-inside-work-tree
+true
+check the work directory
+if not then run 
+    git init
+run gh auth status
+git add .
+git commit -m ""
+gh repo create portfolio --public --source=. --remote =origin --push
+
+
+git staus tells what file changed
+then git add .
+git commit -m "💄 updated navbar component and theme logic"
+git push

@@ -5,15 +5,35 @@
 
 @layer base {
   :root {
-    --bg: 255 255 255;
-    --text: 0 0 0;
-     --btn-bg: 209 213 219;  
+  --bg: 255 255 255;         /* clean white background */
+  --text: 22 22 26;           /* dark charcoal text */
+  --btn-bg: 228 232 240;      /* soft gray-blue button bg */
+  --headline: 22 22 26;       /* headline in strong dark */
+  --paragraph: 84 94 108;     /* soft gray for paragraph */
+  --btn: 127 90 240;          /* keep that poppin’ purple */
+  --btn-text: 255 255 255;    /* white text on button */
+  --stroke: 200 200 200;      /* light gray outline */
+  --main: 22 22 26;           /* primary dark text again */
+  --highlight: 127 90 240;    /* matching highlight color */
+  --secondary: 191 146 50;   /* lighter than dark mode’s secondary */
+  --tertiary: 44 182 125;
   }
+  
   [data-theme="dark"] {
-    --bg: 20 20 20;
-    --text: 230 230 230;
-    --btn-bg: 55 65 81;   
-  }
+  --bg: 22 22 26; /* dark gray - solid moody vibes */
+  --text: 230 230 230; /* light gray - readable af */
+  --btn-bg: 55 65 81; /* button bg - cool steel feel */
+  --headline: 255 255 254; /* white - bright headlines poppin’ */
+  --paragraph: 148 161 178; /* soft blue-gray - chill to read */
+  --btn: 127 90 240; /* vibrant purple - she fancy */
+  --btn-text: 255 255 254; /* white - contrast is 🔥 */
+  --stroke: 1 1 1; /* near black - outlines maybe? */
+  --main: 255 255 254; /* also white - reused color? */
+  --higjlight: 127 90 240; /* typo alert 🚨 should be 'highlight' */
+  --secondary: 114 117 126; /* gray - secondary stuff stayin lowkey */
+  --tertiary: 44 182 125; /* mint green - accent queen 💅 */
+}
+
   /* Optional: fallback auto-theme while waiting for JS */
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme]) {
