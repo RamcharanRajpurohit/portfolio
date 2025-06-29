@@ -20,8 +20,13 @@ theme: {
       secondary: 'rgb(var(--secondary) / <alpha-value>)',
     },
     borderColor: {
-      stroke: 'rgb(var(--stroke) / <alpha-value>)',
-    },
+       secondary: 'rgb(var(--secondary) / <alpha-value>)',
+  stroke: 'rgb(var(--stroke) / <alpha-value>)',
+  highlight: 'rgb(var(--highlight) / <alpha-value>)', // 🔥 ADD THIS
+  tertiary: 'rgb(var(--tertiary) / <alpha-value>)'  ,
+  
+     // Optional: if you’re using `border-tertiary`
+},
     screens:{
       wrap:'900px',// new break point
     }

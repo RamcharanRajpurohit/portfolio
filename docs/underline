@@ -1,0 +1,4 @@
+hover:underline 
+underline-offset-4//distance between text and underline
+ decoration-highlight //colur of the undeline
+  decoration-2 wifth of underline

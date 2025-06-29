@@ -20,16 +20,16 @@ function Navbar() {
   const closeMenu = () => setIsOpen(false);
 
   return (
-    <nav className="bg-base fixed w-full z-20 top-0 start-0 border-b border-gray-200 ">
+    <nav className="bg-base fixed w-full z-20 top-0 start-0 border-b border-stroke ">
       <div className="max-w-screen-xl flex flex-wrap items-center mx-auto p-4 justify-between">
-        <h1 className="flex items-center text-base text-2xl font-semibold whitespace-nowrap">
+        <h1 className="flex items-center text-base md:text-2xl sm:font-semibold whitespace-nowrap">
           Ramcharan Rajpurohit
         </h1>
 
         <div className="flex wrap:order-2 space-x-3 wrap:space-x-0">
           <button
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            className="px-4 py-2 text-base  hover:bg-secondary  rounded"
+            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-base rounded-lg  hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-gray-200"
             aria-label="Toggle theme"
           >
             {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
@@ -56,7 +56,7 @@ function Navbar() {
               <a
                 href="#"
                 onClick={closeMenu}
-                className="flex items-center gap-2 py-2 px-3 text-base bg-bz hover:bg-secondary rounded-sm wrap:bg-transparent wrap:text-bz wrap:p-0 wrap:dark:text-blue-500"
+                className="flex items-center gap-2 py-2 px-3 text-base bg-bz hover:underline underline-offset-4 decoration-highlight decoration-2 rounded-sm wrap:bg-transparent wrap:text-bz wrap:p-0 wrap:dark:text-blue-500"
               >
                 <Home size={16} /> Home
               </a>
@@ -65,7 +65,7 @@ function Navbar() {
               <a
                 href="#"
                 onClick={closeMenu}
-                className="flex items-center gap-2 py-2 px-3 text-base rounded-sm hover:bg-secondary wrap:hover:bg-transparent wrap:hover:text-bz wrap:p-0 wrap:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 wrap:dark:hover:bg-transparent"
+                className="flex items-center gap-2 py-2 px-3 text-base rounded-sm hover:underline underline-offset-4 decoration-highlight decoration-2 wrap:hover:bg-transparent wrap:hover:text-bz wrap:p-0 wrap:dark:hover:text-blue-500 "
               >
                 <User size={16} /> About Me
               </a>
@@ -74,7 +74,7 @@ function Navbar() {
               <a
                 href="#"
                 onClick={closeMenu}
-                className="flex items-center gap-2 py-2 px-3 text-base rounded-sm hover:bg-secondary wrap:hover:bg-transparent wrap:hover:text-bz wrap:p-0 wrap:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 wrap:dark:hover:bg-transparent"
+                className="flex items-center gap-2 py-2 px-3 text-base rounded-sm hover:underline underline-offset-4 decoration-highlight decoration-2 wrap:hover:bg-transparent wrap:hover:text-bz wrap:p-0 wrap:dark:hover:text-blue-500 "
               >
                 <Briefcase size={16} /> Projects
               </a>
@@ -83,7 +83,7 @@ function Navbar() {
               <a
                 href="#"
                 onClick={closeMenu}
-                className="flex items-center gap-2 py-2 px-3 text-base rounded-sm hover:bg-secondary wrap:hover:bg-transparent wrap:hover:text-bz wrap:p-0 wrap:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 wrap:dark:hover:bg-transparent"
+                className="flex items-center gap-2 py-2 px-3 text-base rounded-sm hover:underline underline-offset-4 decoration-highlight decoration-2 wrap:hover:bg-transparent wrap:hover:text-bz wrap:p-0 wrap:dark:hover:text-blue-500 "
               >
                 <Mail size={16} /> Contact
               </a>
@@ -92,7 +92,7 @@ function Navbar() {
               <a
                 href="#"
                 onClick={closeMenu}
-                className="flex items-center gap-2 py-2 px-3 text-base rounded-sm hover:bg-secondary wrap:hover:bg-transparent wrap:hover:text-bz wrap:p-0 wrap:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 wrap:dark:hover:bg-transparent"
+                className="flex items-center gap-2 py-2 px-3 text-base rounded-sm hover:underline underline-offset-4 decoration-highlight decoration-2 wrap:hover:bg-transparent wrap:hover:text-bz wrap:p-0 wrap:dark:hover:text-blue-500 "
               >
                 <FileText size={16} /> Resume
               </a>

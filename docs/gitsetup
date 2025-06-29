@@ -16,3 +16,15 @@ git staus tells what file changed
 then git add .
 git commit -m "💄 updated navbar component and theme logic"
 git push
+
+git remote remove origin
+Deletes the existing origin remote if it was corrupted — but yours was so broken Git didn’t even recognize it 🤡
+git remote add origin https://github.com/RamcharanRajpurohit/portfolio.git
+
+
+alias | grep git
+Check Git aliases (to see if the ghost came from a bash alias)
+
+
+nano .git/config
+Manually inspect your config file
