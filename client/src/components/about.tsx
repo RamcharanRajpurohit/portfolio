@@ -10,20 +10,20 @@ function About() {
             </p>
          </div>
          <div className="grid grid-cols-9 text-base gap-3 ">
-           <div className="col-span-3 border-2 rounded-lg p-3 hover:border-highlight border-stroke ">
-            <div>
-                <p>Btech   2023-2027</p>
+           <div className="col-span-3 border-2 rounded-lg p-3 hover:border-highlight border-stroke flex flex-col justify-center ">
+            <div className="">
+                <p>Btech   (2023-2027)</p>
                 <p> IIT Jodhpur</p>
                 <p>CGPA : 7.26</p>
             </div>
             <div>
-                <p>12th 2022</p>
-                <p>Madhuram Vidhya Mnadir </p>
+                <p>12th (2022)</p>
+                <p>Madhuram Vidhya Mandir </p>
                 <p>98.20%</p>
             </div>
             <div>
-                <p>10th 2020</p>
-                <p> Madhuram Vidhya Mnadir </p>
+                <p>10th (2020)</p>
+                <p> Madhuram Vidhya Mandir </p>
                 <p>92.67%</p>
             </div>
            </div>
@@ -37,7 +37,7 @@ CSS JavaScript TypeScript ReactJS NextJS Tailwind CSS Framer MotionNodeJS Expres
          </div>
     </div>
         </>
-    )gi
+    );
 }
 export default About;
 
