@@ -1,4 +1,4 @@
-import { Github, Linkedin, Mail, Instagram,Keyboard } from 'lucide-react';
+import { Github, Linkedin, Mail, Instagram} from 'lucide-react';
 import { TbBrandLeetcode } from "react-icons/tb";
 function Hero(){
     return(
