@@ -28,3 +28,19 @@ Check Git aliases (to see if the ghost came from a bash alias)
 
 nano .git/config
 Manually inspect your config file
+
+Create and switch to a new branch
+git switch -c feature/dark-mode
+Use Case: You’re starting a new feature. You make a branch so you can develop without messing with the main codebase.  \
+
+
+4. Switch between branches
+git switch main
+
+| Command                             | Use Case                      |
+| ----------------------------------- | ----------------------------- |
+| `git switch -c new-branch`          | Create & switch to new branch |
+| `git add .` + `git commit -m "msg"` | Save your work                |
+| `git push -u origin branch-name`    | Upload branch to GitHub       |
+| `git switch main`                   | Go back to main branch        |
+| `git branch -d branch-name`         | Delete branch after merging   |

@@ -1,8 +1,8 @@
 function About() {
     return (
-        <div className="bg-base p-5 text-base w-full min-h-screen overflow-x-hidden">
+        <div className="bg-base p-5 text-base w-full overflow-x-hidden  border-b border-stroke ">
             <div className="max-w-6xl mx-auto">
-                <h3 className="font-semibold text-4xl text-center text-base mb-4">
+                <h3 className="font-semibold text-5xl text-center text-base mb-4">
                     About Me
                 </h3>
                 <p className="text-center text-lg text-base mt-5 mb-10 max-w-4xl mx-auto px-4">
@@ -46,7 +46,7 @@ function About() {
                             ].map((skill, index) => (
                                 <span 
                                     key={index}
-                                    className="bg-stroke px-2 py-1 rounded text-sm hover:bg-highlight hover:text-base transition-colors duration-200"
+                                    className="bg-stroke px-2 py-1 rounded text-sm hover:bg-highlight  transition-colors duration-200"
                                 >
                                     {skill}
                                 </span>

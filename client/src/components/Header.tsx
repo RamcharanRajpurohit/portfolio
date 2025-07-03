@@ -5,7 +5,7 @@ function Header(){
     <>
     <Navabar/>
     </>
-  )
+  );
 }
 export default Header;
 

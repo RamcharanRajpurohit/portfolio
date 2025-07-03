@@ -83,3 +83,10 @@ Use inside a grid container (grid grid-cols-*) when you want a child to take mor
 Property	Layout Type	Centers Horizontally?	Centers Vertically?	Notes
 items-center	Flex	❌	✅	Use with flex, pair with justify-center
 place-items-center	Grid	✅	✅	One line to rule 'em all 🧙‍♂️
+
+
+
+break-all
+
+Forces long text (like email addresses) to break at any character
+Prevents text overflow that could cause horizontal scrolling

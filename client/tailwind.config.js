@@ -28,7 +28,7 @@ theme: {
      // Optional: if you’re using `border-tertiary`
 },
     screens:{
-      wrap:'900px',// new break point
+      wrap:'910px',// new break point
     }
   }
 }

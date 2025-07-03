@@ -22,7 +22,7 @@ function Navbar() {
   return (
     <nav className="bg-base fixed w-full z-20 top-0 start-0 border-b border-stroke ">
       <div className="max-w-screen-xl flex flex-wrap items-center mx-auto p-4 justify-between">
-        <h1 className="flex items-center text-base md:text-2xl sm:font-semibold whitespace-nowrap">
+        <h1 className="flex items-center text-base wrap:text-2xl sm:font-semibold whitespace-nowrap">
           Ramcharan Rajpurohit
         </h1>
 
