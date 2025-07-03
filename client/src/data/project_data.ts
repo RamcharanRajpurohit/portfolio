@@ -1,4 +1,11 @@
- interface project{
+import Dsa_visualizer from '../assets/Screenshot From 2025-07-03 22-06-01.png';
+import portfolio from '../assets/Screenshot From 2025-07-03 22-06-22.png';
+import pacman from '../assets/pacman.png'
+import code_formatter from '../assets/code_formatter.png'
+import dev_plaza from '../assets/dev_plaza.png'
+import password_manager from '../assets/password_manager.png'
+import ner from '../assets/ner.png'
+interface project{
       title:string;
       image_url:string;
       github_repo:string;
@@ -12,7 +19,7 @@
  const projects:project[] =[
     {
         title:"Dsa Visualzer",
-        image_url:"https://pixabay.com/illustrations/domain-names-domain-extension-domain-1772240/",
+        image_url: Dsa_visualizer,
         github_repo:"https://github.com/RamcharanRajpurohit/DSAVisualizer",
         web_url:"https://dsa-visualizer-x87u.onrender.com/",
         project_duration:"2024-2025",
@@ -37,7 +44,7 @@
     },
   {
     title: "Dev Plaza",
-    image_url: "/images/dev-plaza.png", // placeholder or actual screenshot
+    image_url: dev_plaza, // placeholder or actual screenshot
     github_repo: "https://github.com/RamcharanRajpurohit/dev-plaza", // update if different
     web_url: "https://devplaza.vercel.app", // update to your live deployed link
     project_duration: "Jul 2024 – Aug 2024",
@@ -62,7 +69,7 @@
   },
   {
     title: "Personal Portfolio",
-    image_url: "/images/portfolio-preview.png", // put actual screenshot path or use a placeholder
+    image_url: portfolio, // put actual screenshot path or use a placeholder
     github_repo: "https://github.com/RamcharanRajpurohit/portfolio",
     web_url: "https://ramcharanrajpurohit.vercel.app",
     project_duration: "Apr 2024 – May 2024",
@@ -84,7 +91,7 @@
   },
     {
     title: "Pac-Man Terminal Game",
-    image_url: "/images/pacman-terminal.png", // use a cool ASCII or screenshot (or placeholder)
+    image_url: pacman, // use a cool ASCII or screenshot (or placeholder)
     github_repo: "https://github.com/RamcharanRajpurohit/pacman-terminal", // if not on GitHub yet, upload it bro!
     web_url: "", // you can leave it empty or link a GitHub README preview
     project_duration: "Oct 2023 – Nov 2023",
@@ -105,7 +112,7 @@
   },
   {
     title: "Named Entity Recognition (NER)",
-    image_url: "/images/ner-model.png", // drop a graph, confusion matrix, or model architecture here
+    image_url:ner, // drop a graph, confusion matrix, or model architecture here
     github_repo: "https://github.com/RamcharanRajpurohit/ner-ml", // update if different or add later
     web_url: "", // link to demo, report, or Colab notebook if available
     project_duration: "Feb 2024 – Mar 2024",
@@ -132,7 +139,7 @@
   },
   {
     title: "Universal Code Formatter",
-    image_url: "/images/universal-code-formatter.png", // screenshot of the UI/code preview area
+    image_url: code_formatter, // screenshot of the UI/code preview area
     github_repo: "https://github.com/RamcharanRajpurohit/universal-code-formatter", // update if different
     web_url: "https://codeformatter.vercel.app", // or wherever you deployed it
     project_duration: "Jan 2024 – Feb 2024",
@@ -157,7 +164,7 @@
   },
   {
     title: "Password Manager (Terminal-based)",
-    image_url: "/images/password-manager-terminal.png", // terminal screenshot or flowchart img
+    image_url: password_manager, // terminal screenshot or flowchart img
     github_repo: "https://github.com/RamcharanRajpurohit/password-manager", // update if different
     web_url: "", // optional: can be a GitHub README or demo video
     project_duration: "Dec 2023 – Jan 2024",

@@ -1,21 +1,21 @@
 import projects from "../data/project_data";
 function Projects() {
   return (
-    <section className=" mx-auto px-4 sm:px-6 lg:px-10 py-12 bg-base border-b border-stroke ">
+    <section id="projects" className=" text-base mx-auto px-4 sm:px-6 lg:px-10 py-12 bg-base border-b border-stroke  max-w-screen-lg scroll-mt-16">
       <div className="text-center mb-12">
-        <h3 className="text-5xl font-bold text-base mb-4">My Projects</h3>
+        <h3 className="text-4xl font-bold  mb-4">My Projects</h3>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2  gap-8">
+      <div className="grid grid-cols-1 gap-8">
         {projects.map((project) => (
           <div 
             key={project.title} 
-            className="bg-base rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 border border-stroke"
+            className="bg-base rounded-lg shadow-lg overflow-hidden hover:shadow-xl  transition-shadow duration-300 border border-stroke "
           >
             {/* Project Image */}
             <div className="relative h-48 overflow-hidden">
               <img 
-                className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" 
-                src="https://media.istockphoto.com/id/1467597986/photo/professionally-landscaped-garden-flower-bed.jpg?s=2048x2048&w=is&k=20&c=EkSeVR74NXBQAgY7xgrUt27JP1sIJk51L3vUKT7RmvQ="
+                className="w-full h-full object-cover hover:scale-105 transition-transform duration-300 " 
+                src={project.image_url}
                 alt={`${project.title} screenshot`}
                 loading="lazy"
               />

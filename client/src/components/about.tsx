@@ -1,17 +1,17 @@
 function About() {
     return (
-        <div className="bg-base p-5 text-base w-full overflow-x-hidden  border-b border-stroke ">
-            <div className="max-w-6xl mx-auto">
-                <h3 className="font-semibold text-5xl text-center text-base mb-4">
+        <section id="about" className="bg-base  p-5 text-base w-full    scroll-mt-16 text-base  ">
+            <div className=" max-w-screen-lg  mx-auto border-b border-stroke py-8 ">
+                <h3 className="font-semibold text-4xl text-center mb-4 ">
                     About Me
                 </h3>
                 <p className="text-center text-lg text-base mt-5 mb-10 max-w-4xl mx-auto px-4">
                     I'm a 3rd-year B.Tech student at IIT Jodhpur in the Civil and Infrastructure Engineering branch. I build full stack web applications using the MERN stack and regularly solve DSA problems to improve my coding and problem-solving skills.
                 </p>
-                
+
                 {/* Grid container with proper responsive behavior */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
-                    
+
                     {/* Education Card */}
                     <div className="flex flex-col justify-start border-2 rounded-lg p-4 hover:border-highlight border-stroke transition-colors duration-200 min-h-fit">
                         <h4 className="font-semibold text-lg mb-3 text-highlight">Education</h4>
@@ -33,18 +33,18 @@ function About() {
                             </div>
                         </div>
                     </div>
-                    
+
                     {/* Skills Card */}
                     <div className="border-2 rounded-lg p-4 hover:border-highlight border-stroke transition-colors duration-200 min-h-fit">
                         <h4 className="font-semibold text-lg mb-3 text-highlight">Technical Skills</h4>
                         <div className="flex flex-wrap gap-2">
                             {[
-                                "HTML", "CSS", "JavaScript", "TypeScript", "ReactJS", 
-                                "NextJS", "Tailwind CSS", "Framer Motion", "NodeJS", 
-                                "ExpressJS", "MongoDB", "Redux Toolkit", "Git", 
+                                "HTML", "CSS", "JavaScript", "TypeScript", "ReactJS",
+                                "NextJS", "Tailwind CSS", "Framer Motion", "NodeJS",
+                                "ExpressJS", "MongoDB", "Redux Toolkit", "Git",
                                 "GitHub", "Vercel", "Postman", "C++"
                             ].map((skill, index) => (
-                                <span 
+                                <span
                                     key={index}
                                     className="bg-stroke px-2 py-1 rounded text-sm hover:bg-highlight  transition-colors duration-200"
                                 >
@@ -66,7 +66,7 @@ function About() {
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     );
 }
 

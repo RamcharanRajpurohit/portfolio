@@ -54,7 +54,7 @@ function Navbar() {
           <ul className="flex flex-col p-4 wrap:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-base wrap:space-x-8 wrap:flex-row wrap:mt-0 wrap:border-0 wrap:bg-base">
             <li>
               <a
-                href="#"
+                href="#home"
                 onClick={closeMenu}
                 className="flex items-center gap-2 py-2 px-3 text-base bg-bz hover:underline underline-offset-4 decoration-highlight decoration-2 rounded-sm wrap:bg-transparent wrap:text-bz wrap:p-0 wrap:dark:text-blue-500"
               >
@@ -63,7 +63,7 @@ function Navbar() {
             </li>
             <li>
               <a
-                href="#"
+                href="#about"
                 onClick={closeMenu}
                 className="flex items-center gap-2 py-2 px-3 text-base rounded-sm hover:underline underline-offset-4 decoration-highlight decoration-2 wrap:hover:bg-transparent wrap:hover:text-bz wrap:p-0 wrap:dark:hover:text-blue-500 "
               >
@@ -72,7 +72,7 @@ function Navbar() {
             </li>
             <li>
               <a
-                href="#"
+                href="#projects"
                 onClick={closeMenu}
                 className="flex items-center gap-2 py-2 px-3 text-base rounded-sm hover:underline underline-offset-4 decoration-highlight decoration-2 wrap:hover:bg-transparent wrap:hover:text-bz wrap:p-0 wrap:dark:hover:text-blue-500 "
               >
@@ -81,7 +81,7 @@ function Navbar() {
             </li>
             <li>
               <a
-                href="#"
+                href="#contact"
                 onClick={closeMenu}
                 className="flex items-center gap-2 py-2 px-3 text-base rounded-sm hover:underline underline-offset-4 decoration-highlight decoration-2 wrap:hover:bg-transparent wrap:hover:text-bz wrap:p-0 wrap:dark:hover:text-blue-500 "
               >
@@ -89,8 +89,8 @@ function Navbar() {
               </a>
             </li>
             <li>
-              <a
-                href="#"
+              <a target="blank"
+                href="https://drive.google.com/file/d/17f7fCO5YaJhqptdO2cL8hf5I6RvKppMC/view"
                 onClick={closeMenu}
                 className="flex items-center gap-2 py-2 px-3 text-base rounded-sm hover:underline underline-offset-4 decoration-highlight decoration-2 wrap:hover:bg-transparent wrap:hover:text-bz wrap:p-0 wrap:dark:hover:text-blue-500 "
               >

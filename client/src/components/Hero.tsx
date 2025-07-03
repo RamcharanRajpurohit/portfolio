@@ -1,14 +1,15 @@
-import { Github, Linkedin, Mail, Instagram} from 'lucide-react';
+import { Github, Linkedin,Instagram} from 'lucide-react';
 import { TbBrandLeetcode } from "react-icons/tb";
+import HeroImage from '../assets/IMG_20250104_225126_873.jpg';
 function Hero(){
     return(
         <>
-        <div className="max-w-[100rem] xl:max-w-full mx-auto px-4 sm:px-6 lg:px-8 bg-base border-b border-stroke ">
+        <section id='home' className="max-w-screen-lg  mx-auto px-4 sm:px-6 lg:px-8 bg-base border-b border-stroke ">
             <div className="grid lg:grid-cols-7 lg:gap-x-8 xl:gap-x-12 lg:items-center">
                 <div className="lg:col-span-3 mt-20  flex items-center justify-center">
-                   <img className="w-2/3 h-auto rounded-md my-10 " src="https://images.unsplash.com/photo-1665686376173-ada7a0031a85?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=900&h=700&q=80" alt ="Ramcharan's photo"/>
+                   <img className="w-2/4 wrap:w-2/3 h-auto rounded-md my-10 " src={HeroImage} alt ="Ramcharan's photo"/>
                 </div>
-            <div className="lg:col-span-4 sm:mt-auto xl:mt-10 ">
+            <div className="lg:col-span-4 sm:mt-auto md:mt-20 xl:mt-10 ">
                 <h2 className="text-center text-base block font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-5">Hi, I'm Ramcharan</h2>
                 <span className='flex items-center justify-center'>
                 <p className="text-base block text-center md:w-2/4">A Full Stack Developer passionate about building performant, user-friendly, and scalable applications.</p></span>
@@ -22,16 +23,14 @@ function Hero(){
                      <a href="https://www.linkedin.com/in/ramcharan-rajpurohit-1314b7289/" className='md:border-2 border p-1 rounded mb-2 border-base hover:border-highlight transition-colors duration-200' target="_blank" rel="noopener noreferrer">
                              <Linkedin className="md:w-8 md:h-8 w-5 h-5  text-base " />
                      </a>
-                    <a href="" className='md:border-2 border p-1 rounded mb-2 border-base hover:border-highlight transition-colors duration-200' target="_blank" rel="noopener noreferrer">
-                            <Mail className="md:w-8 md:h-8 w-5 h-5  text-base " />
-                    </a>
+                   
                     <a href="https://www.instagram.com/ramcharanpurohit/" className='md:border-2 border p-1 rounded mb-2 border-base hover:border-highlight transition-colors duration-200' target="_blank" rel="noopener noreferrer">
                           < Instagram className="md:w-8 md:h-8 w-5 h-5  text-base " />
                     </a>                    
                 </div>
             </div>
             </div>
-        </div>
+        </section>
         </>
     );
 }
