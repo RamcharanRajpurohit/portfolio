@@ -1,7 +1,5 @@
 import Dsa_visualizer from '../assets/Screenshot From 2025-07-03 22-06-01.png';
-import portfolio from '../assets/Screenshot From 2025-07-03 22-06-22.png';
 import pacman from '../assets/pacman.png'
-import code_formatter from '../assets/code_formatter.png'
 import dev_plaza from '../assets/dev_plaza.png'
 import password_manager from '../assets/password_manager.png'
 import ner from '../assets/ner.png'
