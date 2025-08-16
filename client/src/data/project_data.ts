@@ -45,8 +45,8 @@ interface project{
   {
     title: "Dev Plaza",
     image_url: dev_plaza, // placeholder or actual screenshot
-    github_repo: "https://github.com/RamcharanRajpurohit/dev-plaza", // update if different
-    web_url: "https://devplaza.vercel.app", // update to your live deployed link
+    github_repo: "https://github.com/RamcharanRajpurohit/devplaza", // update if different
+    web_url: "", // update to your live deployed link
     project_duration: "Jul 2024 – Aug 2024",
     description: [
       "Created a central hub to showcase CP profiles from platforms like LeetCode, Codeforces, GeeksforGeeks, and GitHub.",
@@ -67,32 +67,10 @@ interface project{
       "Cheerio / Puppeteer (for scraping, if applicable)"
     ]
   },
-  {
-    title: "Personal Portfolio",
-    image_url: portfolio, // put actual screenshot path or use a placeholder
-    github_repo: "https://github.com/RamcharanRajpurohit/portfolio",
-    web_url: "https://ramcharanrajpurohit.vercel.app",
-    project_duration: "Apr 2024 – May 2024",
-    description: [
-      "Designed and developed a fully responsive personal portfolio using React, TypeScript, and Tailwind CSS.",
-      "Highlights my projects, tech stack, education, and contact info in a minimal and aesthetic layout.",
-      "SEO-optimized with meta tags, Open Graph, and Twitter cards for social previews.",
-      "Integrated interactive components and animations with Framer Motion.",
-      "Deployed on Vercel with a custom domain for fast global performance."
-    ],
-    tech_stack: [
-      "React.js",
-      "TypeScript",
-      "Tailwind CSS",
-      "Framer Motion",
-      "Vite",
-      "Vercel"
-    ]
-  },
     {
     title: "Pac-Man Terminal Game",
     image_url: pacman, // use a cool ASCII or screenshot (or placeholder)
-    github_repo: "https://github.com/RamcharanRajpurohit/pacman-terminal", // if not on GitHub yet, upload it bro!
+    github_repo: "https://github.com/QASIMALVEE/ICS_CP_-DARQ", // if not on GitHub yet, upload it bro!
     web_url: "", // you can leave it empty or link a GitHub README preview
     project_duration: "Oct 2023 – Nov 2023",
     description: [
@@ -113,7 +91,7 @@ interface project{
   {
     title: "Named Entity Recognition (NER)",
     image_url:ner, // drop a graph, confusion matrix, or model architecture here
-    github_repo: "https://github.com/RamcharanRajpurohit/ner-ml", // update if different or add later
+    github_repo: "https://github.com/RamcharanRajpurohit/NER", // update if different or add later
     web_url: "", // link to demo, report, or Colab notebook if available
     project_duration: "Feb 2024 – Mar 2024",
     description: [
@@ -138,34 +116,9 @@ interface project{
     ]
   },
   {
-    title: "Universal Code Formatter",
-    image_url: code_formatter, // screenshot of the UI/code preview area
-    github_repo: "https://github.com/RamcharanRajpurohit/universal-code-formatter", // update if different
-    web_url: "https://codeformatter.vercel.app", // or wherever you deployed it
-    project_duration: "Jan 2024 – Feb 2024",
-    description: [
-      "Developed a web-based universal code formatter that supports multiple programming languages.",
-      "Integrated popular formatting engines and libraries to beautify code in real-time (e.g., Prettier, ClangFormat).",
-      "Built a clean and responsive UI with language dropdown, dark mode, and instant output preview.",
-      "Used a modular backend to handle different formatting engines securely and efficiently.",
-      "Deployed the site on Vercel with fast performance and zero-config serverless setup."
-    ],
-    tech_stack: [
-      "React.js",
-      "TypeScript",
-      "Tailwind CSS",
-      "Express.js",
-      "Node.js",
-      "Prettier",
-      "ClangFormat",
-      "Docker (optional)",
-      "Vercel"
-    ]
-  },
-  {
     title: "Password Manager (Terminal-based)",
     image_url: password_manager, // terminal screenshot or flowchart img
-    github_repo: "https://github.com/RamcharanRajpurohit/password-manager", // update if different
+    github_repo: "https://github.com/zero1byte/PasswordManager", // update if different
     web_url: "", // optional: can be a GitHub README or demo video
     project_duration: "Dec 2023 – Jan 2024",
     description: [
