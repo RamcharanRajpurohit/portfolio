@@ -3,6 +3,8 @@ import pacman from '../assets/pacman.png'
 import dev_plaza from '../assets/dev_plaza.png'
 import password_manager from '../assets/password_manager.png'
 import ner from '../assets/ner.png'
+import walletwhiz from '../assets/walletwhiz.png'
+import qhours from '../assets/qhour.png'
 interface project{
       title:string;
       image_url:string;
@@ -42,9 +44,9 @@ interface project{
     },
   {
     title: "Dev Plaza",
-    image_url: dev_plaza, // placeholder or actual screenshot
-    github_repo: "https://github.com/RamcharanRajpurohit/devplaza", // update if different
-    web_url: "", // update to your live deployed link
+    image_url: dev_plaza, 
+    github_repo: "https://github.com/RamcharanRajpurohit/devplaza", 
+    web_url: "https://devplaza.vercel.app/", 
     project_duration: "Jul 2024 – Aug 2024",
     description: [
       "Created a central hub to showcase CP profiles from platforms like LeetCode, Codeforces, GeeksforGeeks, and GitHub.",
@@ -65,11 +67,57 @@ interface project{
       "Cheerio / Puppeteer (for scraping, if applicable)"
     ]
   },
-    {
+ 
+ 
+  {
+     title:"WalletWhiz",
+     image_url:walletwhiz,
+     github_repo:"https://github.com/RamcharanRajpurohit/walletwhiz",
+     web_url:"https://walletwhiz-eight.vercel.app/dashboard",
+     project_duration:"2025-Present",
+     description:[
+      "Developed a full-stack expense tracker application with user authentication and data visualization.",
+      "Implemented secure user registration and login using supabase authentication services.",
+      "Created RESTful APIs with Node.js and Express.js to handle CRUD operations for expenses and categories.",
+      "Designed a responsive frontend using Next.js and Tailwind CSS for an intuitive user experience.",
+      "Integrated Chart.js to provide users with visual insights into their spending habits through dynamic charts."
+     ],
+     tech_stack:[
+      "Next.js",
+      "Node.js",
+      "Express.js",
+      "MongoDB",
+      "supabase",
+      "Tailwind CSS",
+      "Chart.js",
+      "Vercel",
+      "netlify"
+     ]
+  },{
+    title: "Quiet Hours Scheduler",
+    image_url: qhours,
+    github_repo: "https://github.com/RamcharanRajpurohit/signsetu",
+    web_url: "https://quieth.netlify.app/",
+    project_duration: "Aug-Sep 2025",
+    description: [
+      "Developed a web app to help users schedule 'quiet hours' for focused work or study.",
+      "Users will get reminders and block distracting websites during these periods.",
+      "Building a clean and user-friendly interface with Next.js and Tailwind CSS.",
+      "Supabse is being used for user authentication and MongoDB for storing user preferences and schedules."
+    ],
+    tech_stack: [
+      "Next.js",
+      "Tailwind CSS",
+      "MongoDB",
+      "Supabase",
+      "Vercel"
+    ]
+  },
+   {
     title: "Pac-Man Terminal Game",
-    image_url: pacman, // use a cool ASCII or screenshot (or placeholder)
-    github_repo: "https://github.com/QASIMALVEE/ICS_CP_-DARQ", // if not on GitHub yet, upload it bro!
-    web_url: "", // you can leave it empty or link a GitHub README preview
+    image_url: pacman, 
+    github_repo: "https://github.com/QASIMALVEE/ICS_CP_-DARQ", 
+    web_url: "",
     project_duration: "Oct 2023 – Nov 2023",
     description: [
       "Built a classic Pac-Man game entirely in C, playable in the terminal.",
@@ -86,11 +134,33 @@ interface project{
       "System Calls (termios.h, conio-like input)"
     ]
   },
-  {
+   {
+    title: "Password Manager (Terminal-based)",
+    image_url: password_manager, 
+    github_repo: "https://github.com/zero1byte/PasswordManager", 
+    web_url: "", 
+    project_duration: "Dec 2023 – Jan 2024",
+    description: [
+      "Built a terminal-based password manager that securely stores passwords using RSA encryption.",
+      "Master Key is required at runtime and never stored anywhere—ensuring full data privacy.",
+      "Passwords are encrypted with a custom prefix and saved in a local JSON file.",
+      "CLI interface built with Bash scripting for quick interaction and automation.",
+      "Perfect for users who want a fully offline, transparent, and customizable password tool."
+    ],
+    tech_stack: [
+      "C++",
+      "Bash",
+      "RSA Encryption",
+      "JSON File Handling",
+      "Linux Terminal",
+      "Shell Scripting"
+    ]
+  },
+   {
     title: "Named Entity Recognition (NER)",
-    image_url:ner, // drop a graph, confusion matrix, or model architecture here
-    github_repo: "https://github.com/RamcharanRajpurohit/NER", // update if different or add later
-    web_url: "", // link to demo, report, or Colab notebook if available
+    image_url:ner, 
+    github_repo: "https://github.com/RamcharanRajpurohit/NER",
+    web_url: "",
     project_duration: "Feb 2024 – Mar 2024",
     description: [
       "Developed a Named Entity Recognition (NER) system using multiple ML and DL models on the Kaggle NER dataset.",
@@ -113,28 +183,6 @@ interface project{
       "Kaggle Datasets"
     ]
   },
-  {
-    title: "Password Manager (Terminal-based)",
-    image_url: password_manager, // terminal screenshot or flowchart img
-    github_repo: "https://github.com/zero1byte/PasswordManager", // update if different
-    web_url: "", // optional: can be a GitHub README or demo video
-    project_duration: "Dec 2023 – Jan 2024",
-    description: [
-      "Built a terminal-based password manager that securely stores passwords using RSA encryption.",
-      "Master Key is required at runtime and never stored anywhere—ensuring full data privacy.",
-      "Passwords are encrypted with a custom prefix and saved in a local JSON file.",
-      "CLI interface built with Bash scripting for quick interaction and automation.",
-      "Perfect for users who want a fully offline, transparent, and customizable password tool."
-    ],
-    tech_stack: [
-      "C++",
-      "Bash",
-      "RSA Encryption",
-      "JSON File Handling",
-      "Linux Terminal",
-      "Shell Scripting"
-    ]
-  }
 ]
 
 
