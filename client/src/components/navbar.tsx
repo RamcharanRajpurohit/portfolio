@@ -6,6 +6,7 @@ import {
   Home,
   User,
   Briefcase,
+  FolderKanban,
   Mail,
   FileText,
   Sun,
@@ -72,11 +73,20 @@ function Navbar() {
             </li>
             <li>
               <a
+                href="#experience"
+                onClick={closeMenu}
+                className="flex items-center gap-2 py-2 px-3 text-base rounded-sm hover:underline underline-offset-4 decoration-highlight decoration-2 wrap:hover:bg-transparent wrap:hover:text-bz wrap:p-0 wrap:dark:hover:text-blue-500 "
+              >
+                <Briefcase size={16} /> Experience
+              </a>
+            </li>
+            <li>
+              <a
                 href="#projects"
                 onClick={closeMenu}
                 className="flex items-center gap-2 py-2 px-3 text-base rounded-sm hover:underline underline-offset-4 decoration-highlight decoration-2 wrap:hover:bg-transparent wrap:hover:text-bz wrap:p-0 wrap:dark:hover:text-blue-500 "
               >
-                <Briefcase size={16} /> Projects
+                <FolderKanban size={16} /> Projects
               </a>
             </li>
             <li>

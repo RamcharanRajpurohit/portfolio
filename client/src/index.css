@@ -6,32 +6,32 @@
 @layer base {
   :root {
   --bg: 255 255 255;         /* clean white background */
-  --text: 22 22 26;           /* dark charcoal text */
-  --btn-bg: 228 232 240;      /* soft gray-blue button bg */
-  --headline: 22 22 26;       /* headline in strong dark */
-  --paragraph: 84 94 108;     /* soft gray for paragraph */
-  --btn: 127 90 240;          /* keep that poppin’ purple */
+  --text: 15 23 42;           /* slate-900 for text */
+  --btn-bg: 241 245 249;      /* slate-100 button bg */
+  --headline: 15 23 42;       /* slate-900 for headlines */
+  --paragraph: 51 65 85;      /* slate-600 for paragraphs */
+  --btn: 79 70 229;           /* indigo-600 button */
   --btn-text: 255 255 255;    /* white text on button */
-  --stroke: 200 200 200;      /* light gray outline */
-  --main: 22 22 26;           /* primary dark text again */
-  --highlight: 127 90 240;    /* matching highlight color */
-  --secondary: 191 146 50;   /* lighter than dark mode’s secondary */
-  --tertiary: 44 182 125;
+  --stroke: 226 232 240;      /* slate-200 border */
+  --main: 15 23 42;           /* slate-900 */
+  --highlight: 79 70 229;     /* indigo-600 highlight */
+  --secondary: 248 250 252;   /* slate-50 for cards */
+  --tertiary: 16 185 129;     /* emerald-500 */
   }
   
   [data-theme="dark"] {
-  --bg: 22 22 26; /* dark gray - solid moody vibes */
-  --text: 230 230 230; /* light gray - readable af */
-  --btn-bg: 55 65 81; /* button bg - cool steel feel */
-  --headline: 255 255 254; /* white - bright headlines poppin’ */
-  --paragraph: 148 161 178; /* soft blue-gray - chill to read */
-  --btn: 127 90 240; /* vibrant purple - she fancy */
-  --btn-text: 255 255 254; /* white - contrast is 🔥 */
-  --stroke: 1 1 1; /* near black - outlines maybe? */
-  --main: 255 255 254; /* also white - reused color? */
-  --higjlight: 127 90 240; /* typo alert 🚨 should be 'highlight' */
-  --secondary: 114 117 126; /* gray - secondary stuff stayin lowkey */
-  --tertiary: 44 182 125; /* mint green - accent queen 💅 */
+  --bg: 17 17 22; /* darker background */
+  --text: 235 235 240; /* light gray - readable */
+  --btn-bg: 45 50 65; /* button bg - cool steel feel */
+  --headline: 255 255 254; /* white - bright headlines */
+  --paragraph: 160 170 185; /* soft blue-gray - easy to read */
+  --btn: 129 140 248; /* indigo-400 */
+  --btn-text: 255 255 254; /* white - contrast */
+  --stroke: 55 60 75; /* subtle border */
+  --main: 255 255 254; /* white */
+  --highlight: 129 140 248; /* indigo-400 highlight */
+  --secondary: 30 32 42; /* dark card background */
+  --tertiary: 52 211 153; /* emerald accent */
 }
 
   /* Optional: fallback auto-theme while waiting for JS */

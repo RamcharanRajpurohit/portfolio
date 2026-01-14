@@ -23,12 +23,12 @@ function Projects() {
         {displayedProjects.map((project) => (
           <article
             key={project.title}
-            className="bg-base rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 border border-stroke group max-w-2xl mx-auto"
+            className="bg-base rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 border border-stroke group max-w-3xl mx-auto"
           >
             {/* Project Image */}
-            <div className="relative overflow-hidden max-h-80">
+            <div className="relative overflow-hidden">
               <img
-                className="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-300"
+                className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-300"
                 src={project.image_url}
                 alt={`${project.title} screenshot`}
                 loading="lazy"

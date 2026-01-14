@@ -76,7 +76,7 @@ function Contact() {
                             <MdEmail />
                             <p>Email Me</p>
                         </a>
-                        <a href="https://wa.me/9680103852" target="_blank" rel="noopener noreferrer" className="flex justify-center items-center gap-2 flex-1 bg-base border border-stroke hover:shadow-md transition-all duration-200 rounded-lg w-full px-6 py-4 text-center font-medium hover:border-opacity-80">
+                        <a href="https://wa.me/+919680103852" target="_blank" rel="noopener noreferrer" className="flex justify-center items-center gap-2 flex-1 bg-base border border-stroke hover:shadow-md transition-all duration-200 rounded-lg w-full px-6 py-4 text-center font-medium hover:border-opacity-80">
                             <BsWhatsapp />
                             <p>Whatsapp</p>
                         </a>

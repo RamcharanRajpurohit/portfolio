@@ -19,7 +19,7 @@ function About() {
                             <div className="border-b border-stroke pb-2">
                                 <p className="font-medium">B.Tech (2023-2027)</p>
                                 <p className="text-sm opacity-80">IIT Jodhpur</p>
-                                <p className="text-sm">CGPA: 7.26</p>
+                                <p className="text-sm">CGPA: 7.24</p>
                             </div>
                             <div className="border-b border-stroke pb-2">
                                 <p className="font-medium">12th (2022)</p>

@@ -7,7 +7,7 @@ function Hero(){
         <section id='home' className="max-w-screen-lg  mx-auto px-4 sm:px-6 lg:px-8 bg-base border-b border-stroke ">
             <div className="grid lg:grid-cols-7 lg:gap-x-8 xl:gap-x-12 lg:items-center">
                 <div className="lg:col-span-3 mt-20  flex items-center justify-center">
-                   <img className="w-2/4 wrap:w-2/3 h-auto rounded-md my-10 " src={HeroImage} alt ="Ramcharan's photo"/>
+                   <img className="w-full max-w-xs sm:max-w-sm wrap:max-w-md h-auto rounded-md my-10 " src={HeroImage} alt ="Ramcharan's photo"/>
                 </div>
             <div className="lg:col-span-4 sm:mt-auto md:mt-20 xl:mt-10 ">
                 <h2 className="text-center text-base block font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-5">Hi, I'm Ramcharan</h2>
