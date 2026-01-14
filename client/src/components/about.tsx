@@ -6,7 +6,7 @@ function About() {
                     About Me
                 </h3>
                 <p className="text-center text-lg text-base mt-5 mb-10 max-w-4xl mx-auto px-4">
-                    I'm a 3rd-year B.Tech student at IIT Jodhpur in the Civil and Infrastructure Engineering branch. I build full stack web applications using the MERN stack and regularly solve DSA problems to improve my coding and problem-solving skills.
+                    I'm a 3rd-year B.Tech student at IIT Jodhpur. I build full stack web applications using the MERN stack and regularly solve DSA problems to improve my coding and problem-solving skills.
                 </p>
 
                 {/* Grid container with proper responsive behavior */}

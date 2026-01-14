@@ -1,0 +1,14 @@
+# Robots.txt for Ramcharan Rajpurohit Portfolio
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://ramcharanrajpurohit.vercel.app/sitemap.xml
+
+# Crawl delay (optional - adjust based on your hosting)
+Crawl-delay: 1
+
+# Disallow specific paths (if needed in future)
+# Disallow: /admin/
+# Disallow: /private/
