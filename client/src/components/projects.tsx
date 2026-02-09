@@ -30,8 +30,11 @@ function Projects() {
               <img
                 className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-300"
                 src={project.image_url}
-                alt={`${project.title} screenshot`}
+                alt={`${project.title} - ${project.description[0]}`}
                 loading="lazy"
+                width="768"
+                height="432"
+                decoding="async"
               />
             </div>
 
