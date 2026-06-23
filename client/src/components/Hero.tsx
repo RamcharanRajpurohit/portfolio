@@ -12,7 +12,7 @@ function Hero(){
             <div className="lg:col-span-4 mt-4 lg:mt-0 ">
                 <h2 className="text-center text-base block font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-5">Hi, I'm Ramcharan</h2>
                 <span className='flex items-center justify-center'>
-                <p className="text-base block text-center md:w-2/4">I build LLM- and vision-powered products end to end, from the user-facing features to the backends and APIs behind them.</p></span>
+                <p className="text-base block text-center md:w-2/4">I build LLM and vision-powered products, both the user-facing features and the backend APIs behind them.</p></span>
                 <div className="flex mt-4 lg:mt-7 items-center gap-3 justify-center ">
                      <a href="https://github.com/RamcharanRajpurohit" className='md:border-2 border p-1 rounded mb-2  hover:border-highlight transition-colors duration-200' target="_blank" rel="noopener noreferrer" aria-label="Visit Ramcharan's GitHub profile">
                             <Github className="md:w-8 md:h-8 w-5 h-5  text-base " aria-hidden="true" />
