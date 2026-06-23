@@ -99,8 +99,8 @@ function Navbar() {
               </a>
             </li>
             <li>
-              <a target="blank"
-                href="https://drive.google.com/file/d/1FGSChM5N_NERNmMSuvbcYIQjrumitdCu/view?usp=sharing"
+              <a target="_blank" rel="noopener noreferrer"
+                href="/Ramcharan_Resume.pdf"
                 onClick={closeMenu}
                 className="flex items-center gap-2 py-2 px-3 text-base rounded-sm hover:underline underline-offset-4 decoration-highlight decoration-2 wrap:hover:bg-transparent wrap:hover:text-bz wrap:p-0 wrap:dark:hover:text-blue-500 "
               >

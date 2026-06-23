@@ -7,6 +7,23 @@ function Contact() {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submissionStatus, setSubmissionStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
+    const phoneNumber = "919680103852";
+    const email = "ramcharanrajpurohit@gmail.com";
+
+    // Phone -> open the native app; PC/laptop -> open the web version.
+    const [isMobile] = useState<boolean>(() =>
+        typeof navigator !== "undefined" &&
+        (/Android|iPhone|iPad|iPod|webOS|BlackBerry|Windows Phone|Opera Mini|IEMobile/i.test(navigator.userAgent) ||
+            (/Macintosh/.test(navigator.userAgent) && navigator.maxTouchPoints > 1))
+    );
+
+    const whatsappHref = isMobile
+        ? `https://wa.me/${phoneNumber}`
+        : `https://web.whatsapp.com/send?phone=${phoneNumber}`;
+    const emailHref = isMobile
+        ? `mailto:${email}`
+        : `https://mail.google.com/mail/?view=cm&fs=1&to=${email}`;
+
     async function handleSubmit(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
         
@@ -72,11 +89,11 @@ function Contact() {
                     )}
 
                     <div className="flex flex-col sm:flex-row justify-between items-center gap-4 w-full max-w-md">
-                        <a href="mailto:ramcharanrajpurohit@gmail.com" className="flex-1 flex justify-center items-center gap-2 bg-base border border-stroke hover:shadow-md transition-all duration-200 rounded-lg w-full px-6 py-4 text-center font-medium hover:border-opacity-80">
+                        <a href={emailHref} target="_blank" rel="noopener noreferrer" className="flex-1 flex justify-center items-center gap-2 bg-base border border-stroke hover:shadow-md transition-all duration-200 rounded-lg w-full px-6 py-4 text-center font-medium hover:border-opacity-80">
                             <MdEmail />
                             <p>Email Me</p>
                         </a>
-                        <a href="https://wa.me/+919680103852" target="_blank" rel="noopener noreferrer" className="flex justify-center items-center gap-2 flex-1 bg-base border border-stroke hover:shadow-md transition-all duration-200 rounded-lg w-full px-6 py-4 text-center font-medium hover:border-opacity-80">
+                        <a href={whatsappHref} target="_blank" rel="noopener noreferrer" className="flex justify-center items-center gap-2 flex-1 bg-base border border-stroke hover:shadow-md transition-all duration-200 rounded-lg w-full px-6 py-4 text-center font-medium hover:border-opacity-80">
                             <BsWhatsapp />
                             <p>Whatsapp</p>
                         </a>

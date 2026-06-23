@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="RR monogram">
+  <defs>
+    <linearGradient id="sil" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="0.4" stop-color="#e6e9f1"/>
+      <stop offset="0.7" stop-color="#bcc2d0"/>
+      <stop offset="1" stop-color="#9298a8"/>
+    </linearGradient>
+  </defs>
+  <!-- dark disc so the mark is visible on any tab colour -->
+  <circle cx="256" cy="256" r="248" fill="#0b0b0e"/>
+  <circle cx="256" cy="256" r="230" fill="none" stroke="url(#sil)" stroke-width="15"/>
+  <g transform="translate(256 256) scale(1.03) translate(-256 -240)" fill="url(#sil)"
+     font-family="'Noto Serif','Liberation Serif',Georgia,'Times New Roman',serif" font-weight="900">
+    <g transform="matrix(-1 0 0 1 426 0)">
+      <text x="94" y="356" font-size="330" text-anchor="start">R</text>
+    </g>
+    <text x="180" y="356" font-size="330" text-anchor="start">R</text>
+  </g>
+</svg>

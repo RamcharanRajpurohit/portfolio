@@ -142,7 +142,7 @@ interface project{
     project_duration: "Dec 2023 – Jan 2024",
     description: [
       "Built a terminal-based password manager that securely stores passwords using RSA encryption.",
-      "Master Key is required at runtime and never stored anywhere—ensuring full data privacy.",
+      "Master Key is required at runtime and never stored anywhere, ensuring full data privacy.",
       "Passwords are encrypted with a custom prefix and saved in a local JSON file.",
       "CLI interface built with Bash scripting for quick interaction and automation.",
       "Perfect for users who want a fully offline, transparent, and customizable password tool."
