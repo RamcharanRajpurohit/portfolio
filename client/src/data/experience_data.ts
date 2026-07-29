@@ -38,6 +38,10 @@ const experiences: Experience[] = [
             {
                 name: "Pupil Assess",
                 description: "An AI-powered assessment platform for test generation, attempt, grading, and progress tracking. Features smart question banks, AI-powered automatic scoring with detailed feedback, comprehensive performance analysis with automatic gap identification, and student progress monitoring with adaptive remediation."
+            },
+            {
+                name: "Amigo",
+                description: "A student-facing AI companion built on LangGraph — a supervisor graph routing to 5 specialist agents over 18 scoped tools, serving both text chat and voice from one shared graph. Built a real-time voice pipeline (LiveKit, code-switching Hindi/English STT, streaming TTS) with token-by-token streaming, plus a child-safety layer with PII tokenisation, a two-stage LLM risk screen with fail-closed severity floors, and an append-only audit ledger."
             }
         ],
         tech_stack: [
@@ -50,6 +54,8 @@ const experiences: Experience[] = [
             "Redis",
             "BullMQ",
             "LangChain",
+            "LangGraph",
+            "LiveKit",
             "Google Generative AI",
             "Deepgram",
             "Docker",
