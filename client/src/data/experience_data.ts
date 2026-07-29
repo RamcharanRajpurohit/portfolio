@@ -28,7 +28,8 @@ const experiences: Experience[] = [
             "Working on the AI behind an exam platform built for JEE and NEET coaching institutes.",
             "Built the system that generates entire assessments using an LLM, and a vision-based system that grades students' handwritten answers straight from photos.",
             "Built the pipeline that scores submissions and turns them into learning analytics for each student, with the heavy AI grading running in the background so results come back quickly.",
-            "Made the whole thing reliable and fast enough to handle a full school sitting an exam at the same time, across the backend and the AI agent service."
+            "Made the whole thing reliable and fast enough to handle a full school sitting an exam at the same time, across the backend and the AI agent service.",
+            "Built Amigo, a student-facing AI companion on LangGraph that routes across specialist agents to serve both text chat and real-time voice, with a child-safety layer for PII protection and risk screening."
         ],
         projects: [
             {
