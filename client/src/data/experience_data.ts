@@ -16,6 +16,8 @@ interface Achievement {
     organization: string;
     year: string;
     description: string[];
+    link?: string;
+    linkLabel?: string;
 }
 
 const experiences: Experience[] = [
@@ -67,6 +69,17 @@ const experiences: Experience[] = [
 ];
 
 const achievements: Achievement[] = [
+    {
+        title: "Linux Kernel Patch Merged into Mainline",
+        organization: "Linux Kernel",
+        year: "2026",
+        link: "https://github.com/torvalds/linux/commit/f56521ab6f76faeaa5a524320898835454e3bc31",
+        linkLabel: "View Commit",
+        description: [
+            "Authored a Linux kernel patch merged into mainline that fixes a broken mic-mute LED on an HP EliteBook laptop.",
+            "Root-caused the issue to a missing audio driver quirk (ALSA/Realtek HDA) and submitted the fix upstream."
+        ]
+    },
     {
         title: "Amazon ML Summer School 2025",
         organization: "Amazon",

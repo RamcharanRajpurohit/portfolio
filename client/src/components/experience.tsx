@@ -135,6 +135,18 @@ function Experience() {
                                             </p>
                                         ))}
                                     </div>
+
+                                    {/* Link */}
+                                    {achievement.link && (
+                                        <a
+                                            href={achievement.link}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="inline-flex items-center text-sm font-medium text-highlight border border-highlight rounded-md px-3 py-1.5 hover:bg-highlight hover:text-base transition-all duration-200"
+                                        >
+                                            {achievement.linkLabel || "View"} ↗
+                                        </a>
+                                    )}
                                 </div>
                             </article>
                         ))}
