@@ -5,6 +5,8 @@ import password_manager from '../assets/password_manager.png'
 import ner from '../assets/ner.png'
 import walletwhiz from '../assets/walletwhiz.png'
 import qhours from '../assets/qhour.png'
+import chadwallet from '../assets/chadwallet.png'
+import internorbit from '../assets/internorbit.png'
 interface project{
       title:string;
       image_url:string;
@@ -181,6 +183,50 @@ interface project{
       "HMMlearn",
       "Jupyter Notebook",
       "Kaggle Datasets"
+    ]
+  },
+  {
+    title:"ChadWallet",
+    image_url: chadwallet,
+    github_repo:"https://github.com/RamcharanRajpurohit/chaddex",
+    web_url:"https://chaddex.vercel.app",
+    project_duration:"Jun 2026",
+    description: [
+      "Built a Solana memecoin trading terminal and wallet for discovering and trading tokens with live prices.",
+      "Integrated Privy for embedded wallet authentication and Jupiter for on-chain swaps and one-tap buys.",
+      "Added top-trader copy-trading and real-time candlestick charts using lightweight-charts.",
+      "Designed a resizable multi-panel trading UI with cross-device session continuity."
+    ],
+    tech_stack: [
+      "Next.js",
+      "TypeScript",
+      "Privy",
+      "Solana",
+      "Jupiter",
+      "lightweight-charts",
+      "Tailwind CSS",
+      "Vercel"
+    ]
+  },
+  {
+    title:"InternOrbit",
+    image_url: internorbit,
+    github_repo:"https://github.com/RamcharanRajpurohit/internorbit",
+    web_url:"https://internorbit.com",
+    project_duration:"Nov 2025",
+    description: [
+      "Built a platform connecting talented students with startups for internship opportunities.",
+      "Enabled publishing internship listings, managing applications, and tracking candidates through the hiring pipeline.",
+      "Implemented role-based access for admins and reviewers with candidate profiles and notes.",
+      "Added CSV export and reporting for applications and placements."
+    ],
+    tech_stack: [
+      "React",
+      "TypeScript",
+      "Next.js",
+      "Tailwind CSS",
+      "Node.js",
+      "Vercel"
     ]
   },
 ]
