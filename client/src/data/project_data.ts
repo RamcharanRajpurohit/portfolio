@@ -7,6 +7,7 @@ import walletwhiz from '../assets/walletwhiz.png'
 import qhours from '../assets/qhour.png'
 import chadwallet from '../assets/chadwallet.png'
 import internorbit from '../assets/internorbit.png'
+import chatgpt_sidepanel from '../assets/chatgpt_sidepanel.png'
 interface project{
       title:string;
       image_url:string;
@@ -206,6 +207,29 @@ interface project{
       "lightweight-charts",
       "Tailwind CSS",
       "Vercel"
+    ]
+  },
+  {
+    title:"ChatGPT Side Panel",
+    image_url: chatgpt_sidepanel,
+    github_repo:"https://github.com/RamcharanRajpurohit/chatgpt-side-panel",
+    web_url:"",
+    project_duration:"Feb 2026",
+    description: [
+      "Built a Chrome extension (Manifest V3) that opens ChatGPT in the browser's native side panel, toggled instantly with Alt+C from any tab.",
+      "Designed as a study companion: read notes or documents on one side and ask doubts to ChatGPT side-by-side without switching tabs.",
+      "Added a screenshot region selector to capture any part of a page and send it straight to ChatGPT for instant explanations.",
+      "Used declarativeNetRequest header rules and content-script frame patching to embed ChatGPT inside the side panel iframe.",
+      "Included an options page to configure the ChatGPT URL, with settings synced via chrome.storage."
+    ],
+    tech_stack: [
+      "JavaScript",
+      "Chrome Extensions (Manifest V3)",
+      "Side Panel API",
+      "declarativeNetRequest",
+      "Content Scripts",
+      "HTML5",
+      "CSS3"
     ]
   },
   {
