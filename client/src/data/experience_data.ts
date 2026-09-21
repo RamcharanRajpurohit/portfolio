@@ -25,7 +25,7 @@ const experiences: Experience[] = [
         title: "AI Engineering Intern",
         company: "Powersmy.biz",
         companyUrl: "https://powersmy.biz",
-        duration: "Present",
+        duration: "Nov 2025 – Aug 2026",
         description: [
             "Working on the AI behind an exam platform built for JEE and NEET coaching institutes.",
             "Built the system that generates entire assessments using an LLM, and a vision-based system that grades students' handwritten answers straight from photos.",

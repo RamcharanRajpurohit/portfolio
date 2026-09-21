@@ -1,9 +1,13 @@
 import projects from "../data/project_data";
 import { useState } from "react";
+import { Github, ExternalLink } from "lucide-react";
+
+const PREVIEW_COUNT = 2;
 
 function Projects() {
   const [showAll, setShowAll] = useState(false);
-  const displayedProjects = showAll ? projects : projects.slice(0, 2);
+  const displayedProjects = showAll ? projects : projects.slice(0, PREVIEW_COUNT);
+  const hasMore = projects.length > PREVIEW_COUNT;
 
   return (
     <section
@@ -18,99 +22,84 @@ function Projects() {
         <div className="w-20 h-1 bg-highlight mx-auto"></div>
       </div>
 
-      {/* Projects Grid */}
-      <div className="grid grid-cols-1 gap-6 ">
+      {/* Projects Grid — two columns on large screens like the reference design */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
         {displayedProjects.map((project) => (
           <article
             key={project.title}
-            className="bg-base rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 border border-stroke group max-w-3xl mx-auto"
+            className="group flex flex-col rounded-lg border border-stroke bg-base p-6 sm:p-7 shadow-md transition-all duration-300 hover:border-highlight hover:shadow-lg hover:-translate-y-0.5"
           >
-            {/* Project Image */}
-            <div className="relative overflow-hidden">
-              <img
-                className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-300"
-                src={project.image_url}
-                alt={`${project.title} - ${project.description[0]}`}
-                loading="lazy"
-                width="768"
-                height="432"
-                decoding="async"
-              />
+            {/* Title + Subtitle */}
+            <h4 className="text-2xl font-bold tracking-wide uppercase text-heading">
+              {project.title}
+            </h4>
+            <p className="mt-1 text-sm text-paragraph">{project.subtitle}</p>
+
+            {/* Description */}
+            <p className="mt-4 text-sm leading-relaxed text-paragraph">
+              {project.description}
+            </p>
+
+            {/* Highlights (metric bullets) */}
+            <ul className="mt-4 space-y-1.5">
+              {project.highlights.map((point, index) => (
+                <li
+                  key={index}
+                  className="flex gap-2 text-xs font-mono text-base opacity-80"
+                >
+                  <span className="text-highlight">•</span>
+                  <span>{point}</span>
+                </li>
+              ))}
+            </ul>
+
+            {/* Tech Stack chips */}
+            <div className="mt-5 flex flex-wrap gap-2">
+              {project.tech_stack.map((tech, index) => (
+                <span
+                  key={index}
+                  className="px-3 py-1 text-xs font-mono tracking-wide bg-secondary border border-stroke/30 rounded-md text-base transition-colors duration-200 group-hover:border-highlight/50"
+                >
+                  {tech}
+                </span>
+              ))}
             </div>
 
-
-            {/* Project Content */}
-            <div className="p-5 space-y-3">
-              {/* Project Header */}
-              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-1">
-                <h4 className="text-lg font-bold text-base">
-                  {project.title}
-                </h4>
-                <span className="text-xs text-base opacity-60 whitespace-nowrap">
-                  {project.project_duration}
-                </span>
-              </div>
-
-              {/* Project Description */}
-              <div className="space-y-1">
-                {project.description.map((desc, index) => (
-                  <p key={index} className="text-base text-xs leading-relaxed opacity-80">
-                    {desc}
-                  </p>
-                ))}
-              </div>
-
-              {/* Tech Stack */}
-              <div className="pt-1">
-                <h5 className="text-xs font-semibold text-base mb-2 opacity-70">
-                  Tech Stack
-                </h5>
-                <div className="flex flex-wrap gap-1">
-                  {project.tech_stack.map((tech, index) => (
-                    <span
-                      key={index}
-                      className="px-2 py-0.5 bg-secondary text-xs font-medium rounded-md text-base border border-stroke/30 hover:border-highlight/50 transition-colors duration-200"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              {/* Project Links */}
-              <div className="flex gap-2 pt-3 border-t border-stroke/30">
+            {/* Links */}
+            <div className="mt-6 pt-4 border-t border-stroke flex flex-wrap gap-3">
+              <a
+                className="inline-flex items-center gap-2 px-4 py-2 text-xs font-medium border border-stroke rounded-md text-base transition-colors duration-200 hover:border-highlight hover:text-highlight"
+                href={project.github_repo}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Github size={14} />
+                GitHub
+              </a>
+              {project.web_url && (
                 <a
-                  className="flex-1 text-center px-3 py-1.5 text-xs font-medium text-highlight border border-highlight rounded-md hover:bg-highlight hover:text-base transition-all duration-200 transform hover:scale-105"
-                  href={project.github_repo}
+                  className="inline-flex items-center gap-2 px-4 py-2 text-xs font-medium border border-highlight/60 rounded-md text-highlight transition-colors duration-200 hover:bg-highlight hover:text-base"
+                  href={project.web_url}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  GitHub
+                  <ExternalLink size={14} />
+                  Live Demo
                 </a>
-                {project.web_url && (
-                  <a
-                    className="flex-1 text-center px-3 py-1.5 text-xs font-medium text-base bg-highlight rounded-md hover:bg-highlight/80 hover:shadow-md transition-all duration-200 transform hover:scale-105"
-                    href={project.web_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Live Demo
-                  </a>
-                )}
-              </div>
+              )}
             </div>
           </article>
         ))}
       </div>
 
       {/* See All Projects Button */}
-      {!showAll && projects.length > 2 && (
+      {!showAll && hasMore && (
         <div className="text-center mt-8">
           <button
             onClick={() => setShowAll(true)}
-            className="px-6 py-3 text-sm font-medium text-highlight border-2 border-highlight rounded-lg hover:bg-highlight hover:text-base transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
+            className="px-6 py-3 text-sm font-medium text-highlight border-2 border-highlight rounded-lg hover:bg-highlight hover:text-base transition-all duration-300 hover:shadow-lg"
           >
-            See All Projects ({projects.length - 2} more)
+            See All Projects ({projects.length - PREVIEW_COUNT} more)
           </button>
         </div>
       )}
@@ -120,7 +109,7 @@ function Projects() {
         <div className="text-center mt-8">
           <button
             onClick={() => setShowAll(false)}
-            className="px-6 py-3 text-sm font-medium text-base bg-highlight rounded-lg hover:bg-highlight/80 transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
+            className="px-6 py-3 text-sm font-medium text-base bg-highlight rounded-lg hover:bg-highlight/80 transition-all duration-300 hover:shadow-lg"
           >
             Show Less
           </button>

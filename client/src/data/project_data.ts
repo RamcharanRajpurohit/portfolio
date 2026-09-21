@@ -1,202 +1,174 @@
-import Dsa_visualizer from '../assets/Screenshot From 2025-07-03 22-06-01.png';
-import pacman from '../assets/pacman.png'
-import dev_plaza from '../assets/dev_plaza.png'
-import password_manager from '../assets/password_manager.png'
-import ner from '../assets/ner.png'
-import walletwhiz from '../assets/walletwhiz.png'
-import qhours from '../assets/qhour.png'
-import chadwallet from '../assets/chadwallet.png'
-import internorbit from '../assets/internorbit.png'
-import chatgpt_sidepanel from '../assets/chatgpt_sidepanel.png'
-interface project{
-      title:string;
-      image_url:string;
-      github_repo:string;
-      web_url:string;
-      project_duration:string;
-      description: Array<string>;
-      tech_stack:Array<string>;
-      
- }
+interface project {
+  title: string;
+  subtitle: string;
+  github_repo: string;
+  web_url?: string;
+  description: string;
+  highlights: Array<string>;
+  tech_stack: Array<string>;
+}
 
- const projects:project[] =[
-    {
-        title:"Dsa Visualzer",
-        image_url: Dsa_visualizer,
-        github_repo:"https://github.com/RamcharanRajpurohit/DSAVisualizer",
-        web_url:"https://dsa-visualizer-x87u.onrender.com/",
-        project_duration:"2024-2025",
-        description: [
-      "Visualized core data structures and algorithms like BST, AVL Trees, Stacks, Queues, and Heaps.",
-      "Implemented real-time interactive operations such as insertions, deletions, and traversals.",
-      "Used Konva.js for smooth canvas rendering with pan and zoom support.",
-      "Built with Ruby on Rails for structured MVC backend architecture.",
-      "Integrated client-side logic using modular JavaScript and ERB views."
+const projects: project[] = [
+  {
+    title: "DyPol",
+    subtitle: "AI Engineering Analyst for Startup Founders",
+    github_repo: "https://github.com/RamcharanRajpurohit/dypol",
+    web_url: "https://dypol.dev",
+    description:
+      "Not a dashboard — an AI agent with read access to your GitHub metadata and source code. Ask anything ('why is billing slow this sprint?') and it investigates, runs analysis on real diffs, and answers in plain English with citations grounded in actual data.",
+    highlights: [
+      "3-tier agent: cached tools → sandboxed code execution",
+      "Primitives: run_sql, git, python_exec, semantic search",
+      "5-minute setup via GitHub App install",
+      "Cited answers — every claim references a PR or file",
     ],
     tech_stack: [
-      "Ruby on Rails",
-      "Konva.js",
-      "JavaScript",
-      "HTML5",
-      "CSS3",
+      "Next.js",
+      "TypeScript",
+      "FastAPI",
       "PostgreSQL",
-      "SQLite",
-      "Yarn",
-      "Webpacker"
-    ]
-    },
+      "pgvector",
+      "Claude Sonnet",
+      "E2B Sandboxes",
+      "Celery",
+      "Redis",
+    ],
+  },
+  {
+    title: "AlgoLab",
+    subtitle: "Interactive Data Structures & Algorithms Visualizer",
+    github_repo: "https://github.com/RamcharanRajpurohit/DSAVisualizer",
+    web_url: "https://algolab.rajpurohit.me",
+    description:
+      "Visualizes core data structures and algorithms — BST, AVL trees, stacks, queues, and heaps — with real-time interactive operations like insertions, deletions, and traversals rendered on a smooth canvas.",
+    highlights: [
+      "Konva.js canvas rendering with pan & zoom",
+      "Real-time interactive tree and heap operations",
+      "Ruby on Rails MVC backend architecture",
+      "Modular client-side JS with ERB views",
+    ],
+    tech_stack: ["Ruby on Rails", "Konva.js", "JavaScript", "PostgreSQL"],
+  },
   {
     title: "Dev Plaza",
-    image_url: dev_plaza, 
-    github_repo: "https://github.com/RamcharanRajpurohit/devplaza", 
-    web_url: "https://devplaza.vercel.app/", 
-    project_duration: "Jul 2024 – Aug 2024",
-    description: [
-      "Created a central hub to showcase CP profiles from platforms like LeetCode, Codeforces, GeeksforGeeks, and GitHub.",
-      "Fetched and displayed live stats such as problem count, contest rating, GitHub contributions, and achievements.",
-      "Implemented dynamic username-based search and public sharing of profile dashboards.",
-      "Responsive and minimal UI built for both mobile and desktop users.",
-      "Integrated caching and fallback for platforms with unstable APIs or rate limits."
+    subtitle: "Competitive Programming Profile Hub",
+    github_repo: "https://github.com/RamcharanRajpurohit/devplaza",
+    web_url: "https://devplaza.rajpurohit.me",
+    description:
+      "A central hub that aggregates competitive programming profiles from LeetCode, Codeforces, GeeksforGeeks, and GitHub — showing live stats like problem counts, contest ratings, and contributions in one dashboard.",
+    highlights: [
+      "Live stats fetched across 4+ platforms",
+      "Dynamic username-based search & public sharing",
+      "Caching and fallback for unstable / rate-limited APIs",
+      "Responsive minimal UI for mobile and desktop",
     ],
     tech_stack: [
       "React.js",
-      "Tailwind CSS",
       "TypeScript",
       "Node.js",
       "Express.js",
+      "Tailwind CSS",
       "REST APIs",
-      "Vercel",
-      "Axios",
-      "Cheerio / Puppeteer (for scraping, if applicable)"
-    ]
+    ],
   },
- 
- 
   {
-     title:"WalletWhiz",
-     image_url:walletwhiz,
-     github_repo:"https://github.com/RamcharanRajpurohit/walletwhiz",
-     web_url:"https://walletwhiz-eight.vercel.app/dashboard",
-     project_duration:"2025-Present",
-     description:[
-      "Developed a full-stack expense tracker application with user authentication and data visualization.",
-      "Implemented secure user registration and login using supabase authentication services.",
-      "Created RESTful APIs with Node.js and Express.js to handle CRUD operations for expenses and categories.",
-      "Designed a responsive frontend using Next.js and Tailwind CSS for an intuitive user experience.",
-      "Integrated Chart.js to provide users with visual insights into their spending habits through dynamic charts."
-     ],
-     tech_stack:[
+    title: "WalletWhiz",
+    subtitle: "Full-Stack Expense Tracker with Visual Insights",
+    github_repo: "https://github.com/RamcharanRajpurohit/walletwhiz",
+    web_url: "https://walletwhiz-eight.vercel.app/dashboard",
+    description:
+      "A full-stack expense tracker with secure authentication and data visualization — RESTful APIs handle CRUD for expenses and categories while dynamic charts give users visual insight into their spending habits.",
+    highlights: [
+      "Secure auth via Supabase",
+      "Chart.js spending visualizations",
+      "RESTful CRUD APIs for expenses & categories",
+      "Responsive Next.js + Tailwind frontend",
+    ],
+    tech_stack: [
       "Next.js",
       "Node.js",
       "Express.js",
       "MongoDB",
-      "supabase",
-      "Tailwind CSS",
+      "Supabase",
       "Chart.js",
-      "Vercel",
-      "netlify"
-     ]
-  },{
+    ],
+  },
+  {
     title: "Quiet Hours Scheduler",
-    image_url: qhours,
+    subtitle: "Focus Sessions with Distraction Blocking",
     github_repo: "https://github.com/RamcharanRajpurohit/signsetu",
     web_url: "https://quieth.netlify.app/",
-    project_duration: "Aug-Sep 2025",
-    description: [
-      "Developed a web app to help users schedule 'quiet hours' for focused work or study.",
-      "Users will get reminders and block distracting websites during these periods.",
-      "Building a clean and user-friendly interface with Next.js and Tailwind CSS.",
-      "Supabse is being used for user authentication and MongoDB for storing user preferences and schedules."
+    description:
+      "A web app that helps users schedule 'quiet hours' for focused work or study — users get reminders and distracting websites are blocked during scheduled periods.",
+    highlights: [
+      "Scheduled focus sessions with reminders",
+      "Blocks distracting websites during quiet hours",
+      "Auth via Supabase, preferences in MongoDB",
+      "Clean, user-friendly interface",
     ],
-    tech_stack: [
-      "Next.js",
-      "Tailwind CSS",
-      "MongoDB",
-      "Supabase",
-      "Vercel"
-    ]
+    tech_stack: ["Next.js", "Tailwind CSS", "MongoDB", "Supabase"],
   },
-   {
+  {
     title: "Pac-Man Terminal Game",
-    image_url: pacman, 
-    github_repo: "https://github.com/QASIMALVEE/ICS_CP_-DARQ", 
-    web_url: "",
-    project_duration: "Oct 2023 – Nov 2023",
-    description: [
-      "Built a classic Pac-Man game entirely in C, playable in the terminal.",
-      "Used ASCII characters and terminal control functions to simulate game graphics and movement.",
-      "Implemented game mechanics like ghost AI, food collection, and win/lose conditions.",
-      "Handled real-time keyboard input without requiring the Enter key.",
-      "Organized the code into multiple modules for game logic, input handling, and rendering."
+    subtitle: "Classic Pac-Man in C, Played in the Terminal",
+    github_repo: "https://github.com/QASIMALVEE/ICS_CP_-DARQ",
+    description:
+      "A classic Pac-Man game built entirely in C and playable in the terminal — ASCII characters and terminal control functions simulate graphics, ghost AI, and real-time movement.",
+    highlights: [
+      "Ghost AI, food collection, win/lose mechanics",
+      "Real-time keyboard input (no Enter key)",
+      "ASCII graphics via terminal control",
+      "Modular code: logic, input, rendering",
     ],
-    tech_stack: [
-      "C",
-      "GCC",
-      "Linux Terminal",
-      "ASCII Graphics",
-      "System Calls (termios.h, conio-like input)"
-    ]
+    tech_stack: ["C", "GCC", "Linux Terminal", "ASCII Graphics", "termios.h"],
   },
-   {
-    title: "Password Manager (Terminal-based)",
-    image_url: password_manager, 
-    github_repo: "https://github.com/zero1byte/PasswordManager", 
-    web_url: "", 
-    project_duration: "Dec 2023 – Jan 2024",
-    description: [
-      "Built a terminal-based password manager that securely stores passwords using RSA encryption.",
-      "Master Key is required at runtime and never stored anywhere, ensuring full data privacy.",
-      "Passwords are encrypted with a custom prefix and saved in a local JSON file.",
-      "CLI interface built with Bash scripting for quick interaction and automation.",
-      "Perfect for users who want a fully offline, transparent, and customizable password tool."
+  {
+    title: "Password Manager",
+    subtitle: "Offline Terminal Password Manager with RSA",
+    github_repo: "https://github.com/zero1byte/PasswordManager",
+    description:
+      "A terminal-based password manager that securely stores passwords using RSA encryption — the master key is required at runtime and never stored, ensuring full offline data privacy.",
+    highlights: [
+      "RSA-encrypted storage in local JSON",
+      "Master key never persisted anywhere",
+      "Bash CLI for quick interaction",
+      "Fully offline and transparent",
     ],
-    tech_stack: [
-      "C++",
-      "Bash",
-      "RSA Encryption",
-      "JSON File Handling",
-      "Linux Terminal",
-      "Shell Scripting"
-    ]
+    tech_stack: ["C++", "Bash", "RSA Encryption", "JSON", "Linux Terminal"],
   },
-   {
-    title: "Named Entity Recognition (NER)",
-    image_url:ner, 
+  {
+    title: "Named Entity Recognition",
+    subtitle: "ML & DL Models for Token-Level Entity Tagging",
     github_repo: "https://github.com/RamcharanRajpurohit/NER",
-    web_url: "",
-    project_duration: "Feb 2024 – Mar 2024",
-    description: [
-      "Developed a Named Entity Recognition (NER) system using multiple ML and DL models on the Kaggle NER dataset.",
-      "Implemented traditional models like Random Forest and Hidden Markov Models (HMM) for baseline comparison.",
-      "Built a Recurrent Neural Network (RNN) architecture using Keras to capture sequential dependencies.",
-      "Preprocessed token-level labeled data and converted it into suitable formats for classical and deep learning models.",
-      "Evaluated models using F1 score, precision, and recall for multiple entity types (ORG, LOC, PER, etc.)."
+    description:
+      "A Named Entity Recognition system built with multiple ML and DL models on the Kaggle NER dataset — from Random Forest and HMM baselines to an RNN capturing sequential dependencies.",
+    highlights: [
+      "Random Forest & HMM baselines vs RNN (Keras)",
+      "Evaluated on F1, precision & recall per entity",
+      "Token-level preprocessing pipelines",
+      "Multiple entity types: ORG, LOC, PER, etc.",
     ],
     tech_stack: [
       "Python",
       "Scikit-learn",
-      "NumPy",
-      "Pandas",
-      "NLTK",
       "Keras",
       "TensorFlow",
-      "matplotlib",
-      "HMMlearn",
-      "Jupyter Notebook",
-      "Kaggle Datasets"
-    ]
+      "NLTK",
+      "Pandas",
+    ],
   },
   {
-    title:"ChadWallet",
-    image_url: chadwallet,
-    github_repo:"https://github.com/RamcharanRajpurohit/chaddex",
-    web_url:"https://chaddex.vercel.app",
-    project_duration:"Jun 2026",
-    description: [
-      "Built a Solana memecoin trading terminal and wallet for discovering and trading tokens with live prices.",
-      "Integrated Privy for embedded wallet authentication and Jupiter for on-chain swaps and one-tap buys.",
-      "Added top-trader copy-trading and real-time candlestick charts using lightweight-charts.",
-      "Designed a resizable multi-panel trading UI with cross-device session continuity."
+    title: "ChadWallet",
+    subtitle: "Solana Memecoin Trading Terminal",
+    github_repo: "https://github.com/RamcharanRajpurohit/chaddex",
+    web_url: "https://chaddex.vercel.app",
+    description:
+      "A Solana memecoin trading terminal and wallet for discovering and trading tokens with live prices — embedded wallets, one-tap swaps, copy-trading, and real-time candlestick charts.",
+    highlights: [
+      "Privy embedded wallets + Jupiter swaps",
+      "Top-trader copy-trading",
+      "Real-time charts via lightweight-charts",
+      "Resizable multi-panel trading UI",
     ],
     tech_stack: [
       "Next.js",
@@ -205,55 +177,42 @@ interface project{
       "Solana",
       "Jupiter",
       "lightweight-charts",
-      "Tailwind CSS",
-      "Vercel"
-    ]
+    ],
   },
   {
-    title:"ChatGPT Side Panel",
-    image_url: chatgpt_sidepanel,
-    github_repo:"https://github.com/RamcharanRajpurohit/chatgpt-side-panel",
-    web_url:"",
-    project_duration:"Feb 2026",
-    description: [
-      "Built a Chrome extension (Manifest V3) that opens ChatGPT in the browser's native side panel, toggled instantly with Alt+C from any tab.",
-      "Designed as a study companion: read notes or documents on one side and ask doubts to ChatGPT side-by-side without switching tabs.",
-      "Added a screenshot region selector to capture any part of a page and send it straight to ChatGPT for instant explanations.",
-      "Used declarativeNetRequest header rules and content-script frame patching to embed ChatGPT inside the side panel iframe.",
-      "Included an options page to configure the ChatGPT URL, with settings synced via chrome.storage."
+    title: "ChatGPT Side Panel",
+    subtitle: "Chrome Extension: ChatGPT in Your Browser Side Panel",
+    github_repo: "https://github.com/RamcharanRajpurohit/chatgpt-side-panel",
+    description:
+      "A Chrome extension (Manifest V3) that opens ChatGPT in the browser's native side panel, toggled with Alt+C from any tab — built as a study companion to read notes and ask doubts side-by-side.",
+    highlights: [
+      "Instant Alt+C toggle from any tab",
+      "Screenshot region selector → instant explanations",
+      "declarativeNetRequest + frame patching for iframe embed",
+      "Options page synced via chrome.storage",
     ],
     tech_stack: [
       "JavaScript",
-      "Chrome Extensions (Manifest V3)",
+      "Chrome Extensions (MV3)",
       "Side Panel API",
       "declarativeNetRequest",
-      "Content Scripts",
-      "HTML5",
-      "CSS3"
-    ]
+    ],
   },
   {
-    title:"InternOrbit",
-    image_url: internorbit,
-    github_repo:"https://github.com/RamcharanRajpurohit/internorbit",
-    web_url:"https://internorbit.com",
-    project_duration:"Nov 2025",
-    description: [
-      "Built a platform connecting talented students with startups for internship opportunities.",
-      "Enabled publishing internship listings, managing applications, and tracking candidates through the hiring pipeline.",
-      "Implemented role-based access for admins and reviewers with candidate profiles and notes.",
-      "Added CSV export and reporting for applications and placements."
+    title: "InternOrbit",
+    subtitle: "Internship Platform Connecting Students & Startups",
+    github_repo: "https://github.com/RamcharanRajpurohit/internorbit",
+    web_url: "https://internorbit.com",
+    description:
+      "A platform connecting talented students with startups for internship opportunities — publish listings, manage applications, and track candidates through the hiring pipeline.",
+    highlights: [
+      "Role-based access for admins & reviewers",
+      "Candidate profiles with notes",
+      "Full hiring pipeline tracking",
+      "CSV export & placement reporting",
     ],
-    tech_stack: [
-      "React",
-      "TypeScript",
-      "Next.js",
-      "Tailwind CSS",
-      "Node.js",
-      "Vercel"
-    ]
+    tech_stack: ["React", "TypeScript", "Next.js", "Tailwind CSS", "Node.js"],
   },
-]
-
+];
 
 export default projects;
