@@ -6,7 +6,7 @@ function About() {
                     About Me
                 </h3>
                 <p className="text-center text-lg text-base mt-5 mb-10 max-w-4xl mx-auto px-4">
-                    Currently an AI Engineering Intern at powersmy.biz and a B.Tech student at IIT Jodhpur. I build AI products with LLMs and computer vision, both the user-facing features and the backend APIs behind them, and I get them running reliably in production.
+                   Currently, a final-year B.Tech student at IIT Jodhpur. I build AI products using LLMs and computer vision, working on both user-facing features and the backend APIs behind them, and I get them running reliably in production.
                 </p>
 
                 {/* Grid container with proper responsive behavior */}
