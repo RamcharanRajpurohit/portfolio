@@ -8,7 +8,7 @@ const links = [
   { href: "#experience", label: "Experience" },
   { href: "#projects", label: "Projects" },
   { href: "#contact", label: "Contact" },
-  { href: "/Ramcharan_Resume.pdf", label: "Resume", external: true },
+  { href: "#resume", label: "Resume" },
 ];
 
 const round = "inline-grid place-items-center w-10 h-10 rounded-full bg-btnp/50 backdrop-blur border border-stroke/15 text-heading hover:bg-btnp transition-colors";
@@ -18,12 +18,11 @@ function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const closeMenu = () => setIsOpen(false);
 
-  const items = links.map(({ href, label, external }) => (
+  const items = links.map(({ href, label }) => (
     <li key={label}>
       <a
         href={href}
         onClick={closeMenu}
-        {...(external && { target: "_blank", rel: "noopener noreferrer" })}
         className="block px-4 py-2 rounded-full text-sm font-medium text-heading hover:bg-btnp/70 transition-colors"
       >
         {label}

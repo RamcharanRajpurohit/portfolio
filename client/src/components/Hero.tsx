@@ -12,7 +12,7 @@ function Hero(){
 
                 <div className="mt-7 flex flex-wrap justify-center gap-3">
                     <a href="#projects" className="pill-light">See my work <ArrowDown size={16} aria-hidden="true" /></a>
-                    <a href="/Ramcharan_Resume.pdf" target="_blank" rel="noopener noreferrer" className="pill-dark"><FileText size={16} aria-hidden="true" /> Resume</a>
+                    <a href="#resume" className="pill-dark"><FileText size={16} aria-hidden="true" /> Resume</a>
                 </div>
 
 

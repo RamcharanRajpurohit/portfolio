@@ -61,6 +61,8 @@
   }
   /* my photo sits above the paper-grain overlay (z 60) and is never dimmed at night */
   .scenery .me { z-index: 61; left: max(11%, 4.5rem); bottom: calc(var(--hw) * .085); height: calc(var(--hw) * .31); transform: translateX(-50%); filter: drop-shadow(0 6px 8px rgb(40 30 0 / .3)); }
+  /* phones only see the middle of the painting: stand in the middle of it */
+  @media (max-width: 640px) { .scenery .me { left: 50%; height: calc(var(--hw) * .28); } }
   [data-theme="dark"] .scenery > :not(.me) { filter: brightness(.4) saturate(.7) hue-rotate(-8deg); }
   .pill { @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition-transform duration-200 hover:-translate-y-0.5; }
   .pill-dark { @apply pill bg-primary text-btn shadow-md; }

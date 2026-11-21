@@ -7,7 +7,7 @@ export const css = `
 .v1-back { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
 .v1-back .v1i-pencil, .v1-back .v1i-ink, .v1-back .v1i-blot { display: none; }
 .v1-bk { position: absolute; inset: 0; overflow: hidden; will-change: transform; }
-.v1-stage[data-z="1"] .v1-cable path { filter: none; }
+[data-z="1"] .v1-cable path { filter: none; }
 .v1-inkout { stroke-dasharray: 1; stroke-dashoffset: var(--ink, 1); }
 .v1-marks { opacity: calc(var(--reg) * (1 - var(--reg)) * 4); }
 .v1-glare { opacity: .18; }

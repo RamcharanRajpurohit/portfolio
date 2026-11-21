@@ -2,7 +2,7 @@ import { Scenery } from "./ui";
 
 const columns = [
     { title: "Explore", links: [["About", "#about"], ["Experience", "#experience"], ["Projects", "#projects"], ["Contact", "#contact"]] },
-    { title: "Elsewhere", links: [["GitHub", "https://github.com/RamcharanRajpurohit"], ["LinkedIn", "https://www.linkedin.com/in/ramcharan-rajpurohit-1314b7289/"], ["LeetCode", "https://leetcode.com/u/b23ci1032/"], ["Instagram", "https://www.instagram.com/ramcharanpurohit/"], ["Resume", "/Ramcharan_Resume.pdf"]] },
+    { title: "Elsewhere", links: [["GitHub", "https://github.com/RamcharanRajpurohit"], ["LinkedIn", "https://www.linkedin.com/in/ramcharan-rajpurohit-1314b7289/"], ["LeetCode", "https://leetcode.com/u/b23ci1032/"], ["Instagram", "https://www.instagram.com/ramcharanpurohit/"], ["Resume", "#resume"]] },
 ];
 
 function Footer(){

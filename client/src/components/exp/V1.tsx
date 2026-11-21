@@ -132,7 +132,13 @@ function timing(KEYS: Key[]) {
         const a = i > 0 ? (A[i] - A[i - 1]) / (tt[i] - tt[i - 1]) : 0, b = i < n - 1 ? (A[i + 1] - A[i]) / (tt[i + 1] - tt[i]) : 0;
         return (i > 0 && i < n - 1 ? (a + b) / 2 : a + b) * (KEYS[i].pace ?? 1);
     };
-    return (t: number) => {
+    const at = (a: number) => {
+        let lo = 0, hi = len.length - 1;
+        while (hi - lo > 1) { const mid = (lo + hi) >> 1; if (len[mid] < a) lo = mid; else hi = mid; }
+        return idx[lo] + (idx[hi] - idx[lo]) * ((a - len[lo]) / (len[hi] - len[lo] || 1));
+    };
+    // by scroll time; .len(f): at fraction f of the whole path's length (the rewind: even speed all the way back)
+    return Object.assign((t: number) => {
         let a = A[n - 1];
         if (t <= tt[0]) a = 0;
         else if (t < tt[n - 1]) {
@@ -143,10 +149,8 @@ function timing(KEYS: Key[]) {
             const u2 = u * u, u3 = u2 * u;
             a = A[i] + (3 * u2 - 2 * u3) * D + (u3 - 2 * u2 + u) * m0 + (u3 - u2) * m1;
         }
-        let lo = 0, hi = len.length - 1;
-        while (hi - lo > 1) { const mid = (lo + hi) >> 1; if (len[mid] < a) lo = mid; else hi = mid; }
-        return idx[lo] + (idx[hi] - idx[lo]) * ((a - len[lo]) / (len[hi] - len[lo] || 1));
-    };
+        return at(a);
+    }, { len: (f: number) => at(f * A[n - 1]) });
 }
 
 type Geo = { vw: number; vh: number; wide: boolean; f: number; cx: number; cy: number; cw: number };
@@ -324,7 +328,6 @@ function Dive({ onFail }: { onFail: () => void }) {
         const frame = (T: number, dt = 0): boolean => {
             const after = T >= EXIT[0];
             st.T = T; st.dark = document.documentElement.dataset.theme === "dark";
-            const sc = stage.current!.style;
 
             // --- the 2D computer: drifts and turns a little, then the camera pushes into its screen ---
             const zoom = after ? 1 - seg(T, REWIND, EXIT[1]) : seg(T, ...DIVE);
@@ -335,25 +338,30 @@ function Dive({ onFail }: { onFail: () => void }) {
             const cs = comp.current!.style;
             cs.transform = `translate(${(scx - hx).toFixed(2)}px,${(scy - hy).toFixed(2)}px) rotate(${tilt.toFixed(2)}deg) scale(${(S / RES).toFixed(5)})`;
             cs.visibility = S > Send * 0.95 ? "hidden" : "visible";
-            stage.current!.dataset.z = zoom > 0.02 ? "1" : "0";
+            comp.current!.dataset.z = zoom > 0.02 ? "1" : "0";
             // the inside is seen through the hole: scale the window onto the hole, counter-scale its content
             // (Chrome's "performant expand & collapse" trick: transforms only)
-            const w = hw * S * 1.03, h = hh * S * 1.03;
+            // phones: the screen is wide and the view tall, so once the screen spans the width its top and bottom frame
+            // would cross the view as two black bars for half the zoom; instead the frame fades and the window opens
+            const open = wide ? 0 : smooth(seg((hw * S) / vw, 1, 1.6));
+            cs.opacity = (1 - open).toFixed(3);
+            const w = hw * S * 1.03, h = lerp(hh * S * 1.03, Math.max(hh * S * 1.03, vh), open);
             const L = Math.max(0, scx - w / 2), R = Math.min(vw, scx + w / 2), Tp = Math.max(0, scy - h / 2), B = Math.min(vh, scy + h / 2);
             const sx = Math.max(1e-4, (R - L) / vw), sy = Math.max(1e-4, (B - Tp) / vh), k = Math.min(1, Math.max(w / vw, h / vh));
             win.current!.style.transform = `translate(${L.toFixed(2)}px,${Tp.toFixed(2)}px) scale(${sx.toFixed(5)},${sy.toFixed(5)})`;
             view.current!.style.transform = `translate(${((scx - (k * vw) / 2 - L) / sx).toFixed(2)}px,${((scy - (k * vh) / 2 - Tp) / sy).toFixed(2)}px) scale(${(k / sx).toFixed(5)},${(k / sy).toFixed(5)})`;
             // outside, the computer is the proof until we come back out: then its colour plates snap into register
-            // in a few press-like steps, not per frame: each change repaints the big computer layer
+            // in a few press-like steps, not per frame: each change repaints the big computer layer. Set on the computer
+            // only: on the stage they would restyle the whole interior every step
             const reg = Math.round((after ? smooth(seg(T, REWIND + 20, EXIT[1] + 10)) : 0) * 6) / 6;
             const inkOut = Math.round((after ? seg(T, EXIT[1] - 5, END) : 0) * 8) / 8;
-            if (reg !== lastReg) { sc.setProperty("--reg", reg.toFixed(3)); sc.setProperty("--m", (1 - reg).toFixed(3)); lastReg = reg; }
-            if (inkOut !== lastInk) { sc.setProperty("--ink", (1 - inkOut).toFixed(3)); lastInk = inkOut; }
-            stage.current!.dataset.print = reg > 0.5 ? "1" : "0";
+            if (reg !== lastReg) { cs.setProperty("--reg", reg.toFixed(3)); cs.setProperty("--m", (1 - reg).toFixed(3)); lastReg = reg; }
+            if (inkOut !== lastInk) { cs.setProperty("--ink", (1 - inkOut).toFixed(3)); lastInk = inkOut; }
+            comp.current!.dataset.print = reg > 0.5 ? "1" : "0";
 
             // --- inside: the 3D stations ---
-            // on the way out the camera sweeps back along the same path (by key index, no station slow-downs)
-            const sIdx = after ? lerp(KEYS.length - 1, 0, smooth(seg(T, EXIT[0], EXIT[1]))) : keyIndex(T);
+            // on the way out the camera sweeps back along the same path at an even speed (no station slow-downs)
+            const sIdx = after ? keyIndex.len(1 - smooth(seg(T, EXIT[0], EXIT[1]))) : keyIndex(T);
             const [eyeT, atT] = cam(KEYS, sIdx);
             const movingE = ease(rigE, eyeT, dt, 0.3), movingA = ease(rigA, atT, dt, 0.3), capped = turn(rigE, rigA, dt, dir, Math.abs(target - T)), moving = movingE || movingA || capped, eye = rigE, at = rigA;
             const proj = perspective(fov, aspect, 0.02, 60);
