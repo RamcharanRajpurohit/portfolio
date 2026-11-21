@@ -294,9 +294,7 @@ function Dive({ onFail }: { onFail: () => void }) {
             if (Math.abs(target - p) > 180) p = target - Math.sign(target - p) * 180; // a jump (e.g. a nav link) skims, not crawls
             p += (target - p) * (1 - Math.exp(-dt / 0.12));
             if (Math.abs(target - p) < 0.02) p = target;
-            const perf = (window as unknown as { __v1perf?: number[] }).__v1perf, t0 = perf ? performance.now() : 0;
             const moving = frame(p, dt);
-            if (perf) { r.gl.finish(); perf.push(performance.now() - t0); } // test-only: JS + GPU time of a frame
             if (p !== target || moving || !settled) { settled = p === target && !moving; raf = requestAnimationFrame(tick); } else last = 0;
         };
         const items = buildScene(r, st, wide, () => onScroll());
@@ -394,15 +392,6 @@ function Dive({ onFail }: { onFail: () => void }) {
         mo.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
         p = target = readTarget();
         frame(p);
-        // test hook: the rendered camera under a constant-speed scroll (same smoothing maths, fixed 60fps steps)
-        (window as unknown as { __v1sim?: unknown }).__v1sim = (from: number, to: number, perFrame: number) => {
-            const e: V3 = [...cam(KEYS, keyIndex(from))[0]], a: V3 = [...cam(KEYS, keyIndex(from))[1]], out: number[][] = [], sd: V3 = [0, 0, -1];
-            turn(e, a, 0, sd);
-            let q = from;
-            for (let tg = from; tg <= to; tg += perFrame) { q += (tg - q) * (1 - Math.exp(-(1 / 60) / 0.12)); const [et, at2] = cam(KEYS, keyIndex(q)); ease(e, et, 1 / 60, 0.3); ease(a, at2, 1 / 60, 0.3); turn(e, a, 1 / 60, sd, Math.abs(tg - q)); out.push([tg, ...e, ...a]); }
-            return out;
-        };
-        (window as unknown as { __v1cam?: unknown }).__v1cam = (t: number) => cam(KEYS, keyIndex(t));
         addEventListener("scroll", onScroll, { passive: true });
         return () => { removeEventListener("scroll", onScroll); cancelAnimationFrame(raf); io.disconnect(); mo.disconnect(); r.dispose(); };
     }, [g, onFail]);

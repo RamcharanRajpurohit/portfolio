@@ -1,14 +1,8 @@
 import { achievements } from "../data/experience_data";
 import { SectionHead } from "./ui";
-import V1 from "./exp/V1";
-import V4 from "./exp/V4";
-
-// Comparing experience stories: ?exp=1 or 4 (temporary switcher, removed once one is picked).
-const versions = { "1": V1, "4": V4 };
-const pick = (typeof location !== "undefined" && new URLSearchParams(location.search).get("exp")) || "1";
+import Story from "./exp/V1";
 
 function Experience() {
-    const Story = versions[pick as keyof typeof versions] ?? V1;
     return (
         <section id="experience" className="scroll-mt-16">
             <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 sm:pt-28">
@@ -44,11 +38,6 @@ function Experience() {
                 </div>
             )}
             </div>
-            <nav className="fixed bottom-4 left-4 z-50 flex gap-1 p-1 rounded-full bg-btnp/80 backdrop-blur border border-stroke/20 shadow-lg text-xs font-semibold" aria-label="Experience version">
-                {Object.keys(versions).map((v) => (
-                    <a key={v} href={`?exp=${v}#experience`} className={`px-3 py-1.5 rounded-full ${v === pick ? "bg-primary text-btn" : "text-heading"}`}>v{v}</a>
-                ))}
-            </nav>
         </section>
     );
 }
