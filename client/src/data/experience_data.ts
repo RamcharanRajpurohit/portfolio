@@ -1,16 +1,3 @@
-interface Experience {
-    title: string;
-    company: string;
-    companyUrl: string;
-    duration: string;
-    description: string[];
-    projects: {
-        name: string;
-        description: string;
-    }[];
-    tech_stack: string[];
-}
-
 interface Achievement {
     title: string;
     organization: string;
@@ -20,52 +7,62 @@ interface Achievement {
     linkLabel?: string;
 }
 
-const experiences: Experience[] = [
+export const company = { name: "PowersMy.biz", product: "PupilTree", url: "https://powersmy.biz" };
+
+interface Chapter {
+    no: string;
+    role: string;
+    period: string;
+    current?: boolean;
+    summary: string;
+    points: string[];
+    stack: string[];
+}
+
+// Two chapters at one company: the growth from intern to lead is the story.
+export const chapters: Chapter[] = [
     {
-        title: "AI Engineering Intern",
-        company: "Powersmy.biz",
-        companyUrl: "https://powersmy.biz",
-        duration: "Nov 2025 – Aug 2026",
-        description: [
-            "Worked on the AI behind an exam platform built for JEE and NEET coaching institutes.",
-            "Built the system that generates entire assessments using an LLM, and a vision-based system that grades students' handwritten answers straight from photos.",
-            "Built the pipeline that scores submissions and turns them into learning analytics for each student, with the heavy AI grading running in the background so results come back quickly.",
-            "Made the whole thing reliable and fast enough to handle a full school sitting an exam at the same time, across the backend and the AI agent service.",
-            "Built Amigo, a student-facing AI companion on LangGraph that routes across specialist agents to serve both text chat and real-time voice, with a child-safety layer for PII protection and risk screening.",
-            "Built a Document AI pipeline that turns PDFs into question banks, running Mistral OCR and a DocLayout-YOLO figure/table detector in parallel with per-subject Gemini extraction, with per-object JSON salvage so one malformed response never drops a subject's questions."
+        no: "01",
+        role: "AI Engineering Intern",
+        period: "Nov 2025 – Sep 2026",
+        summary: "Built pieces of the platform alongside the team.",
+        points: [
+            "Built the LLM pipeline that generates full assessments.",
+            "Built vision grading for handwritten answers straight from photos.",
+            "Built Amigo, the student companion for text and voice, with a child-safety layer.",
+            "Built the pipeline that turns PDFs into question banks.",
         ],
-        projects: [
-            {
-                name: "SchoolConnect Outbound",
-                description: "A scalable Node.js backend for managing school admission call campaigns with intelligent scheduling and AI-powered voice calling. Features include campaign management, intelligent scheduling with retry logic, queue-based processing using BullMQ and Redis, and real-time webhook updates."
-            },
-            {
-                name: "Pupil Assess",
-                description: "An AI-powered assessment platform for test generation, attempt, grading, and progress tracking. Features smart question banks, AI-powered automatic scoring with detailed feedback, comprehensive performance analysis with automatic gap identification, and student progress monitoring with adaptive remediation."
-            },
-            {
-                name: "Amigo",
-                description: "A student-facing AI companion built on LangGraph — a supervisor graph routing to 5 specialist agents over 18 scoped tools, serving both text chat and voice from one shared graph. Built a real-time voice pipeline (LiveKit, code-switching Hindi/English STT, streaming TTS) with token-by-token streaming, plus a child-safety layer with PII tokenisation, a two-stage LLM risk screen with fail-closed severity floors, and an append-only audit ledger."
-            }
+        stack: ["Python", "FastAPI", "Node.js", "MongoDB", "Redis", "LangGraph", "LiveKit", "Gemini"],
+    },
+    {
+        no: "02",
+        role: "Lead AI Engineer",
+        period: "Oct 2026 – Present",
+        current: true,
+        summary: "Now own whole products end to end, across backend, AI service and both apps.",
+        points: [
+            "Lead the AI behind PupilTree's exam, homework and revision platform.",
+            "Owned homework from design to release: AI-written questions, PDF and photo import, AI marking, live updates.",
+            "Owned PupilRevise, the revision pipeline: a teacher picks what was taught, and AI writes the cheat sheet and questions.",
+            "Built a team of specialist AI agents (Flutter, backend, AI service, reviewer, scout, browser tester) that hand work to each other, check each other's changes, and prove them in a real browser before shipping.",
+            "Automated testing with Playwright: parallel AI testers walk every teacher and student journey on phone, tablet and desktop.",
+            "Run several Claude Code accounts in parallel on one shared set of agents and skills, so multiple features ship at once.",
         ],
-        tech_stack: [
-            "Python",
-            "FastAPI",
-            "Node.js",
-            "Express.js",
-            "TypeScript",
-            "MongoDB",
-            "Redis",
-            "BullMQ",
-            "LangChain",
-            "LangGraph",
-            "LiveKit",
-            "Google Generative AI",
-            "Deepgram",
-            "Docker",
-            "REST APIs"
-        ]
-    }
+        stack: ["Flutter", "FastAPI", "Gemini", "Playwright", "Claude Code", "MongoDB", "Redis"],
+    },
+];
+
+// One "folder" per system, for the folder-style views. Card lines come straight from the points above.
+export const pipelines: { chapter: string; title: string; cards: string[] }[] = [
+    { chapter: "01", title: "Assessments", cards: ["LLM pipeline that generates full assessments"] },
+    { chapter: "01", title: "Handwritten grading", cards: ["Vision grading for handwritten answers", "Straight from photos"] },
+    { chapter: "01", title: "Amigo", cards: ["Student companion for text and voice", "Child-safety layer"] },
+    { chapter: "01", title: "PDF → question bank", cards: ["Turns PDFs into question banks"] },
+    { chapter: "02", title: "Homework", cards: ["AI-written questions", "PDF and photo import", "AI marking", "Live updates"] },
+    { chapter: "02", title: "PupilRevise", cards: ["A teacher picks what was taught", "AI writes the cheat sheet", "And the questions"] },
+    { chapter: "02", title: "Agent team", cards: ["Flutter, backend and AI-service specialists", "Reviewer, scout and browser-tester agents", "They check each other's changes", "Proven in a real browser before shipping"] },
+    { chapter: "02", title: "Playwright testing", cards: ["Parallel AI testers", "Every teacher and student journey", "Phone, tablet and desktop"] },
+    { chapter: "02", title: "Parallel accounts", cards: ["Several Claude Code accounts at once", "One shared set of agents and skills", "Multiple features ship at once"] },
 ];
 
 const achievements: Achievement[] = [
@@ -94,4 +91,3 @@ const achievements: Achievement[] = [
 ];
 
 export { achievements };
-export default experiences;

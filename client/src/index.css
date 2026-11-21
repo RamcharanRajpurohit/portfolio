@@ -4,49 +4,124 @@
 
 
 @layer base {
+  /* Day: mustard print paper, forest-green ink */
   :root {
-  --bg: 255 255 255;         /* clean white background */
-  --text: 15 23 42;           /* slate-900 for text */
-  --btn-bg: 241 245 249;      /* slate-100 button bg */
-  --headline: 15 23 42;       /* slate-900 for headlines */
-  --paragraph: 51 65 85;      /* slate-600 for paragraphs */
-  --btn: 79 70 229;           /* indigo-600 button */
-  --btn-text: 255 255 255;    /* white text on button */
-  --stroke: 226 232 240;      /* slate-200 border */
-  --main: 15 23 42;           /* slate-900 */
-  --highlight: 79 70 229;     /* indigo-600 highlight */
-  --secondary: 248 250 252;   /* slate-50 for cards */
-  --tertiary: 16 185 129;     /* emerald-500 */
+  --bg: 236 186 42;           /* mustard paper */
+  --text: 38 32 26;           /* warm ink */
+  --btn-bg: 255 245 220;      /* cream pill */
+  --headline: 38 32 26;
+  --paragraph: 84 66 34;      /* faded ink */
+  --btn: 36 73 58;            /* forest cloth */
+  --btn-text: 255 245 220;    /* cream on cloth */
+  --stroke: 38 32 26;         /* ink rule (use with alpha) */
+  --main: 38 32 26;
+  --highlight: 36 73 58;      /* forest */
+  --secondary: 247 236 207;   /* aged cream stock */
+  --tertiary: 255 101 9;      /* orange */
+  --cloth: 36 73 58;          /* forest book cloth */
   }
-  
+
+  /* Night: same print, after sunset */
   [data-theme="dark"] {
-  --bg: 17 17 22; /* darker background */
-  --text: 235 235 240; /* light gray - readable */
-  --btn-bg: 45 50 65; /* button bg - cool steel feel */
-  --headline: 255 255 254; /* white - bright headlines */
-  --paragraph: 160 170 185; /* soft blue-gray - easy to read */
-  --btn: 129 140 248; /* indigo-400 */
-  --btn-text: 255 255 254; /* white - contrast */
-  --stroke: 55 60 75; /* subtle border */
-  --main: 255 255 254; /* white */
-  --highlight: 129 140 248; /* indigo-400 highlight */
-  --secondary: 30 32 42; /* dark card background */
-  --tertiary: 52 211 153; /* emerald accent */
+  --cloth: 107 64 39;         /* brown leather binding at night */
+  --bg: 22 33 27;
+  --text: 247 238 224;
+  --btn-bg: 36 52 42;
+  --headline: 247 238 224;
+  --paragraph: 200 190 165;
+  --btn: 245 196 53;
+  --btn-text: 38 32 26;
+  --stroke: 247 238 224;
+  --main: 247 238 224;
+  --highlight: 245 196 53;
+  --secondary: 30 45 37;
+  --tertiary: 255 101 9;
+  }
+
+  body {
+    @apply font-sans text-base;
+    background-color: rgb(var(--bg));
+    /* crumpled print paper (generated art, neutral grey) blended into the paper colour */
+    background-image: url("/art/paper.webp");
+    background-size: 512px;
+    background-blend-mode: overlay;
+  }
 }
 
-  /* Optional: fallback auto-theme while waiting for JS */
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme]) {
-      --bg: 20 20 20;
-      --text: 230 230 230;
-      --btn-bg: 55 65 81;   
-    }
+@layer components {
+  /* scenery: --hw is the painted width; hills are 2880x760, the cloud tile is 4666x1100 */
+  .scenery { --hw: max(100vw, 1100px); height: calc(var(--hw) * .5); overflow: hidden; }
+  .scenery .hills { position: absolute; bottom: 0; left: 50%; width: var(--hw); max-width: none; transform: translateX(-50%); }
+  .scenery .clouds {
+    --ch: calc(var(--hw) * .25);
+    position: absolute; left: 0; bottom: calc(var(--hw) * .04); height: var(--ch);
+    width: calc(100% + var(--ch) * 4.242);
+    background: url("/art/clouds.webp") repeat-x 0 100% / auto 100%;
+    animation: drift 240s linear infinite;
   }
+  /* my photo sits above the paper-grain overlay (z 60) and is never dimmed at night */
+  .scenery .me { z-index: 61; left: max(11%, 4.5rem); bottom: calc(var(--hw) * .085); height: calc(var(--hw) * .31); transform: translateX(-50%); filter: drop-shadow(0 6px 8px rgb(40 30 0 / .3)); }
+  [data-theme="dark"] .scenery > :not(.me) { filter: brightness(.4) saturate(.7) hue-rotate(-8deg); }
+  .pill { @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition-transform duration-200 hover:-translate-y-0.5; }
+  .pill-dark { @apply pill bg-primary text-btn shadow-md; }
+  .pill-light { @apply pill bg-btnp text-heading border border-stroke/15 shadow-sm; }
+  /* paper: aged cream stock with a double printer's rule */
+  .card {
+    @apply rounded-2xl;
+    background: rgb(var(--secondary)) url("/art/paper.webp") 0 0 / 512px;
+    background-blend-mode: overlay;
+    border: 1px solid rgb(var(--stroke) / .3);
+    box-shadow: inset 0 0 0 5px rgb(var(--secondary)), inset 0 0 0 6px rgb(var(--stroke) / .22), 0 18px 40px -22px rgb(60 40 0 / .55);
+  }
+  /* cloth: book-cover binding for experience volumes (never gold, so it sits right in both themes) */
+  .cloth { background: rgb(var(--cloth)) url("/art/paper.webp") 0 0 / 512px; background-blend-mode: overlay; }
+  /* plate: forest-green printed panel, cream ink, corner brackets */
+  .plate {
+    @apply relative rounded-2xl;
+    --headline: 255 245 220; --text: 255 245 220; --paragraph: 222 212 182; --stroke: 255 245 220; --highlight: 245 196 53;
+    color: rgb(var(--text));
+    background: #24493a url("/art/paper.webp") 0 0 / 512px;
+    background-blend-mode: overlay;
+    box-shadow: inset 0 0 0 9px #24493a, inset 0 0 0 10px rgb(255 245 220 / .3), 0 24px 50px -24px rgb(0 0 0 / .6);
+  }
+  .plate::before {
+    content: ""; position: absolute; inset: 16px; pointer-events: none;
+    border: 1.5px solid rgb(255 245 220 / .75);
+    -webkit-mask: conic-gradient(at 14px 14px, #0000 75%, #000 0) 0 0 / calc(100% - 14px) calc(100% - 14px);
+            mask: conic-gradient(at 14px 14px, #0000 75%, #000 0) 0 0 / calc(100% - 14px) calc(100% - 14px);
+  }
+  .eyebrow { @apply text-[11px] font-semibold uppercase tracking-[0.14em]; }
+  /* score-sheet ruler, as on the bottom edge of the book covers */
+  .ruler { height: 10px; border-bottom: 1px solid currentColor; background: repeating-linear-gradient(90deg, currentColor 0 1px, transparent 1px 8px) bottom / 100% 6px no-repeat; opacity: .55; }
 }
 
 html {
   scroll-behavior: smooth;
   scroll-margin-top: 80px;
+}
+
+/* Sections rise in as they scroll into view (Chromium today; others just show them) */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .reveal {
+      animation: rise linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 22%;
+    }
+  }
+}
+/* living print: clouds drift, paper grain "boils" like film */
+@keyframes drift { to { transform: translateX(calc(var(--ch) * -4.242)); } }
+@keyframes boil { 0% { background-position: 0 0 } 25% { background-position: -173px 91px } 50% { background-position: 61px -137px } 75% { background-position: -89px -43px } }
+body::after {
+  content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 60;
+  background: url("/art/paper.webp") 0 0 / 512px; mix-blend-mode: overlay; opacity: .35;
+  animation: boil .5s steps(1) infinite;
+}
+@media (prefers-reduced-motion: reduce) { body::after, .scenery .clouds { animation: none; } }
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(48px) scale(.98); }
 }
 
 /* Screen reader only utility */
@@ -72,3 +147,14 @@ html {
   clip: auto;
   white-space: normal;
 }
+
+/* ink-spread theme switch (src/components/inkTheme.ts): the new page shows through a mask sprite stepped by
+   the script; the clouds and paper grain hold still meanwhile. The toggle's moon turns into the sun. */
+html.ink::view-transition-old(root), html.ink::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+html.ink body::after, html.ink .scenery .clouds { animation-play-state: paused; }
+.sunmoon :is(.disc, .bite, .rays) { transform-box: fill-box; transform-origin: center; }
+.sunmoon .rays { transform: scale(0) rotate(-90deg); }
+[data-theme="dark"] .sunmoon .disc { transform: scale(.6); }
+[data-theme="dark"] .sunmoon .bite { transform: translate(8px, -8px); }
+[data-theme="dark"] .sunmoon .rays { transform: none; }
+@media (prefers-reduced-motion: no-preference) { .sunmoon :is(.disc, .bite, .rays) { transition: transform 1.2s cubic-bezier(.3, .7, .2, 1); } }

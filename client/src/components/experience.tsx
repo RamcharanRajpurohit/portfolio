@@ -1,158 +1,54 @@
-import experiences, { achievements } from "../data/experience_data";
+import { achievements } from "../data/experience_data";
+import { SectionHead } from "./ui";
+import V1 from "./exp/V1";
+import V4 from "./exp/V4";
+
+// Comparing experience stories: ?exp=1 or 4 (temporary switcher, removed once one is picked).
+const versions = { "1": V1, "4": V4 };
+const pick = (typeof location !== "undefined" && new URLSearchParams(location.search).get("exp")) || "1";
 
 function Experience() {
+    const Story = versions[pick as keyof typeof versions] ?? V1;
     return (
-        <section
-            id="experience"
-            className="mx-auto px-4 sm:px-6 lg:px-8 py-16 bg-base border-b border-stroke max-w-6xl scroll-mt-16"
-        >
-            {/* Section Header */}
-            <div className="text-center mb-16">
-                <h3 className="text-3xl sm:text-4xl font-bold text-base mb-2">
-                    Experience
-                </h3>
-                <div className="w-20 h-1 bg-highlight mx-auto"></div>
+        <section id="experience" className="scroll-mt-16">
+            <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 sm:pt-28">
+                <SectionHead n="02" title="Experience" />
             </div>
-
-            {/* Experience Cards */}
-            <div className="space-y-8">
-                {experiences.map((exp, index) => (
-                    <article
-                        key={index}
-                        className="bg-base rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 border border-stroke group max-w-4xl mx-auto"
-                    >
-                        <div className="p-6 space-y-4">
-                            {/* Experience Header */}
-                            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2">
-                                <div>
-                                    <h4 className="text-xl font-bold text-highlight">
-                                        {exp.title}
-                                    </h4>
-                                    <a
-                                        href={exp.companyUrl}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="text-lg font-medium text-base hover:text-highlight transition-colors duration-200"
-                                    >
-                                        {exp.company} ↗
-                                    </a>
-                                </div>
-                                <span className="inline-flex items-center px-3 py-1 bg-highlight/20 text-highlight text-sm font-medium rounded-full whitespace-nowrap">
-                                    <span className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></span>
-                                    {exp.duration}
-                                </span>
-                            </div>
-
-                            {/* Description */}
-                            <div className="space-y-2">
-                                {exp.description.map((desc, descIndex) => (
-                                    <p key={descIndex} className="text-base text-sm leading-relaxed opacity-80">
-                                        • {desc}
-                                    </p>
-                                ))}
-                            </div>
-
-                            {/* Projects */}
-                            <div className="pt-4">
-                                <h5 className="text-base font-semibold text-base mb-3 opacity-90">
-                                    Projects Worked On
-                                </h5>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    {exp.projects.map((project, projIndex) => (
-                                        <div
-                                            key={projIndex}
-                                            className="p-4 rounded-lg border-2 border-stroke hover:border-highlight transition-all duration-200 bg-base"
-                                        >
-                                            <h6 className="font-semibold text-highlight text-base mb-2">
-                                                {project.name}
-                                            </h6>
-                                            <p className="text-sm text-base opacity-80 leading-relaxed">
-                                                {project.description}
-                                            </p>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-
-                            {/* Tech Stack */}
-                            <div className="pt-4 border-t border-stroke">
-                                <h5 className="text-sm font-semibold text-base mb-3 opacity-80">
-                                    Technologies Used
-                                </h5>
-                                <div className="flex flex-wrap gap-2">
-                                    {exp.tech_stack.map((tech, techIndex) => (
-                                        <span
-                                            key={techIndex}
-                                            className="px-3 py-1.5 text-xs font-medium rounded-full text-base border border-stroke hover:border-highlight hover:text-highlight transition-colors duration-200"
-                                        >
-                                            {tech}
-                                        </span>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-                ))}
-            </div>
-
-            {/* Achievements Section */}
+            <Story />
+            <div className="mx-auto px-4 sm:px-6 lg:px-8 pb-20 max-w-5xl">
             {achievements.length > 0 && (
-                <div className="mt-16">
-                    <div className="text-center mb-10">
-                        <h4 className="text-2xl sm:text-3xl font-bold text-base mb-2">
-                            Achievements & Programs
-                        </h4>
-                        <div className="w-16 h-1 bg-highlight mx-auto"></div>
-                    </div>
+                <div className="mt-24">
+                    <SectionHead n="02·b" title="Achievements & Programs" />
 
-                    <div className="space-y-6">
+                    <div className="grid gap-5 md:grid-cols-2">
                         {achievements.map((achievement, index) => (
-                            <article
-                                key={index}
-                                className="bg-base rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 border border-stroke group max-w-4xl mx-auto"
-                            >
-                                <div className="p-6 space-y-4">
-                                    {/* Achievement Header */}
-                                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2">
-                                        <div>
-                                            <h5 className="text-xl font-bold text-highlight">
-                                                {achievement.title}
-                                            </h5>
-                                            <p className="text-lg font-medium text-base opacity-80">
-                                                {achievement.organization}
-                                            </p>
-                                        </div>
-                                        <span className="inline-flex items-center px-3 py-1 bg-amber-500/20 text-amber-500 text-sm font-medium rounded-full whitespace-nowrap">
-                                            🏆 {achievement.year}
-                                        </span>
-                                    </div>
-
-                                    {/* Description */}
-                                    <div className="space-y-2">
-                                        {achievement.description.map((desc, descIndex) => (
-                                            <p key={descIndex} className="text-base text-sm leading-relaxed opacity-80">
-                                                • {desc}
-                                            </p>
-                                        ))}
-                                    </div>
-
-                                    {/* Link */}
-                                    {achievement.link && (
-                                        <a
-                                            href={achievement.link}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="inline-flex items-center text-sm font-medium text-highlight border border-highlight rounded-md px-3 py-1.5 hover:bg-highlight hover:text-base transition-all duration-200"
-                                        >
-                                            {achievement.linkLabel || "View"} ↗
-                                        </a>
-                                    )}
+                            <article key={index} className="reveal plate p-8 flex flex-col gap-4 text-heading">
+                                <div className="flex justify-between gap-3 eyebrow text-paragraph">
+                                    <span>{achievement.organization}</span>
+                                    <span className="text-tertiary">{achievement.year}</span>
                                 </div>
+                                <h5 className="text-2xl font-bold tracking-[-0.03em]">{achievement.title}</h5>
+                                <ul className="space-y-2">
+                                    {achievement.description.map((desc, descIndex) => (
+                                        <li key={descIndex} className="text-sm leading-relaxed text-paragraph">{desc}</li>
+                                    ))}
+                                </ul>
+                                {achievement.link && (
+                                    <a href={achievement.link} target="_blank" rel="noopener noreferrer" className="pill-dark self-start mt-auto">
+                                        {achievement.linkLabel || "View"} ↗
+                                    </a>
+                                )}
                             </article>
                         ))}
                     </div>
                 </div>
             )}
+            </div>
+            <nav className="fixed bottom-4 left-4 z-50 flex gap-1 p-1 rounded-full bg-btnp/80 backdrop-blur border border-stroke/20 shadow-lg text-xs font-semibold" aria-label="Experience version">
+                {Object.keys(versions).map((v) => (
+                    <a key={v} href={`?exp=${v}#experience`} className={`px-3 py-1.5 rounded-full ${v === pick ? "bg-primary text-btn" : "text-heading"}`}>v{v}</a>
+                ))}
+            </nav>
         </section>
     );
 }

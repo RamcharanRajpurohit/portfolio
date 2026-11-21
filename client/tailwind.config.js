@@ -18,6 +18,7 @@ theme: {
       btn: 'rgb(var(--btn-text) / <alpha-value>)',
       highlight: 'rgb(var(--highlight) / <alpha-value>)',
       secondary: 'rgb(var(--secondary) / <alpha-value>)',
+      tertiary: 'rgb(var(--tertiary) / <alpha-value>)',
     },
     borderColor: {
        secondary: 'rgb(var(--secondary) / <alpha-value>)',
@@ -27,6 +28,9 @@ theme: {
   
      // Optional: if you’re using `border-tertiary`
 },
+    fontFamily: {
+      sans: ['Manrope', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+    },
     screens:{
       wrap:'910px',// new break point
     }

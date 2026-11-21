@@ -1,40 +1,30 @@
-import { Github, Linkedin,Instagram} from 'lucide-react';
-import { TbBrandLeetcode } from "react-icons/tb";
-import HeroImage from '../assets/ram.jpg';
+import { ArrowDown, FileText } from 'lucide-react';
+import { Scenery } from './ui';
+
 function Hero(){
     return(
-        <>
-        <section id='home' className="max-w-screen-lg  mx-auto px-4 sm:px-6 lg:px-8 bg-base border-b border-stroke pt-28 lg:pt-40 pb-12 lg:pb-20">
-            <div className="grid lg:grid-cols-7 lg:gap-x-8 xl:gap-x-12 lg:items-center">
-                <div className="lg:col-span-3 flex items-center justify-center">
-                   <img className="w-full max-w-[180px] sm:max-w-[200px] md:max-w-[220px] lg:max-w-[200px] xl:max-w-[220px] h-auto rounded-md my-6 lg:my-0 " src={HeroImage} alt ="Ramcharan Rajpurohit" width="1058" height="1149" loading="eager" fetchPriority="high"/>
+        <section id='home' className="relative min-h-[100svh] overflow-hidden px-4 pt-28 sm:pt-36 pb-[14vh] sm:pb-[30vh]">
+            <div className="relative z-10 flex flex-col items-center">
+                <h2 className="mt-5 text-center font-bold tracking-[-0.05em] leading-[0.95] text-heading text-[2.6rem] sm:text-6xl lg:text-7xl">
+                    Hi, I'm Ramcharan
+                </h2>
+                <p className="mt-4 max-w-md text-center text-sm sm:text-base text-paragraph">I build LLM and vision-powered products, both the user-facing features and the backend APIs behind them.</p>
+
+                <div className="mt-7 flex flex-wrap justify-center gap-3">
+                    <a href="#projects" className="pill-light">See my work <ArrowDown size={16} aria-hidden="true" /></a>
+                    <a href="/Ramcharan_Resume.pdf" target="_blank" rel="noopener noreferrer" className="pill-dark"><FileText size={16} aria-hidden="true" /> Resume</a>
                 </div>
-            <div className="lg:col-span-4 mt-4 lg:mt-0 ">
-                <h2 className="text-center text-base block font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-5">Hi, I'm Ramcharan</h2>
-                <span className='flex items-center justify-center'>
-                <p className="text-base block text-center md:w-2/4">I build LLM and vision-powered products, both the user-facing features and the backend APIs behind them.</p></span>
-                <div className="flex mt-4 lg:mt-7 items-center gap-3 justify-center ">
-                     <a href="https://github.com/RamcharanRajpurohit" className='md:border-2 border p-1 rounded mb-2  hover:border-highlight transition-colors duration-200' target="_blank" rel="noopener noreferrer" aria-label="Visit Ramcharan's GitHub profile">
-                            <Github className="md:w-8 md:h-8 w-5 h-5  text-base " aria-hidden="true" />
-                     </a>
-                     <a href="https://leetcode.com/u/b23ci1032/" className='md:border-2 border p-1 rounded mb-2 border-base hover:border-highlight transition-colors duration-200' target="_blank" rel="noopener noreferrer" aria-label="Visit Ramcharan's LeetCode profile">
-                            <TbBrandLeetcode className="md:w-8 md:h-8 w-5 h-5  text-base" aria-hidden="true" />
-                     </a>
-                     <a href="https://www.linkedin.com/in/ramcharan-rajpurohit-1314b7289/" className='md:border-2 border p-1 rounded mb-2 border-base hover:border-highlight transition-colors duration-200' target="_blank" rel="noopener noreferrer" aria-label="Visit Ramcharan's LinkedIn profile">
-                             <Linkedin className="md:w-8 md:h-8 w-5 h-5  text-base " aria-hidden="true" />
-                     </a>
-                   
-                    <a href="https://www.instagram.com/ramcharanpurohit/" className='md:border-2 border p-1 rounded mb-2 border-base hover:border-highlight transition-colors duration-200' target="_blank" rel="noopener noreferrer" aria-label="Visit Ramcharan's Instagram profile">
-                          < Instagram className="md:w-8 md:h-8 w-5 h-5  text-base " aria-hidden="true" />
-                    </a>                    
-                </div>
+
+
             </div>
-            </div>
+
+            <Scenery>
+                {/* me, standing on the hill on the left */}
+                <img src="/art/me-standing-cut.webp" alt="Ramcharan Rajpurohit" fetchPriority="high"
+                     className="me absolute w-auto" />
+            </Scenery>
+            <a href="#about" className="absolute z-10 bottom-5 left-1/2 -translate-x-1/2 text-xl text-[rgb(255_245_220)] drop-shadow" aria-label="Scroll down">↓</a>
         </section>
-        </>
     );
 }
 export default Hero;
-
- 
-   
