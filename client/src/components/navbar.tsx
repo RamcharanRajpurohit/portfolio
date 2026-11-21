@@ -2,11 +2,13 @@ import { useState } from "react";
 import { useTheme } from "../hooks/useTheme";
 import { Menu, X } from "lucide-react";
 import { inkButton, inkSwitch } from "./inkTheme";
+import { clearPalette } from "./paintedTheme";
 
 const links = [
   { href: "#about", label: "About" },
   { href: "#experience", label: "Experience" },
   { href: "#projects", label: "Projects" },
+  { href: "#play", label: "Play" },
   { href: "#contact", label: "Contact" },
   { href: "#resume", label: "Resume" },
 ];
@@ -45,7 +47,7 @@ function Navbar() {
             ref={inkButton}
             onClick={() => {
               const next = theme === "dark" ? "light" : "dark";
-              inkSwitch(() => setTheme(next), next === "dark");
+              inkSwitch(() => { clearPalette(); setTheme(next); }, next === "dark"); // the toggle also brings back the site's own colours
             }}
             className={round}
             aria-label="Toggle theme"

@@ -182,7 +182,7 @@ function ChapterCard({ c, print }: { c: typeof intern; print?: boolean }) {
 }
 
 // one calm diagram plate per system: proof = cream card, print = forest plate
-function SystemPlate({ s, n, of, wide }: { s: (typeof pipelines)[number]; n: number; of: number; wide: boolean }) {
+function SystemPlate({ s, n, of, wide, pic = true }: { s: (typeof pipelines)[number]; n: number; of: number; wide: boolean; pic?: boolean }) {
     const print = s.chapter === "02";
     const Pic = vizFor[s.title] ?? glyphFor[s.title];
     return (
@@ -193,7 +193,7 @@ function SystemPlate({ s, n, of, wide }: { s: (typeof pipelines)[number]; n: num
                 <h3 className="text-[26px] sm:text-[40px] font-extrabold tracking-[-0.045em] leading-[1.02]">{s.title}</h3>
             </div>
             <div className={`mt-4 sm:mt-5 grid gap-4 sm:gap-5 items-center ${wide ? "grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)]" : "grid-cols-[minmax(0,.8fr)_minmax(0,1.2fr)]"}`}>
-                <div className={`${print ? "" : "text-heading"} aspect-[4/3]`}>{Pic && <Pic />}</div>
+                <div className={`${print ? "" : "text-heading"} aspect-[4/3]`}>{pic && Pic && <Pic />}</div>
                 <ul className="v1-lines space-y-2 text-[13px] sm:text-[15px] font-semibold leading-snug">
                     {s.cards.map((l) => <li key={l}><span className="text-highlight">—</span>{l}</li>)}
                 </ul>
@@ -244,7 +244,12 @@ function Static() {
 }
 
 export default function V1() {
-    const [mode, setMode] = useState<"3d" | "static">(() => (matchMedia("(prefers-reduced-motion: reduce)").matches || !document.createElement("canvas").getContext("webgl2") ? "static" : "3d"));
+    const [mode, setMode] = useState<"3d" | "static">(() => {
+        if (matchMedia("(prefers-reduced-motion: reduce)").matches) return "static";
+        const probe = document.createElement("canvas").getContext("webgl2");
+        probe?.getExtension("WEBGL_lose_context")?.loseContext(); // only a support check: free it (browsers cap live contexts)
+        return probe ? "3d" : "static";
+    });
     return <>
         <style>{css}</style>
         {mode === "static" ? <Static /> : <Dive onFail={() => setMode("static")} />}
@@ -268,7 +273,7 @@ function Dive({ onFail }: { onFail: () => void }) {
 
     useEffect(() => {
         const st = stage.current!;
-        const ro = new ResizeObserver(() => setG((o) => { const n = measure(st); return o && o.vw === n.vw && Math.abs(o.vh - n.vh) < 2 ? o : n; }));
+        const ro = new ResizeObserver(() => setG((o) => { const n = measure(st); return !n.vw || !n.vh || (o && o.vw === n.vw && Math.abs(o.vh - n.vh) < 2) ? o : n; })); // hidden (0 size): keep the last layout
         ro.observe(st);
         return () => ro.disconnect();
     }, []);
@@ -393,7 +398,9 @@ function Dive({ onFail }: { onFail: () => void }) {
             tk.dataset.print = T > LV + 14 ? "1" : "0";
             return moving;
         };
-        const io = new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible) onScroll(); }, { rootMargin: "50% 0px" });
+        // off screen: also pause the pencil/ink lines' SMIL boil, which would otherwise restyle the page ~10x a second
+        const lines = comp.current!.querySelector<SVGSVGElement>("svg.v1-cable");
+        const io = new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible) { lines?.unpauseAnimations(); onScroll(); } else lines?.pauseAnimations(); }, { rootMargin: "50% 0px" });
         io.observe(track.current!);
         r.onPaper = onScroll;
         const mo = new MutationObserver(onScroll);
@@ -435,11 +442,12 @@ function Dive({ onFail }: { onFail: () => void }) {
                         <ChapterCard c={c} print={!!i} />
                     </div>
                 ))}
-                {/* the words are printed into the 3D world (labels.ts); the same text stays here for screen readers */}
+                {/* the words are printed into the 3D world (labels.ts); the same text stays here for screen readers (without the
+                    animated diagrams, which are aria-hidden and would otherwise animate unseen on every frame) */}
                 <div className="sr-only">
-                    {sys01.map((s, i) => <SystemPlate key={s.title} s={s} n={i + 1} of={sys01.length} wide={wide} />)}
+                    {sys01.map((s, i) => <SystemPlate key={s.title} s={s} n={i + 1} of={sys01.length} wide={wide} pic={false} />)}
                     <LevelPlate />
-                    {sys02.map((s, i) => <SystemPlate key={s.title} s={s} n={i + 1} of={sys02.length} wide={wide} />)}
+                    {sys02.map((s, i) => <SystemPlate key={s.title} s={s} n={i + 1} of={sys02.length} wide={wide} pic={false} />)}
                 </div>
                 <div ref={ticket} className="v1-ticket pill-light !py-1.5 !px-4 gap-2 text-xs" style={wide ? { right: 28, top: 84 } : { left: "50%", top: 70, translate: "-50% 0", whiteSpace: "nowrap" }}>
                     <span className="font-bold"><span data-r>{intern.role}</span><span data-r>{lead.role}</span></span>

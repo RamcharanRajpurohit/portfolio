@@ -4,6 +4,7 @@ import Hero from "./components/Hero";
 import About from "./components/about";
 import Experience from "./components/experience";
 import Projects from "./components/projects";
+import Games from "./components/Games";
 import Footer from "./components/footer";
 import Contact from "./components/contact";
 import Resume from "./components/resume";
@@ -19,6 +20,7 @@ import Resume from "./components/resume";
     <About></About>
     <Experience></Experience>
     <Projects></Projects>
+    <Games />
     <Contact></Contact>
   </div>
   <Footer></Footer>

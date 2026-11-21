@@ -114,9 +114,10 @@ html {
 }
 /* living print: clouds drift, paper grain "boils" like film */
 @keyframes drift { to { transform: translateX(calc(var(--ch) * -4.242)); } }
-@keyframes boil { 0% { background-position: 0 0 } 25% { background-position: -173px 91px } 50% { background-position: 61px -137px } 75% { background-position: -89px -43px } }
+/* the grain jumps by moving the layer (compositor only), not its background (a full-screen repaint each step) */
+@keyframes boil { 0% { transform: none } 25% { transform: translate(-173px, 91px) } 50% { transform: translate(61px, -137px) } 75% { transform: translate(-89px, -43px) } }
 body::after {
-  content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 60;
+  content: ""; position: fixed; inset: -192px; pointer-events: none; z-index: 60;
   background: url("/art/paper.webp") 0 0 / 512px; mix-blend-mode: overlay; opacity: .35;
   animation: boil .5s steps(1) infinite;
 }
