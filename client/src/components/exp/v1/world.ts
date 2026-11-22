@@ -49,9 +49,12 @@ export function world(ctx: Ctx) {
     STATIONS.forEach((_, k) => add(plinth, M(C.cream, { tone: 0.05 }), at(k, T(0, 0.018, 0))));
     // a status LED on the board beside each plinth: dark until you reach the station, lit from then on
     const led = rbox(0.06, 0.05, 0.06, 0.026), bezel = cylinder(0.045, 0.02, 16);
+    const pool = merge([0.1, 0.17, 0.26].map((r, i) => [cylinder(r, 0.001, 28), T(0, 0.0035 - i * 0.0005, 0)] as [Geo, M4]));
     STATIONS.forEach((_, k) => {
         const lit = () => st.T > st.stops[k] - 12, flash = () => Math.max(0, 1 - (st.T - st.stops[k] + 12) / 10);
         add(bezel, M(C.ink, { tone: 0.6 }), at(k, T(0.44, 0.01, 0.44)));
+        // its light on the board: three stacked translucent discs fake a soft falloff
+        add(pool, Object.defineProperty(M(C.orange, { outline: false, tone: 0, glow: 0.3 }), "alpha", { get: () => (lit() ? 0.1 + 0.15 * flash() : 0) }), at(k, T(0.44, 0, 0.44)));
         add(led, Object.defineProperties(M(C.orange, { tone: 0.1, outline: false }), { print: { get: () => hex(lit() ? C.orange : C.brown) }, glow: { get: () => (lit() ? 0.7 + 0.8 * flash() : 0) } }), at(k, T(0.44, 0.035, 0.44)));
     });
     // silkscreen: part designators printed beside the parts, part numbers on the chip tops (drawn in labels.ts)
@@ -85,6 +88,7 @@ export function world(ctx: Ctx) {
     for (let k = 0; k < 140; k++) { const x = -3.2 + rnd() * 6.8, z = 3.2 - rnd() * 20.6; if (clear(x, z, 0.05)) { gold.push([via, T(x, 0.003, z)]); ink.push([hole, T(x, 0.003, z)]); } }
 
     // tiny parts in little rows (resistors, SMD caps, small ICs): the far detail that makes the board vast
+    const band = cylinder(0.0195, 0.008, 6), cap = box(0.012, 0.032, 0.037);
     const res = cylinder(0.018, 0.09, 6), smd = box(0.06, 0.03, 0.035), ic = box(0.16, 0.04, 0.11), pin = box(0.012, 0.03, 0.03);
     for (let c = 0; c < 90; c++) {
         const x = -3.3 + rnd() * 7.0, z = 3.3 - rnd() * 21.2, along = rnd() < 0.5, kind = rnd(), n = 2 + Math.floor(rnd() * 5);
@@ -92,8 +96,15 @@ export function world(ctx: Ctx) {
         if (c % 3 === 0) tag(kind < 0.45 ? "R" : kind < 0.8 ? "C" : "U", x - (along ? 0.16 : 0), 0.004, z + (along ? 0 : 0.1));
         for (let k = 0; k < n; k++) {
             const px = x + (along ? 0 : k * 0.11), pz = z - (along ? k * 0.11 : 0);
-            if (kind < 0.45) sand.push([res, chain(T(px, 0.02, pz), RY(along ? 0 : Math.PI / 2), RZ(Math.PI / 2))]);
-            else if (kind < 0.8) cream.push([smd, chain(T(px, 0.015, pz), RY(along ? 0 : Math.PI / 2))]);
+            const o = chain(T(px, 0.02, pz), RY(along ? 0 : Math.PI / 2), RZ(Math.PI / 2));
+            if (kind < 0.45) { // a resistor with its colour code
+                sand.push([res, o]);
+                [orange, forest, ink, mustard].forEach((l, b) => l.push([band, chain(o, T(0, b < 3 ? -0.026 + b * 0.014 : 0.028, 0))]));
+            } else if (kind < 0.8) { // an SMD capacitor with metal end caps
+                const q = chain(T(px, 0.015, pz), RY(along ? 0 : Math.PI / 2));
+                cream.push([smd, q]);
+                gold.push([cap, chain(q, T(0.025, 0, 0))], [cap, chain(q, T(-0.025, 0, 0))]);
+            }
             else if (k < 3) {
                 ink.push([ic, chain(T(px, 0.024, pz), RY(along ? Math.PI / 2 : 0))]);
                 for (let p = -1; p <= 1; p++) for (const sd of [-1, 1]) ink.push([pin, chain(T(px, 0.012, pz), RY(along ? Math.PI / 2 : 0), T(p * 0.05, 0, sd * 0.065))]);
@@ -123,7 +134,7 @@ export function world(ctx: Ctx) {
         ink.push([box(0.3, 0.03, 0.04), chain(T(x, 0.835, z), RY(0.6))]);
     }
     // big chips (mid-size landmarks) and the huge one on the horizon
-    const leg = box(0.04, 0.08, 0.1);
+    const leg = box(0.04, 0.08, 0.1), lpad = box(0.06, 0.004, 0.13);
     const chip = (x: number, z: number, w: number, d: number, h: number, legs: number, quad = false) => {
         ink.push([rbox(w, h, d, 0.03), T(x, 0.03 + h / 2, z)]);
         tag("U", x - w / 2 + 0.12, 0.004, z + d / 2 + 0.2, 0.24);
@@ -132,7 +143,11 @@ export function world(ctx: Ctx) {
         for (let k = 0; k < legs; k++) {
             const t = -0.44 + (k / (legs - 1)) * 0.88;
             ink.push([leg, T(x + t * w, 0.04, z + d / 2 + 0.03)], [leg, T(x + t * w, 0.04, z - d / 2 - 0.03)]);
-            if (quad) ink.push([leg, chain(T(x + w / 2 + 0.03, 0.04, z + t * d), RY(Math.PI / 2))], [leg, chain(T(x - w / 2 - 0.03, 0.04, z + t * d), RY(Math.PI / 2))]);
+            gold.push([lpad, T(x + t * w, 0.002, z + d / 2 + 0.04)], [lpad, T(x + t * w, 0.002, z - d / 2 - 0.04)]); // soldered to pads
+            if (quad) {
+                ink.push([leg, chain(T(x + w / 2 + 0.03, 0.04, z + t * d), RY(Math.PI / 2))], [leg, chain(T(x - w / 2 - 0.03, 0.04, z + t * d), RY(Math.PI / 2))]);
+                gold.push([lpad, chain(T(x + w / 2 + 0.04, 0.002, z + t * d), RY(Math.PI / 2))], [lpad, chain(T(x - w / 2 - 0.04, 0.002, z + t * d), RY(Math.PI / 2))]);
+            }
         }
     };
     // a cooling fan on the small CPU by the path: it turns as you travel
