@@ -1,0 +1,230 @@
+%-------------------------
+% Resume in Latex
+% Author: Ramcharan Rajpurohit
+% License : MIT
+%------------------------
+
+%---- Required Packages and Functions ----
+
+\documentclass[a4paper,10pt]{article}
+% ATS readability: embed a ToUnicode map so parsers extract clean text (fixes "system readability").
+\input{glyphtounicode}
+\pdfgentounicode=1
+\usepackage{latexsym}
+\usepackage{xcolor}
+\usepackage{float}
+\usepackage{ragged2e}
+\usepackage[empty]{fullpage}
+\usepackage{wrapfig}
+\usepackage{lipsum}
+\usepackage{tabularx}
+\usepackage{titlesec}
+\usepackage{geometry}
+\usepackage{marvosym}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage{multicol}
+\usepackage{graphicx}
+\usepackage{cfr-lm}
+\usepackage[T1]{fontenc}
+\setlength{\multicolsep}{0pt}
+\pagestyle{fancy}
+\fancyhf{} % clear all header and footer fields
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\setlength{\footskip}{4pt} % silence fancyhdr \footskip-too-small warning
+\geometry{left=1.4cm, top=0.7cm, right=1.2cm, bottom=0.7cm}
+% Adjust margins
+%\addtolength{\oddsidemargin}{-0.5in}
+%\addtolength{\evensidemargin}{-0.5in}
+%\addtolength{\textwidth}{1in}
+\usepackage[most]{tcolorbox}
+\tcbset{
+    frame code={}
+    center title,
+    left=0pt,
+    right=0pt,
+    top=0pt,
+    bottom=0pt,
+    colback=gray!20,
+    colframe=white,
+    width=\dimexpr\textwidth\relax,
+    enlarge left by=-2mm,
+    boxsep=4pt,
+    arc=0pt,outer arc=0pt,
+}
+
+\urlstyle{same}
+
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Sections formatting
+\titleformat{\section}{
+  \vspace{-6pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-6pt}]
+\titlespacing*{\section}{0pt}{2.8ex}{1.8ex} % a little tighter than the default, to keep one page
+% Compact the plain itemize blocks (Experience/Projects/Achievements) without
+% touching the section title spacing already tuned in \titleformat above.
+\setlist{topsep=2pt, partopsep=0pt, parsep=0pt, itemsep=0.8pt}
+
+%-------------------------
+% Custom commands
+\newcommand{\resumeItem}[2]{
+  \item{
+    \textbf{#1}{\hspace{0.}#2 \vspace{-0.5mm}}
+  }
+}
+
+\newcommand{\resumePOR}[3]{
+\vspace{0.5mm}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+        \textbf{#1}\hspace{0.3mm}#2 & \textit{\small{#3}}
+    \end{tabular*}
+    \vspace{-1mm}
+}
+
+\newcommand{\resumeSubheading}[4]{
+\vspace{0.5mm}\item
+    \begin{tabular*}{0.98\textwidth}[t]{l@{\extracolsep{\fill}}r}
+        \textbf{#1} & \textit{\footnotesize{#4}} \\
+        \textit{\footnotesize{#3}} & \footnotesize{#2}\\
+    \end{tabular*}
+    \vspace{-2.4mm}
+}
+
+\newcommand{\resumeProject}[4]{
+\vspace{0.5mm}\item
+    \begin{tabular*}{0.98\textwidth}[t]{l@{\extracolsep{\fill}}r}
+        \textbf{#1} & \textit{\footnotesize{#3}} \\
+        \footnotesize{\textit{#2}} & \footnotesize{#4}
+    \end{tabular*}
+    \vspace{-2.4mm}
+}
+
+\newcommand{\resumeSubItem}[2]{\resumeItem{#1}{#2}\vspace{-4pt}}
+
+% \renewcommand{\labelitemii}{$\circ$}
+\renewcommand{\labelitemi}{$\vcenter{\hbox{\tiny$\bullet$}}$}
+\renewcommand{\labelitemii}{$\circ$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=*,labelsep=0mm]}
+\newcommand{\resumeHeadingSkillStart}{\begin{itemize}[leftmargin=*,itemsep=1.7mm, rightmargin=2ex]}
+\newcommand{\resumeItemListStart}{\begin{justify}\begin{itemize}[leftmargin=3ex, rightmargin=2ex, noitemsep,labelsep=1.2mm,itemsep=0mm]\small}
+
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}\vspace{1mm}}
+\newcommand{\resumeHeadingSkillEnd}{\end{itemize}\vspace{-1mm}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\end{justify}\vspace{-1mm}}
+\newcommand{\cvsection}[1]{%
+\vspace{1mm}
+\begin{tcolorbox}
+    \textbf{\large #1}
+\end{tcolorbox}
+    \vspace{-5mm}
+}
+
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}%
+\newcolumntype{R}{>{\raggedleft\arraybackslash}X}%
+\newcolumntype{C}{>{\centering\arraybackslash}X}%
+%---- End of Packages and Functions ------
+
+%-------------------------------------------
+%%%%%% CV STARTS HERE %%%%%%%%%%%
+%%%%%% DEFINE ELEMENTS HERE %%%%%%%
+\newcommand{\name}{Ramcharan} % Your Name
+\newcommand{\course}{Bachelor of Technology 2023-27} % Your Course
+\newcommand{\roll}{B23CI1032} % Your Roll No.
+\newcommand{\phone}{9680103852} % Your Phone Number
+\newcommand{\emaila}{ramcharanrajpurohit@gmail.com} %Email 1
+\newcommand{\emailb}{b23ci1032@iitj.ac.in} %Email 2
+\newcommand{\github}{RamcharanRajpurohit} %Github
+\newcommand{\website}{https://rajpurohit.me/} %Website
+\newcommand{\linkedin}{ramcharan-rajpurohit-1314b7289} %linkedin
+\newcommand{\codolioURL}{https://codolio.com/profile/RamcharanRajpurohit}
+
+\begin{document}
+\fontfamily{cmr}\fontsize{10}{12}\selectfont
+%----------HEADING-----------------
+\begin{center}
+  {\LARGE \textbf{\name\ Rajpurohit}} \\ \vspace{1mm}
+
+  +91-\phone\ \textbar{} \href{mailto:\emaila}{\emaila} \textbar{} \href{mailto:\emailb}{\emailb} \\ \vspace{0.8mm}
+  \href{https://github.com/\github}{GitHub} \textbar{} \href{https://www.linkedin.com/in/\linkedin/}{LinkedIn} \textbar{} \href{\website}{Website} \textbar{} \href{\codolioURL}{Codolio}
+\end{center}
+
+%-----------EDUCATION-----------------
+\section{Education}
+% Two-line block matching \resumeSubheading's shape (institution + dates on
+% line 1, degree + location on line 2) but with label={} so no bullet appears.
+\begin{itemize}[leftmargin=*,labelsep=0mm,label={}]
+\item
+  \begin{tabular*}{0.98\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{IIT Jodhpur} & \textit{Sep 2023 -- May 2027} \\
+      \textit{Bachelor of Technology} & Jodhpur, Rajasthan\\
+  \end{tabular*}
+\end{itemize}
+\vspace{-1mm}
+
+%-----------EXPERIENCE-----------------
+\section{Work Experience}
+\begin{itemize}
+\item \textbf{Lead AI Engineer at PowersMy.biz} \hfill \textit{\small{Oct 2026 -- Present}}
+\begin{itemize}
+    \item \textbf{Product Ownership:} promoted to lead the AI behind PupilTree's exam, homework and revision platform; owned homework end to end (AI-written questions, PDF/photo import, AI marking, live updates).
+    \item \textbf{Revision AI (PupilRevise):} designed a revision pipeline where a teacher picks what was taught and AI writes the cheat sheet and the questions.
+    \item \textbf{Agentic Engineering:} architected a team of specialist AI agents (Flutter, backend, AI service, reviewer, scout, browser tester) that check each other's changes and prove them in a real browser, running across parallel \textbf{Claude Code} accounts to ship features at once.
+    \item \textbf{Test Automation:} built parallel \textbf{Playwright} AI testers that walk every teacher and student journey on phone, tablet and desktop.
+\end{itemize}
+\item \textbf{AI Engineering Intern at PowersMy.biz} \hfill \textit{\small{Nov 2025 -- Sep 2026}}
+\begin{itemize}
+    \item Built a production AI assessment platform for JEE and NEET coaching institutes serving \textbf{1,000+ concurrent exam-takers} (FastAPI, LangGraph, React, Flutter, MongoDB, Redis, GCP).
+    \item \textbf{Agentic AI (Amigo):} architected a student-facing AI companion on LangGraph, where a supervisor graph routes to \textbf{5 specialist agents} over \textbf{18 scoped tools}, with a LiveKit voice pipeline for code-switching Hindi and English speech, streaming synthesis, and barge-in handling.
+    \item \textbf{AI Safety \& Access Control:} gated every agent data access behind a \textbf{scope-checked broker} with an append-only audit ledger, screening each turn with PII tokenisation and a fail-closed risk classifier.
+    \item \textbf{Multimodal AI:} engineered an evaluation pipeline using vision models to grade handwritten subjective answers across 8 question formats and identify learning gaps.
+    \item \textbf{Document AI:} shipped a pipeline turning exam PDFs into a structured question bank, running \textbf{Mistral OCR} and a \textbf{DocLayout-YOLO} figure detector in parallel with per-subject Gemini extraction.
+    \item \textbf{Backend \& Cloud:} optimized high-concurrency exam APIs (Redis caching, atomic MongoDB operations, off-thread bcrypt), designed an asynchronous grading queue across 2 services, and led GCP deployment on Cloud Run with auto-scaling for exam-day traffic spikes.
+\end{itemize}
+\end{itemize}
+\vspace{-1mm}
+%-----------PROJECTS-----------------
+\section{Projects}
+\begin{itemize}
+\item \textbf{DyPol} -- Engineering Activity \& Insights \hfill \href{https://www.dypol.dev/}{\textcolor{blue}{\textbf{[Live Site]}}} \textbar{} \href{https://github.com/RamcharanRajpurohit/DyPol}{\textcolor{blue}{\textbf{[GitHub]}}}
+\begin{itemize}
+\item Built a platform to track engineering activity across teams and projects, generating weekly reports, contributor insights, PR tracking, and stalled-work alerts from GitHub data.
+\item Developed a natural-language engineering assistant with LangGraph agents, Chroma and MongoDB vector embeddings, and GitHub REST and GraphQL APIs, with tool scoping, delegation limits, and cost tracking.
+\end{itemize}
+\item \textbf{DSA Visualizer} -- Interactive Algorithm Learning Platform \hfill \href{https://algolab.rajpurohit.me/}{\textcolor{blue}{\textbf{[Live Site]}}} \textbar{} \href{https://github.com/RamcharanRajpurohit/DSAVisualizer}{\textcolor{blue}{\textbf{[GitHub]}}}
+\begin{itemize}
+\item Developed a framework-free algorithm visualizer in raw ES6 and HTML5 Canvas, animating 15+ sorting, graph, and tree algorithms on a class-based OOP engine where each algorithm is a plug-in subclass, with frame-by-frame controls for recursion tracing and backward stepping.
+\end{itemize}
+\end{itemize}
+\vspace{-1mm}
+\section{Technical Skills}
+\begin{itemize}
+\itemsep0em
+    \item \textbf{AI/ML \& GenAI: } LangGraph, LangChain, Multi-Agent Systems, Gemini API, OpenAI API, Claude API, Vision Models, OCR, RAG, Realtime Voice Agents (LiveKit, STT, TTS), Prompt Engineering
+    \item \textbf{Agentic Engineering: } Claude Code, Specialist Subagents, Skills, MCP, AI Code Review, Parallel Agents
+    \item \textbf{Programming Languages: } C++, C, Python, JavaScript, TypeScript, Dart
+    \item \textbf{Frontend Development: } React.js, Next.js, HTML5, CSS3, TailwindCSS, Redux, Flutter
+    \item \textbf{Backend Development: } Node.js, Express.js, FastAPI, REST APIs, GraphQL, WebSockets, SSE Streaming, WebRTC, JWT, OAuth 2.0, MongoDB, Redis
+    \item \textbf{Cloud, Testing \& Tools: } GCP (Cloud Run, Cloud Tasks), Docker, GitHub Actions, CI/CD, Playwright, Pytest, Sentry, Git, Linux, Vercel
+\end{itemize}
+\vspace{-1mm}
+
+%-----------ACHIEVEMENTS-----------------
+\section{Achievements}
+\begin{itemize}
+\item Authored a \textbf{Linux kernel} patch merged into mainline, fixing a broken mic-mute LED on a personal HP laptop after root-causing the missing audio driver quirk.  \href{https://github.com/torvalds/linux/commit/f56521ab6f76faeaa5a524320898835454e3bc31}{\textcolor{blue}{\textbf{[Commit]}}}
+\item Achieved \textbf{2nd District Rank} in Class 12 RBSE Board Exams with a 98.20\% aggregate.
+\end{itemize}
+
+\section{Leadership}
+\begin{itemize}
+\item Core Member, Dramatics Society (\textbf{Dramebazz}), IIT Jodhpur; coordinated events and creative direction, and directed stage productions at \textbf{Inter IIT Cultural Meet 7.0}.
+\end{itemize}
+
+\end{document}
