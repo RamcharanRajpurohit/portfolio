@@ -13,12 +13,10 @@ export const resume: { name: string; contact: string[]; sections: { title: strin
             {
                 head: "**Lead AI Engineer at PowersMy.biz**", right: "Oct 2026 – Present",
                 points: [
-                    "**Engineering Leadership:** promoted to lead AI engineering, directing specialist **Claude Code** agents (backend, Flutter, AI service, reviewer) and **Playwright** AI testers covering phone, tablet and desktop.",
-                    "**Digital Homework:** built Classroom-style homework end to end: textbook-grounded AI questions in **8 s** (from 43 s), PDF and photo work, auto-marked objective answers, AI marking of written work in **~3 s** (Batch API for whole classes), and **1.4 s** live updates.",
-                    "**Adaptive Learning:** designed **40 learning signals** riding on existing requests, nightly **Elo mastery**, and a **Thompson-sampling bandit** that picks which of 11 learning modes works best per class.",
-                    "**AI Practice Generator:** overhauled AI generation of 11 learning modes per lesson, cutting the teacher flow from **86 requests / 326 DB calls to 10 / 26** and student grading from **68 s to 21 s**.",
-                    "**AI Quality Evaluation:** built an LLM-judge evaluation over 50 real classes with a blind 6-way model bake-off, lifting on-syllabus questions from 79–89% to **98%** at 97–99% answer-key accuracy.",
-                    "**Revision & Gap Detection:** AI turns the periods a teacher taught into a cheat sheet and grounded questions, then maps **per-topic class gaps** from tests and homework to flag who needs revision.",
+                    "**Digital Homework:** built Classroom-style homework: teachers assign AI questions, PDFs or learning modes and grade with AI; students get marks, feedback, notifications and deadline reminders.",
+                    "**Revision & Remedy:** teachers generate a cheat sheet and questions from the periods they taught; students attempt them, get **remedial practice** where they fall short, and keep notes per chapter.",
+                    "**Learning Modes:** shipped 11 per lesson (Reading, Writing, Solving, Games, Podcast, **WriteBoard** AI whiteboard), with **40 learning signals** and **Elo mastery** suggesting the mode that works per class.",
+                    "**Agentic Dev & QA:** specialist **Claude Code** agents own Flutter, backend, AI, DB calls and latency, and **Playwright** testers catch bugs before production (DB calls **326 → 26**, AI questions **43 s → 8 s**).",
                 ],
             },
             {
