@@ -84,6 +84,15 @@ export function world(ctx: Ctx) {
             gold.push([tr, chain(T((xa + xb) / 2, 0.003, z - 0.2), RY(Math.PI / 2 + Math.atan2(xb - xa, 0.4)), S(len + 0.016, 1, 1))]);
         }
     }
+    // each station is wired to the bus: three traces from its outline to a pad by the first bus wire. As you
+    // arrive a pulse runs along them into the station, then its LED lights
+    STATIONS.forEach(([x, , z], k) => {
+        const x0 = x + 0.6, x1 = 1.15 + jog(z) - 0.06;
+        if (x1 - x0 < 0.15) return; // the bus hugs this station: nothing to route
+        for (const dz of [0.05, 0.1, 0.15]) gold.push([tr, chain(T((x0 + x1) / 2, 0.003, z + dz), S(x1 - x0, 1, 1))], [pad, T(x0, 0.003, z + dz)], [pad, T(x1, 0.003, z + dz)]);
+        const u = () => Math.min(1, Math.max(0, (st.T - st.stops[k] + 20) / 8));
+        add(box(0.1, 0.008, 0.13), M(C.orange, { outline: false, tone: 0, glow: 0.7 }), () => T(x1 + (x0 - x1) * u(), 0.006, z + 0.1), () => u() > 0 && u() < 1);
+    });
     // short stubs, each ending in a round solder pad
     for (let k = 0; k < 40; k++) {
         const x = 2.0 + ((k * 7) % 5) * 0.14, z = 1.5 - k * 0.48, l = 0.4 + ((k * 13) % 5) * 0.12;
