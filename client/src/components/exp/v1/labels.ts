@@ -55,8 +55,8 @@ function paint(cv: HTMLCanvasElement, eyebrow: [string, string], title: string, 
 const sign = (w: number, h: number) => grid((u, v) => [(u - 0.5) * w, 0, -v * h], 1, 1);
 const place = (base: V3, ang: number, local: V3, tilt: number) => chain(T(...base), RY(ang), T(...local), RX(tilt));
 
-// silkscreen marks: [x, y, z, text, width]
-export type Silk = [number, number, number, string, number][];
+// silkscreen marks: [x, y, z, text, width, facing angle if printed upright (else flat on the board), always dark ink]
+export type Silk = [number, number, number, string, number, number?, boolean?][];
 
 export function labels(r: Renderer, { st, add }: Ctx, wide: boolean, printedAt: () => boolean, redraw: () => void, silk: Silk) {
     const sys01 = pipelines.filter((p) => p.chapter === "01"), all = pipelines;
@@ -99,9 +99,11 @@ export function labels(r: Renderer, { st, add }: Ctx, wide: boolean, printedAt: 
         return g;
     };
     const flat = m4();
-    add(merge(silk.map(([x, y, z, , w], i) => [cell(i), chain(T(x, y, z), S(w))] as [Geo, M4])),
-        Object.defineProperties({ proof: hex("#ffffff"), mode: 3, tex: stex, alpha: 0.999, outline: false, cull: "none" } as Parameters<Ctx["add"]>[1],
-            { print: { get: () => (printedAt() ? cream : ink()) } }), () => flat);
+    for (const dark of [false, true]) {
+        const parts = silk.flatMap(([x, y, z, , w, ang, d], i) => (!!d === dark ? [[cell(i), ang === undefined ? chain(T(x, y, z), S(w)) : chain(T(x, y, z), RY(ang), RX(Math.PI / 2), S(w))] as [Geo, M4]] : []));
+        add(merge(parts), Object.defineProperties({ proof: hex("#ffffff"), mode: 3, tex: stex, alpha: 0.999, outline: false, cull: "none" } as Parameters<Ctx["add"]>[1],
+            { print: { get: dark ? () => hex("#26201a") : () => (printedAt() ? cream : ink()) } }), () => flat);
+    }
 
     const run = () => jobs.forEach((j) => j());
     run();

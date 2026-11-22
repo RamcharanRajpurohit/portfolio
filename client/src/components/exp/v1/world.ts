@@ -129,7 +129,7 @@ export function world(ctx: Ctx) {
         [1.9, -15.0, 0.4, 2.2, C.mustard], [-2.3, -2.6, 0.45, 2.8, C.mustard], [-2.4, -8.0, 0.5, 3.2, C.forest], [-2.5, -13.0, 0.4, 2.2, C.mustard],
         [3.3, -6.6, 0.22, 0.8, C.mustard], [-3.0, -5.9, 0.24, 0.9, C.forest], [-1.6, -15.2, 0.3, 1.4, C.forest],
     ];
-    for (const [x, z, r, h, col] of towers) {
+    for (const [k, [x, z, r, h, col]] of towers.entries()) {
         tag("C", x, 0.004, z + r + 0.14, 0.24);
         (col === C.forest ? forest : mustard).push([cylinder(r, h, 36), T(x, h / 2, z)]);
         ink.push([cylinder(r * 1.015, 0.05, 36), T(x, h - 0.2, z)]); // the crimp groove
@@ -138,6 +138,9 @@ export function world(ctx: Ctx) {
         // the polarity sleeve stripe, turned toward the path
         const a0 = x > 0 ? 3.69 : -0.55;
         cream.push([grid((u, v) => { const a = a0 - 0.28 + u * 0.56; return [(r + 0.004) * Math.cos(a), (v - 0.5) * (h - 0.35), -(r + 0.004) * Math.sin(a)]; }, 6, 1), T(x, (h - 0.35) / 2, z)]);
+        // its value printed upright on the sleeve beside the stripe (ink on mustard, the board's ink on forest)
+        const a = a0 + (x > 0 ? 0.5 : -0.5), rr = r + 0.014;
+        silk.push([x + rr * Math.cos(a), Math.min(h - 0.4, 0.55), z - rr * Math.sin(a), ["1000µF", "470µF", "2200µF", "330µF", "680µF"][k % 5], Math.min(0.3, r * 0.7), Math.atan2(Math.cos(a), -Math.sin(a)), col === C.mustard]);
     }
     // brass standoffs with screw heads along the board's edges
     for (const [x, z] of [[3.45, 1.4], [3.45, -4.4], [3.45, -10.8], [3.45, -16.6], [-3.3, -0.4], [-3.3, -6.8], [-3.3, -13.6]] as const) {
