@@ -236,18 +236,28 @@ export function world(ctx: Ctx) {
 
     joy(ctx);
 
-    // the line: graphite pencil up to the blot, ink after it (revealed as you travel)
-    add(pipe(WIRE.slice(0, BLOT_AT + 1), 0.009, 6), M("#54422a", { tone: 0.9, outline: false }), still);
+    // the line: graphite pencil up to the blot, ink after it, each drawn as you travel by the tool that makes it.
+    // At each stop the tip waits beside the plinth (the line has two keys per station), clear of the sign
+    const tipOn = (pts: V3[], p: number) => {
+        const u = Math.min(1, p) * (pts.length - 1), i = Math.min(pts.length - 2, Math.floor(u)), a = pts[i], b = pts[i + 1], f = u - i;
+        // a hand's small side-to-side wobble as it writes
+        return chain(T(a[0] + (b[0] - a[0]) * f, 0.03, a[2] + (b[2] - a[2]) * f), RY(Math.atan2(a[0] - b[0], a[2] - b[2])), RX(0.55), RZ(Math.sin(st.T * 0.9) * 0.07));
+    };
+    const sketch = WIRE.slice(0, BLOT_AT + 1), sp = () => seg(st.T, st.stops[0] - 34, st.lv - 11), pencil = () => tipOn(sketch, sp());
+    const graphite = M("#54422a", { tone: 0.9, outline: false }), sketching = () => sp() > 0 && sp() < 1;
+    add(pipe(sketch, 0.009, 6), graphite, still, () => sp() > 0, sp);
+    // the pencil: graphite point, bare wood, a hexagonal mustard body, a ferrule and an orange eraser
+    add(cone(0.012, 0.03, 8), graphite, () => chain(pencil(), T(0, 0.03, 0), RX(Math.PI)), sketching);
+    add(cone(0.03, 0.1, 12), M(C.cream, { tone: 0.1 }), () => chain(pencil(), T(0, 0.1, 0), RX(Math.PI)), sketching);
+    add(cylinder(0.03, 0.3, 6), M(C.mustard, { tone: 0.1 }), () => chain(pencil(), T(0, 0.25, 0)), sketching);
+    add(cylinder(0.031, 0.03, 12), M(C.bezel, { tone: 0.2 }), () => chain(pencil(), T(0, 0.415, 0)), sketching);
+    add(cylinder(0.029, 0.04, 12), M(C.orange), () => chain(pencil(), T(0, 0.45, 0)), sketching);
     const inkCol = () => (st.dark ? hex("#f5c435") : hex("#24493a"));
     const inkM = () => Object.defineProperties({ tone: 0.1 } as Mat, { proof: { get: inkCol }, print: { get: inkCol } });
     const line = WIRE.slice(BLOT_AT);
     add(pipe(line, 0.022, 10), inkM(), still, () => st.ink > 0, () => st.ink);
-    // the pen drawing it: rides the head of the line, leaning back the way it came
-    const head = () => {
-        const u = Math.min(1, st.ink) * (line.length - 1), i = Math.min(line.length - 2, Math.floor(u)), a = line[i], b = line[i + 1], f = u - i;
-        // a hand's small side-to-side wobble as it writes
-        return chain(T(a[0] + (b[0] - a[0]) * f, 0.03, a[2] + (b[2] - a[2]) * f), RY(Math.atan2(a[0] - b[0], a[2] - b[2])), RX(0.55), RZ(Math.sin(st.T * 0.9) * 0.07));
-    };
+    // the pen inking it: rides the head of the line, leaning back the way it came
+    const head = () => tipOn(line, st.ink);
     const drawing = () => st.ink > 0 && st.ink < 1;
     // signal beads run along the inked line from the blot to the pen: chapter 02's line is live
     const along = (u: number) => { const q = u * (line.length - 1), i = Math.min(line.length - 2, Math.floor(q)), a = line[i], b = line[i + 1], f = q - i; return T(a[0] + (b[0] - a[0]) * f, 0.03, a[2] + (b[2] - a[2]) * f); };
