@@ -16,7 +16,7 @@ export const resume: { name: string; contact: string[]; sections: { title: strin
                     "**Digital Homework:** built Classroom-style homework: teachers assign AI questions, PDFs or learning modes and grade with AI; students get marks, feedback, notifications and deadline reminders.",
                     "**Revision & Remedy:** teachers generate a cheat sheet and questions from the periods they taught; students attempt them, get **remedial practice** where they fall short, and keep notes per chapter.",
                     "**Learning Modes:** shipped 11 per lesson (Reading, Writing, Solving, Games, Podcast, **WriteBoard** AI whiteboard), with **40 learning signals** and **Elo mastery** suggesting the mode that works per class.",
-                    "**Agentic Dev & QA:** specialist **Claude Code** agents own Flutter, backend, AI and DB work, and **Playwright** testers catch bugs and latency before production, with per-call AI cost tracking (**~60%** cut).",
+                    "**Agentic Dev & QA:** specialist **Claude Code** agents own Flutter, backend, AI and DB work, and **Playwright** testers catch bugs and latency before production, with per-call AI cost tracking.",
                 ],
             },
             {
