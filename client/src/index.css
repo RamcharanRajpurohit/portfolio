@@ -152,9 +152,12 @@ body::after {
 }
 
 /* ink-spread theme switch (src/components/inkTheme.ts): the new page shows through a mask sprite stepped by
-   the script; the clouds and paper grain hold still meanwhile. The toggle's moon turns into the sun. */
+   the script; the clouds hold still meanwhile. The toggle's moon turns into the sun. The grain overlay steps out
+   for the switch: its overlay blend inside the snapshot cost ~150 ms of GPU on the first switch, and it is
+   too faint (about 2/255) to miss for a second. */
 html.ink::view-transition-old(root), html.ink::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
-html.ink body::after, html.ink .scenery .clouds { animation-play-state: paused; }
+html.ink body::after { display: none; }
+html.ink .scenery .clouds { animation-play-state: paused; }
 .sunmoon :is(.disc, .bite, .rays) { transform-box: fill-box; transform-origin: center; }
 .sunmoon .rays { transform: scale(0) rotate(-90deg); }
 [data-theme="dark"] .sunmoon .disc { transform: scale(.6); }
