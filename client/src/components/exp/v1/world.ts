@@ -127,6 +127,7 @@ export function world(ctx: Ctx) {
         tag("C", x, 0.004, z + r + 0.14, 0.24);
         (col === C.forest ? forest : mustard).push([cylinder(r, h, 36), T(x, h / 2, z)]);
         ink.push([cylinder(r * 1.015, 0.05, 36), T(x, h - 0.2, z)]); // the crimp groove
+        ink.push([cylinder(r * 0.97, 0.05, 36), T(x, 0.02, z)]); // the rubber seal it stands on
         ink.push([box(r * 1.4, 0.02, 0.05), T(x, h + 0.01, z)], [box(0.05, 0.02, r * 1.4), T(x, h + 0.01, z)]);
         // the polarity sleeve stripe, turned toward the path
         const a0 = x > 0 ? 3.69 : -0.55;
@@ -167,6 +168,10 @@ export function world(ctx: Ctx) {
         const blades = merge(Array.from({ length: 7 }, (_, k) => [box(s * 0.36, 0.006, s * 0.15), chain(RY((k * TAU) / 7), T(s * 0.24, 0, 0), RX(0.4))] as [Geo, M4]));
         add(blades, M(C.cream, { tone: 0.05 }), () => chain(place, RY(-st.T * 0.35)));
         add(cylinder(s * 0.13, 0.03, 20), M(C.orange), () => chain(place, T(0, 0.01, 0), RY(-st.T * 0.35)));
+        // its power lead: two wires from a frame corner down to a header on the board
+        const c: V3 = [x + s / 2 - 0.03, y, z + s / 2 - 0.03], hx = x + s / 2 + 0.22, hz = z + s / 2 + 0.12;
+        ([[orange, 0], [ink, 0.016]] as const).forEach(([l, o]) => l.push([pipe(curve([[c[0], c[1], c[2] + o], [c[0] + 0.09, c[1] + 0.03, c[2] + 0.05 + o], [hx - 0.05, 0.07, hz + o], [hx, 0.05, hz + o]], 8), 0.008, 6), m4()]));
+        ink.push([box(0.07, 0.05, 0.08), T(hx + 0.02, 0.025, hz + 0.008)]);
     };
     fan(-1.7, -9.4, 0.46, 0.17);
     chip(-1.9, -0.9, 1.1, 0.62, 0.2, 9); chip(-2.15, -5.1, 1.3, 0.75, 0.24, 11); chip(-2.15, -11.9, 1.3, 0.75, 0.24, 11); chip(2.9, -7.2, 0.7, 0.7, 0.12, 6, true); chip(-1.7, -9.4, 0.5, 0.5, 0.1, 5, true);
