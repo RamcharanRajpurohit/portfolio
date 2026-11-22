@@ -45,6 +45,12 @@ export function world(ctx: Ctx) {
     const { st, add, M, at, fixed } = ctx, still = fixed(m4());
     // the board everything stands on
     add(rbox(7.4, 0.05, 22, 0.02), M(C.board, { tone: 0.1, dot: hex("#1b3a2c") }), fixed(T(0.1, -0.025, -7.4)));
+    // ground pours: big copper areas under the green solder mask either side of the path, printed as diagonal hatching
+    for (const [x0, x1] of [[-3.5, -1.15], [1.95, 3.75]]) {
+        const pour = grid((u, v) => [x0 + u * (x1 - x0), 0.0015, 3.4 - v * 21.4], 1, 1);
+        for (let k = 0; k < pour.p.length; k += 3) pour.uv[(k / 3) * 2 + 1] = pour.p[k] - pour.p[k + 2]; // stripes run at 45°
+        add(pour, M(C.board, { tone: 0.1, dot: hex("#1b3a2c"), hatch: 9, outline: false }), still, () => st.T > st.lv + 30); // printed boards only
+    }
     const plinth = cylinder(0.52, 0.035, 40);
     STATIONS.forEach((_, k) => add(plinth, M(C.cream, { tone: 0.05 }), at(k, T(0, 0.018, 0))));
     // each plinth is a part on the board: a silkscreen outline around it (stays put when the plinth hops)
