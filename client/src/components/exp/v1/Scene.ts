@@ -26,7 +26,7 @@ export function buildScene(r: Renderer, st: State, wide: boolean, redraw: () => 
     for (const p of pending) {
         const ms = plain(p) ? times.map((t) => { st.T = t; return p.model(); }) : null;
         if (ms && ms.every((m) => same(m, ms[0]))) {
-            const m = p.mat, key = [m.print.join(), m.tone ?? 0, m.dot?.join() ?? "", m.outline ?? true, m.hatch ?? 0, m.glow ?? 0, m.cull ?? "back"].join("|");
+            const m = p.mat, key = [m.print.join(), m.tone ?? 0, m.dot?.join() ?? "", m.outline ?? true, m.hatch ?? 0, m.glow ?? 0, m.cull ?? "back", m.shadow ?? true].join("|");
             if (!groups.has(key)) groups.set(key, { mat: m, parts: [] });
             groups.get(key)!.parts.push([p.geo, ms[0]]);
             continue;

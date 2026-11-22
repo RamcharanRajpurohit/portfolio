@@ -56,10 +56,10 @@ export function world(ctx: Ctx) {
     });
     // silkscreen: part designators printed beside the parts, part numbers on the chip tops (drawn in labels.ts)
     const silk: Silk = [], count: Record<string, number> = {};
-    const tag = (p: string, x: number, y: number, z: number, w = 0.2, chip = false) => silk.push([x, y, z, `${p}${(count[p] = (count[p] ?? 0) + 1)}`, w, chip]);
+    const tag = (p: string, x: number, y: number, z: number, w = 0.2) => silk.push([x, y, z, `${p}${(count[p] = (count[p] ?? 0) + 1)}`, w]);
 
     // static parts, merged per material
-    const ink: [Geo, M4][] = [], forest: [Geo, M4][] = [], mustard: [Geo, M4][] = [], cream: [Geo, M4][] = [], sand: [Geo, M4][] = [], gold: [Geo, M4][] = [], orange: [Geo, M4][] = [];
+    const ink: [Geo, M4][] = [], forest: [Geo, M4][] = [], mustard: [Geo, M4][] = [], cream: [Geo, M4][] = [], sand: [Geo, M4][] = [], gold: [Geo, M4][] = [], cable: [Geo, M4][] = [], orange: [Geo, M4][] = [];
     const clear = (x: number, z: number, m: number) => STATIONS.every(([sx, , sz]) => Math.hypot(x - sx, z - sz) > 0.52 + m) && Math.abs(x + 0.3) > 0.16 + m && Math.hypot(x - BLOT[0], z - BLOT[2]) > 0.5 + m;
 
     // printed traces: a bus running the length of the board on the right, with 45° jogs, and short stubs
@@ -127,7 +127,7 @@ export function world(ctx: Ctx) {
     const chip = (x: number, z: number, w: number, d: number, h: number, legs: number, quad = false) => {
         ink.push([rbox(w, h, d, 0.03), T(x, 0.03 + h / 2, z)]);
         tag("U", x - w / 2 + 0.12, 0.004, z + d / 2 + 0.2, 0.24);
-        tag("RC0", x + w * 0.08, 0.032 + h, z, Math.min(w, d) * 0.6, true);
+        tag("RC0", x + w * 0.08, 0.032 + h, z, Math.min(w, d) * 0.6);
         cream.push([cylinder(Math.min(w, d) * 0.07, 0.01, 16), T(x - w * 0.36, 0.03 + h, z + d * 0.3)]);
         for (let k = 0; k < legs; k++) {
             const t = -0.44 + (k / (legs - 1)) * 0.88;
@@ -150,10 +150,11 @@ export function world(ctx: Ctx) {
         sink(x, z, 0.4 + rnd() * 0.3, 0.35 + rnd() * 0.3, 0.3 + rnd() * 0.9);
     }
     for (const z of [-3.2, -8.6, -13.4]) sink(3.3, z, 0.5, 0.7, 0.55);
-    // ribbon cables arching overhead (cream, wires as hatching), the pin-1 edge in orange
+    // ribbon cables arching overhead (cream, wires as hatching), the pin-1 edge in orange. They cast no shadow: their
+    // legs would throw a band across the whole board under this light
     for (const [z, x0, top] of [[1.2, -2.4, 3.3], [-3.4, -2.6, 3.1], [-8.6, -2.3, 3.4], [-12.8, -2.5, 3.2], [-16.9, -2.8, 2.6]] as const) {
         const path = curve([[x0, 0, z], [x0 + 0.25, top * 0.7, z], [0.4, top, z], [2.3, top * 0.66, z], [2.6, 0, z]], 10);
-        cream.push([ribbon(path, 0.36, 0.018), m4()]);
+        cable.push([ribbon(path, 0.36, 0.018), m4()]);
         orange.push([pipe(path.map(([x, y]) => [x, y, z + 0.185] as V3), 0.02, 6), m4()]);
     }
     // a giant copper coil standing on the right
@@ -172,11 +173,11 @@ export function world(ctx: Ctx) {
     add(merge(ink), M(C.ink, { tone: 0.75 }), still);
     add(merge(forest), M(C.forest), still);
     add(merge(mustard), M(C.mustard), still);
-    add(merge(orange), M(C.orange, { tone: 0.12 }), still);
+    add(merge(cable), M(C.cream, { tone: 0.06, shadow: false }), still);
+    add(merge(orange), M(C.orange, { tone: 0.12, shadow: false }), still);
     add(coil(0.62, 0.24), M(C.orange, { tone: 0.12, hatch: 30 }), fixed(chain(T(2.95, 0.86, -10.1), RY(0.4), RX(Math.PI / 2))));
 
     joy(ctx);
-    return silk;
 
     // the line: graphite pencil up to the blot, ink after it (revealed as you travel)
     add(pipe(WIRE.slice(0, BLOT_AT + 1), 0.009, 6), M("#54422a", { tone: 0.9, outline: false }), still);
@@ -190,11 +191,15 @@ export function world(ctx: Ctx) {
         return chain(T(a[0] + (b[0] - a[0]) * f, 0.03, a[2] + (b[2] - a[2]) * f), RY(Math.atan2(a[0] - b[0], a[2] - b[2])), RX(0.55));
     };
     const drawing = () => st.ink > 0 && st.ink < 1;
+    // signal beads run along the inked line from the blot to the pen: chapter 02's line is live
+    const along = (u: number) => { const q = u * (line.length - 1), i = Math.min(line.length - 2, Math.floor(q)), a = line[i], b = line[i + 1], f = q - i; return T(a[0] + (b[0] - a[0]) * f, 0.03, a[2] + (b[2] - a[2]) * f); };
+    for (let k = 0; k < 4; k++) add(led, M(C.orange, { tone: 0, outline: false, glow: 0.6 }), () => chain(along(frac(st.T / 30 + k / 4) * Math.min(1, st.ink)), S(0.8)), () => st.ink > 0.03);
     add(cone(0.034, 0.13, 16), M(C.mustard, { tone: 0.1, glow: 0.18 }), () => chain(head(), T(0, 0.13, 0), RX(Math.PI)), drawing);
     add(merge([[cylinder(0.03, 0.06, 20), T(0, 0.16, 0)], [cylinder(0.034, 0.3, 20), T(0, 0.34, 0)]]), M(C.ink, { tone: 0.6 }), head, drawing);
     add(cylinder(0.036, 0.03, 20), M(C.orange), () => chain(head(), T(0, 0.42, 0)), drawing);
     const blot = grid((u, v) => { const a = u * TAU, b = (v - 0.5) * Math.PI, rr = 0.16 * (1 + 0.1 * Math.sin(a * 5) + 0.06 * Math.sin(a * 11)); return [rr * Math.cos(b) * Math.cos(a), Math.max(0, rr * Math.sin(b)) * 0.12, rr * Math.cos(b) * Math.sin(a)]; }, 40, 10, true);
     add(blot, inkM(), () => chain(T(...BLOT), S(Math.max(0.001, st.blot))), () => st.blot > 0.01);
+    return silk;
 }
 
 // The level-up joy (T ≈ lv … lv+50): the blot sends ink ripples over the board, a gold-star rosette springs

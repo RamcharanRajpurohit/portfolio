@@ -238,7 +238,7 @@ export function ortho(h: number, near: number, far: number) {
     return m;
 }
 
-export type Mat = { proof: V3; print: V3; dot?: V3; tone?: number; hatch?: number; glow?: number; mode?: 0 | 2 | 3; tex?: WebGLTexture; alpha?: number; outline?: boolean; cull?: "back" | "none" };
+export type Mat = { proof: V3; print: V3; dot?: V3; tone?: number; hatch?: number; glow?: number; mode?: 0 | 2 | 3; tex?: WebGLTexture; alpha?: number; outline?: boolean; cull?: "back" | "none"; shadow?: false };
 export type Mesh = { vao: WebGLVertexArrayObject; count: number };
 export type Item = { mesh: Mesh; mat: Mat; model: () => M4; show?: () => boolean; frac?: () => number; bs?: [number, number, number, number] };
 export const hex = (h: string): V3 => [parseInt(h.slice(1, 3), 16) / 255, parseInt(h.slice(3, 5), 16) / 255, parseInt(h.slice(5, 7), 16) / 255];
@@ -373,7 +373,7 @@ export class Renderer {
             gl.disable(gl.CULL_FACE); gl.disable(gl.BLEND); gl.depthMask(true);
             gl.enable(gl.POLYGON_OFFSET_FILL); gl.polygonOffset(2, 4);
             for (const it of items) {
-                if (!vis(it) || it.mat.mode === 2) continue;
+                if (!vis(it) || it.mat.mode === 2 || it.mat.shadow === false) continue;
                 const n = cnt(it), m = it.model();
                 if (!n || !near(it, m, f.shadowAt, h * 1.5)) continue;
                 gl.uniformMatrix4fv(this.du.uM, false, m);
