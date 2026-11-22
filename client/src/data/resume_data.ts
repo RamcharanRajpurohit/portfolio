@@ -48,15 +48,17 @@ export const resume: { name: string; contact: string[]; sections: { title: strin
             },
         ] },
         { title: "Technical Skills", items: [
-            "**AI/ML & GenAI:** LangGraph, LangChain, Multi-Agent Systems, Gemini API, OpenAI API, Claude API, Vision Models, OCR, RAG, Realtime Voice Agents (LiveKit, STT, TTS), Prompt Engineering",
-            "**Agentic Engineering:** Claude Code, Specialist Subagents, Skills, MCP, AI Code Review, Parallel Agents",
+            "**AI/ML & GenAI:** LangGraph, LangChain, Multi-Agent Systems, Gemini API, OpenAI API, Claude API, Vision Models, OCR, RAG, Realtime Voice Agents (LiveKit, STT, TTS), LLM Evals, Batch API",
+            "**Agentic Engineering:** Claude Code (Subagents, Skills), MCP, AI Code Review, Parallel Agents",
             "**Programming Languages:** C++, C, Python, JavaScript, TypeScript, Dart",
-            "**Frontend Development:** React.js, Next.js, HTML5, CSS3, TailwindCSS, Redux, Flutter",
-            "**Backend Development:** Node.js, Express.js, FastAPI, REST APIs, GraphQL, WebSockets, SSE Streaming, WebRTC, JWT, OAuth 2.0, MongoDB, Redis",
-            "**Cloud, Testing & Tools:** GCP (Cloud Run, Cloud Tasks), Docker, GitHub Actions, CI/CD, Playwright, Pytest, Sentry, Git, Linux, Vercel",
+            "**Frontend Development:** React.js, Next.js, TailwindCSS, Flutter",
+            "**Backend Development:** Node.js, FastAPI, GraphQL, WebSockets, SSE Streaming, MongoDB, Redis",
+            "**Cloud & Testing:** GCP Cloud Run, Docker, GitHub Actions (CI/CD), Playwright, Pytest, Sentry, Linux",
         ] },
         { title: "Achievements", items: [
             "Authored a **Linux kernel** patch merged into mainline, fixing a broken mic-mute LED on a personal HP laptop after root-causing the missing audio driver quirk. [Commit](https://github.com/torvalds/linux/commit/f56521ab6f76faeaa5a524320898835454e3bc31)",
+            "Selected for **Amazon Summer School 2025**.",
+            "Ranked **1st of 150** in IIT Jodhpur’s AI Chess Tournament, unbeaten in 300 games as white and black.",
             "Achieved **2nd District Rank** in Class 12 RBSE Board Exams with a 98.20% aggregate.",
         ] },
         { title: "Leadership", items: [
