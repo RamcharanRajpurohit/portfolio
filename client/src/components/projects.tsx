@@ -4,8 +4,8 @@ import { Github, ExternalLink } from "lucide-react";
 import { SectionHead } from "./ui";
 
 const PREVIEW_COUNT = 2;
-// "See all": four ways to browse, the visitor picks one (remembered; ?proj=crate|deck|desk|vending)
-const views = { crate: lazy(() => import("./proj/Crate")), deck: lazy(() => import("./proj/Deck")), desk: lazy(() => import("./proj/Desk")), vending: lazy(() => import("./proj/Vending")) };
+// "See all": three ways to browse, the visitor picks one (remembered; ?proj=desk|crate|vending)
+const views = { desk: lazy(() => import("./proj/Desk")), crate: lazy(() => import("./proj/Crate")), vending: lazy(() => import("./proj/Vending")) };
 type View = keyof typeof views;
 
 function Projects() {
@@ -13,7 +13,7 @@ function Projects() {
   const [view, setView] = useState<View>(() => {
     let v = new URLSearchParams(location.search).get("proj");
     try { v ??= localStorage.getItem("proj-view"); } catch { /* storage blocked */ }
-    return v && v in views ? (v as View) : "crate";
+    return v && v in views ? (v as View) : "desk";
   });
   const pick = (v: View) => { setView(v); try { localStorage.setItem("proj-view", v); } catch { /* this visit only */ } };
   const All = views[view];

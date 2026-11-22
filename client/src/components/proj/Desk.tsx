@@ -298,32 +298,6 @@ function scatter(W: number, H: number, seed: number) {
     }
     return byArea.map((_, k) => out[byArea.indexOf(k)]);
 }
-// tidy: knolling, rows of straight papers (tallest first); when the desk is small the rows are packed for the
-// shrunk size, so the whole set scales down evenly instead of leaving empty sides
-function tidy(W: number, H: number) {
-    const gap = 22, pad = 26, order = [...Array(N + 1).keys()].sort((a, b) => sizeOf(b)[1] - sizeOf(a)[1]);
-    for (let k = 1; ; k -= 0.02) {
-        const rows: number[][] = [[]];
-        let rw = 0;
-        for (const i of order) {
-            const w = sizeOf(i)[0];
-            if (rw && rw + gap + w > (W - 2 * pad) / k) { rows.push([]); rw = 0; }
-            rows[rows.length - 1].push(i); rw += (rw ? gap : 0) + w;
-        }
-        const rh = rows.map((r) => Math.max(...r.map((i) => sizeOf(i)[1]))), total = rh.reduce((a, b) => a + b, 0) + gap * (rows.length - 1);
-        if (total * k > H - 2 * pad && k > 0.4) continue;
-        const out: Spot[] = [];
-        let y = H / 2 - (total * k) / 2;
-        rows.forEach((r, ri) => {
-            const width = r.reduce((a, i) => a + sizeOf(i)[0], 0) + gap * (r.length - 1);
-            let x = W / 2 - (width * k) / 2;
-            for (const i of r) { const [w] = sizeOf(i); out[i] = { x: x + (w * k) / 2, y: y + (rh[ri] * k) / 2, r: 0, s: k }; x += (w + gap) * k; }
-            y += (rh[ri] + gap) * k;
-        });
-        return out;
-    }
-}
-
 function useMedia(q: string) {
     const [m, setM] = useState(() => matchMedia(q).matches);
     useEffect(() => { const mq = matchMedia(q), f = () => setM(mq.matches); mq.addEventListener("change", f); return () => mq.removeEventListener("change", f); }, [q]);
@@ -338,7 +312,7 @@ function Table({ reduce, onOpen, openIdx }: { reduce: boolean; onOpen: Open; ope
     const els = useRef<(HTMLDivElement | null)[]>([]), cls = useRef<(HTMLDivElement | null)[]>([]);
     const S = useRef({
         B: [...Array(N + 1).keys()].map((i) => ({ x: 0, y: 0, r: 0, s: 1, vx: 0, vy: 0, vr: 0, w: sizeOf(i)[0], h: sizeOf(i)[1] }) as Body),
-        W: 0, H: 0, mode: "scatter" as "scatter" | "tidy", seed: 7, z: 20, raf: 0, last: 0, moving: new Set<number>(),
+        W: 0, H: 0, seed: 7, z: 20, raf: 0, last: 0, moving: new Set<number>(),
         drag: null as null | { i: number; id: number; gx: number; gy: number; px: number; py: number; cx: number; cy: number; moved: boolean; w: number; pts: { x: number; y: number; t: number }[] },
     }).current;
 
@@ -361,7 +335,7 @@ function Table({ reduce, onOpen, openIdx }: { reduce: boolean; onOpen: Open; ope
     };
 
     const layout = (tween: boolean, enter = false) => {
-        const L = S.mode === "tidy" ? tidy(S.W, S.H) : scatter(S.W, S.H, S.seed);
+        const L = scatter(S.W, S.H, S.seed);
         S.moving.clear(); S.drag = null;
         L.forEach((l, i) => {
             const b = S.B[i], ns = nodes(i);
@@ -373,7 +347,7 @@ function Table({ reduce, onOpen, openIdx }: { reduce: boolean; onOpen: Open; ope
             if (tween) ns.forEach((n) => { n.style.setProperty("--d", `${enter ? 120 + byArea.indexOf(i) * 55 : (i * 37) % 260}ms`); n.classList.add("dk-tw"); });
             put(i);
         });
-        if (S.mode === "scatter") byArea.forEach((i) => top(i));
+        byArea.forEach((i) => top(i));
     };
     // tween classes come off once the throw has landed
     const endTween = (e: TransitionEvent) => { if (e.propertyName === "transform") (e.target as HTMLElement).classList.remove("dk-tw"); };
@@ -457,7 +431,6 @@ function Table({ reduce, onOpen, openIdx }: { reduce: boolean; onOpen: Open; ope
             const b = S.B[i]; b.x = Math.max(20, Math.min(S.W - 20, b.x + mv[e.key][0])); b.y = Math.max(20, Math.min(S.H - 20, b.y + mv[e.key][1])); put(i);
         } else if (i !== LOUPE && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); onOpen(i, e.currentTarget, S.B[i].r, S.B[i].s); }
     };
-    const arrange = (mode: "scatter" | "tidy") => { S.mode = mode; if (mode === "scatter") S.seed = (S.seed * 48271) % 2147483647; layout(true); };
 
     const paper = (p: P, i: number, live: boolean) => {
         const [w, h] = SIZE[kindOf(i)];
@@ -471,10 +444,6 @@ function Table({ reduce, onOpen, openIdx }: { reduce: boolean; onOpen: Open; ope
 
     return (
         <div className="xl:-mx-16">
-            <div className="mb-5 flex justify-center gap-3">
-                <button type="button" className="pill-light" onClick={() => arrange("tidy")}>Tidy up</button>
-                <button type="button" className="pill-dark" onClick={() => arrange("scatter")}>Scatter</button>
-            </div>
             <div ref={desk} className="dk-desk">
                 {projects.map((p, i) => paper(p, i, true))}
                 <div ref={(el) => { els.current[LOUPE] = el; }} className="dk-it" style={{ width: LW, height: LW, zIndex: 5000 }} role="button" tabIndex={0} aria-label="Magnifier"
