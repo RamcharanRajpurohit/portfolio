@@ -13,21 +13,23 @@ export const resume: { name: string; contact: string[]; sections: { title: strin
             {
                 head: "**Lead AI Engineer at PowersMy.biz**", right: "Oct 2026 – Present",
                 points: [
-                    "**Product Ownership:** promoted to lead the AI behind PupilTree’s exam, homework and revision platform; owned homework end to end (AI-written questions, PDF/photo import, AI marking, live updates).",
-                    "**Revision AI (PupilRevise):** designed a revision pipeline where a teacher picks what was taught and AI writes the cheat sheet and the questions.",
-                    "**Agentic Engineering:** architected a team of specialist AI agents (Flutter, backend, AI service, reviewer, scout, browser tester) that check each other’s changes and prove them in a real browser, running across parallel **Claude Code** accounts to ship features at once.",
-                    "**Test Automation:** built parallel **Playwright** AI testers that walk every teacher and student journey on phone, tablet and desktop.",
+                    "**Engineering Leadership:** promoted to lead AI engineering, directing specialist **Claude Code** agents (backend, Flutter, AI service, reviewer) and **Playwright** AI testers covering phone, tablet and desktop.",
+                    "**Digital Homework:** built Classroom-style homework end to end: textbook-grounded AI questions in **8 s** (from 43 s), PDF and photo work, auto-marked objective answers, AI marking of written work in **~3 s** (Batch API for whole classes), and **1.4 s** live updates.",
+                    "**Adaptive Learning:** designed **40 learning signals** riding on existing requests, nightly **Elo mastery**, and a **Thompson-sampling bandit** that picks which of 11 learning modes works best per class.",
+                    "**AI Practice Generator:** overhauled AI generation of 11 learning modes per lesson, cutting the teacher flow from **86 requests / 326 DB calls to 10 / 26** and student grading from **68 s to 21 s**.",
+                    "**AI Quality Evaluation:** built an LLM-judge evaluation over 50 real classes with a blind 6-way model bake-off, lifting on-syllabus questions from 79–89% to **98%** at 97–99% answer-key accuracy.",
+                    "**Revision & Gap Detection:** AI turns the periods a teacher taught into a cheat sheet and grounded questions, then maps **per-topic class gaps** from tests and homework to flag who needs revision.",
                 ],
             },
             {
                 head: "**AI Engineering Intern at PowersMy.biz**", right: "Nov 2025 – Sep 2026",
                 points: [
                     "Built a production AI assessment platform for JEE and NEET coaching institutes serving **1,000+ concurrent exam-takers** (FastAPI, LangGraph, React, Flutter, MongoDB, Redis, GCP).",
-                    "**Agentic AI (Amigo):** architected a student-facing AI companion on LangGraph, where a supervisor graph routes to **5 specialist agents** over **18 scoped tools**, with a LiveKit voice pipeline for code-switching Hindi and English speech, streaming synthesis, and barge-in handling.",
+                    "**Agentic AI (Amigo):** architected a LangGraph student companion where a supervisor routes **5 specialist agents** over **18 scoped tools**, with LiveKit voice for code-switching Hindi–English speech and barge-in.",
                     "**AI Safety & Access Control:** gated every agent data access behind a **scope-checked broker** with an append-only audit ledger, screening each turn with PII tokenisation and a fail-closed risk classifier.",
                     "**Multimodal AI:** engineered an evaluation pipeline using vision models to grade handwritten subjective answers across 8 question formats and identify learning gaps.",
                     "**Document AI:** shipped a pipeline turning exam PDFs into a structured question bank, running **Mistral OCR** and a **DocLayout-YOLO** figure detector in parallel with per-subject Gemini extraction.",
-                    "**Backend & Cloud:** optimized high-concurrency exam APIs (Redis caching, atomic MongoDB operations, off-thread bcrypt), designed an asynchronous grading queue across 2 services, and led GCP deployment on Cloud Run with auto-scaling for exam-day traffic spikes.",
+                    "**Backend & Cloud:** optimized exam APIs (Redis caching, atomic MongoDB operations, off-thread bcrypt), built an async grading queue across 2 services, and led GCP Cloud Run deployment with auto-scaling.",
                 ],
             },
         ] },
@@ -42,7 +44,7 @@ export const resume: { name: string; contact: string[]; sections: { title: strin
             {
                 head: "**DSA Visualizer** – Interactive Algorithm Learning Platform", right: "[Live Site](https://algolab.rajpurohit.me/) | [GitHub](https://github.com/RamcharanRajpurohit/DSAVisualizer)",
                 points: [
-                    "Developed a framework-free algorithm visualizer in raw ES6 and HTML5 Canvas, animating 15+ sorting, graph, and tree algorithms on a class-based OOP engine where each algorithm is a plug-in subclass, with frame-by-frame controls for recursion tracing and backward stepping.",
+                    "Developed a framework-free visualizer in raw ES6 and HTML5 Canvas, animating 15+ sorting, graph, and tree algorithms on a plug-in OOP engine with frame-by-frame recursion tracing and backward stepping.",
                 ],
             },
         ] },
