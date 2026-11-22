@@ -47,6 +47,9 @@ export function world(ctx: Ctx) {
     add(rbox(7.4, 0.05, 22, 0.02), M(C.board, { tone: 0.1, dot: hex("#1b3a2c") }), fixed(T(0.1, -0.025, -7.4)));
     const plinth = cylinder(0.52, 0.035, 40);
     STATIONS.forEach((_, k) => add(plinth, M(C.cream, { tone: 0.05 }), at(k, T(0, 0.018, 0))));
+    // each plinth is a part on the board: a silkscreen outline around it (stays put when the plinth hops)
+    const ring = grid((u, v) => { const r = 0.58 + v * 0.014; return [r * Math.cos(u * TAU), 0.004, r * Math.sin(u * TAU)]; }, 64, 1); // wound to face up
+    STATIONS.forEach(([x, , z]) => add(ring, M(C.cream, { tone: 0.6, outline: false }), fixed(T(x, 0, z))));
     // a status LED on the board beside each plinth: dark until you reach the station, lit from then on
     const led = rbox(0.06, 0.05, 0.06, 0.026), bezel = cylinder(0.045, 0.02, 16);
     const pool = merge([0.1, 0.17, 0.26].map((r, i) => [cylinder(r, 0.001, 28), T(0, 0.0035 - i * 0.0005, 0)] as [Geo, M4]));
@@ -60,6 +63,7 @@ export function world(ctx: Ctx) {
     // silkscreen: part designators printed beside the parts, part numbers on the chip tops (drawn in labels.ts)
     const silk: Silk = [], count: Record<string, number> = {};
     const tag = (p: string, x: number, y: number, z: number, w = 0.2) => silk.push([x, y, z, `${p}${(count[p] = (count[p] ?? 0) + 1)}`, w]);
+    STATIONS.forEach(([x, , z]) => tag("J", x + 0.66, 0.004, z - 0.12, 0.22));
 
     // static parts, merged per material
     const ink: [Geo, M4][] = [], forest: [Geo, M4][] = [], mustard: [Geo, M4][] = [], cream: [Geo, M4][] = [], sand: [Geo, M4][] = [], gold: [Geo, M4][] = [], cable: [Geo, M4][] = [], orange: [Geo, M4][] = [];
@@ -144,6 +148,12 @@ export function world(ctx: Ctx) {
             const t = -0.44 + (k / (legs - 1)) * 0.88;
             ink.push([leg, T(x + t * w, 0.04, z + d / 2 + 0.03)], [leg, T(x + t * w, 0.04, z - d / 2 - 0.03)]);
             gold.push([lpad, T(x + t * w, 0.002, z + d / 2 + 0.04)], [lpad, T(x + t * w, 0.002, z - d / 2 - 0.04)]); // soldered to pads
+            // fan-out: each pad runs a trace out to a via, staggered so the vias don't touch
+            for (const sd of [1, -1]) {
+                const l = 0.1 + (k % 3) * 0.07, z0 = z + sd * (d / 2 + 0.1);
+                gold.push([tr, chain(T(x + t * w, 0.003, z0 + (sd * l) / 2), RY(Math.PI / 2), S(l, 1, 1))], [via, T(x + t * w, 0.003, z0 + sd * l)]);
+                ink.push([hole, T(x + t * w, 0.003, z0 + sd * l)]);
+            }
             if (quad) {
                 ink.push([leg, chain(T(x + w / 2 + 0.03, 0.04, z + t * d), RY(Math.PI / 2))], [leg, chain(T(x - w / 2 - 0.03, 0.04, z + t * d), RY(Math.PI / 2))]);
                 gold.push([lpad, chain(T(x + w / 2 + 0.04, 0.002, z + t * d), RY(Math.PI / 2))], [lpad, chain(T(x - w / 2 - 0.04, 0.002, z + t * d), RY(Math.PI / 2))]);
