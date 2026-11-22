@@ -52,18 +52,26 @@ export function world(ctx: Ctx) {
     const clear = (x: number, z: number, m: number) => STATIONS.every(([sx, , sz]) => Math.hypot(x - sx, z - sz) > 0.52 + m) && Math.abs(x + 0.3) > 0.16 + m && Math.hypot(x - BLOT[0], z - BLOT[2]) > 0.5 + m;
 
     // printed traces: a bus running the length of the board on the right, with 45° jogs, and short stubs
-    const tr = box(1, 0.006, 0.016);
+    const tr = box(1, 0.004, 0.016), pad = cylinder(0.02, 0.005, 12);
     for (let b = 0; b < 5; b++) {
-        const x0 = 1.15 + b * 0.07, jog = (z: number) => (z < -3 && z > -9 ? 0.45 : 0) + (z < -11 ? -0.25 : 0);
+        const x0 = 1.15 + b * 0.07;
         for (let z = 3.2; z > -17.6; z -= 0.4) {
             const xa = x0 + jog(z), xb = x0 + jog(z - 0.4), len = Math.hypot(xb - xa, 0.4);
             gold.push([tr, chain(T((xa + xb) / 2, 0.003, z - 0.2), RY(Math.PI / 2 + Math.atan2(xb - xa, 0.4)), S(len + 0.016, 1, 1))]);
         }
     }
-    for (let k = 0; k < 40; k++) gold.push([tr, chain(T(2.0 + ((k * 7) % 5) * 0.14, 0.003, 1.5 - k * 0.48), S(0.4 + ((k * 13) % 5) * 0.12, 1, 1))]);
-    for (let k = 0; k < 24; k++) gold.push([tr, chain(T(-0.95 - ((k * 5) % 3) * 0.1, 0.003, 1.2 - k * 0.7), RY(Math.PI / 2), S(0.3 + ((k * 11) % 4) * 0.1, 1, 1))]);
-    const via = cylinder(0.022, 0.008, 6);
-    for (let k = 0; k < 140; k++) { const x = -3.2 + rnd() * 6.8, z = 3.2 - rnd() * 20.6; if (clear(x, z, 0.05)) gold.push([via, T(x, 0.004, z)]); }
+    // short stubs, each ending in a round solder pad
+    for (let k = 0; k < 40; k++) {
+        const x = 2.0 + ((k * 7) % 5) * 0.14, z = 1.5 - k * 0.48, l = 0.4 + ((k * 13) % 5) * 0.12;
+        gold.push([tr, chain(T(x, 0.003, z), S(l, 1, 1))], [pad, T(x - l / 2, 0.003, z)], [pad, T(x + l / 2, 0.003, z)]);
+    }
+    for (let k = 0; k < 24; k++) {
+        const x = -0.95 - ((k * 5) % 3) * 0.1, z = 1.2 - k * 0.7, l = 0.3 + ((k * 11) % 4) * 0.1;
+        gold.push([tr, chain(T(x, 0.003, z), RY(Math.PI / 2), S(l, 1, 1))], [pad, T(x, 0.003, z - l / 2)], [pad, T(x, 0.003, z + l / 2)]);
+    }
+    // vias: a copper ring with a drilled hole
+    const via = cylinder(0.022, 0.006, 10), hole = cylinder(0.009, 0.008, 8);
+    for (let k = 0; k < 140; k++) { const x = -3.2 + rnd() * 6.8, z = 3.2 - rnd() * 20.6; if (clear(x, z, 0.05)) { gold.push([via, T(x, 0.003, z)]); ink.push([hole, T(x, 0.003, z)]); } }
 
     // tiny parts in little rows (resistors, SMD caps, small ICs): the far detail that makes the board vast
     const res = cylinder(0.018, 0.09, 6), smd = box(0.06, 0.03, 0.035), ic = box(0.16, 0.04, 0.11), pin = box(0.012, 0.03, 0.03);
@@ -134,7 +142,16 @@ export function world(ctx: Ctx) {
         orange.push([pipe(path.map(([x, y]) => [x, y, z + 0.185] as V3), 0.02, 6), m4()]);
     }
     // a giant copper coil standing on the right
-    add(merge(gold), M(C.mustard, { tone: 0.2 }), still);
+    add(merge(gold), M(C.mustard, { tone: 0.2, outline: false }), still);
+    // signals: bright pulses race down the bus as you travel, so the board is at work
+    const pulse = box(0.03, 0.01, 0.22);
+    for (let b = 0; b < 5; b++) for (let k = 0; k < 4; k++) {
+        const ph = (b * 0.37 + k / 4) % 1, x0 = 1.15 + b * 0.07;
+        add(pulse, M(C.orange, { outline: false, tone: 0, glow: 0.6 }), () => {
+            const z = 3.2 - frac(st.T / 70 + ph) * 20.8, zi = 3.2 - 0.4 * Math.floor((3.2 - z) / 0.4), f = (zi - z) / 0.4;
+            return chain(T(x0 + jog(zi) * (1 - f) + jog(zi - 0.4) * f, 0.006, z), RY(Math.atan2(jog(zi - 0.4) - jog(zi), 0.4)));
+        });
+    }
     add(merge(sand), M(C.bezel, { tone: 0.12 }), still);
     add(merge(cream), M(C.cream, { tone: 0.06 }), still);
     add(merge(ink), M(C.ink, { tone: 0.75 }), still);
@@ -149,7 +166,17 @@ export function world(ctx: Ctx) {
     add(pipe(WIRE.slice(0, BLOT_AT + 1), 0.009, 6), M("#54422a", { tone: 0.9, outline: false }), still);
     const inkCol = () => (st.dark ? hex("#f5c435") : hex("#24493a"));
     const inkM = () => Object.defineProperties({ tone: 0.1 } as Mat, { proof: { get: inkCol }, print: { get: inkCol } });
-    add(pipe(WIRE.slice(BLOT_AT), 0.022, 10), inkM(), still, () => st.ink > 0, () => st.ink);
+    const line = WIRE.slice(BLOT_AT);
+    add(pipe(line, 0.022, 10), inkM(), still, () => st.ink > 0, () => st.ink);
+    // the pen drawing it: rides the head of the line, leaning back the way it came
+    const head = () => {
+        const u = Math.min(1, st.ink) * (line.length - 1), i = Math.min(line.length - 2, Math.floor(u)), a = line[i], b = line[i + 1], f = u - i;
+        return chain(T(a[0] + (b[0] - a[0]) * f, 0.03, a[2] + (b[2] - a[2]) * f), RY(Math.atan2(a[0] - b[0], a[2] - b[2])), RX(0.55));
+    };
+    const drawing = () => st.ink > 0 && st.ink < 1;
+    add(cone(0.034, 0.13, 16), M(C.mustard, { tone: 0.1 }), () => chain(head(), T(0, 0.13, 0), RX(Math.PI)), drawing);
+    add(merge([[cylinder(0.03, 0.06, 20), T(0, 0.16, 0)], [cylinder(0.034, 0.3, 20), T(0, 0.34, 0)]]), M(C.ink, { tone: 0.6 }), head, drawing);
+    add(cylinder(0.036, 0.03, 20), M(C.orange), () => chain(head(), T(0, 0.42, 0)), drawing);
     const blot = grid((u, v) => { const a = u * TAU, b = (v - 0.5) * Math.PI, rr = 0.16 * (1 + 0.1 * Math.sin(a * 5) + 0.06 * Math.sin(a * 11)); return [rr * Math.cos(b) * Math.cos(a), Math.max(0, rr * Math.sin(b)) * 0.12, rr * Math.cos(b) * Math.sin(a)]; }, 40, 10, true);
     add(blot, inkM(), () => chain(T(...BLOT), S(Math.max(0.001, st.blot))), () => st.blot > 0.01);
 }
@@ -223,4 +250,6 @@ function joy({ st, add, M }: Ctx) {
 const WIRE_KEYS: V3[] = [[-0.3, 0.03, 2.2], ...STATIONS.flatMap(([x, , z], k) => [[x - 0.72 + (k % 2) * 0.12, 0.03, z + 0.5], [x - 0.6, 0.03, z - 0.5]] as V3[])];
 WIRE_KEYS.splice(9, 0, BLOT);
 const WIRE = curve(WIRE_KEYS, 8);
+// the bus traces jog 45° twice on their way down the board
+const jog = (z: number) => (z < -3 && z > -9 ? 0.45 : 0) + (z < -11 ? -0.25 : 0);
 const BLOT_AT = 9 * 8; // WIRE_KEYS[9] is the blot; curve() takes 8 samples per key
