@@ -25,7 +25,7 @@ export const resume: { name: string; contact: string[]; sections: { title: strin
                     "Built a production AI assessment platform for JEE and NEET coaching institutes serving **1,000+ concurrent exam-takers** (FastAPI, LangGraph, React, Flutter, MongoDB, Redis, GCP).",
                     "**Agentic AI (Amigo):** architected a LangGraph student companion where a supervisor routes **5 specialist agents** over **18 scoped tools**, with LiveKit voice for code-switching Hindi and English speech and barge-in.",
                     "**AI Safety & Access Control:** gated every agent data access behind a **scope-checked broker** with an append-only audit ledger, screening each turn with PII tokenisation and a fail-closed risk classifier.",
-                    "**Multimodal AI:** engineered an evaluation pipeline using vision models to grade handwritten subjective answers across 8 question formats and identify learning gaps.",
+                    "**Handwritten Evaluation:** engineered an evaluation pipeline using vision models to grade handwritten subjective answers across 8 question formats and identify learning gaps.",
                     "**Document AI:** shipped a pipeline turning exam PDFs into a structured question bank, running **Mistral OCR** and a **DocLayout-YOLO** figure detector in parallel with per-subject Gemini extraction.",
                     "**Backend & Cloud:** optimized exam APIs (Redis caching, atomic MongoDB operations, off-thread bcrypt), built an async grading queue across 2 services, and led GCP Cloud Run deployment with auto-scaling.",
                 ],
