@@ -14,7 +14,7 @@ export { BLOT, STATIONS, type State } from "./kit";
 // level-up hop) is baked into one big buffer per material, so the frame draws a few dozen meshes, not hundreds
 export function buildScene(r: Renderer, st: State, wide: boolean, redraw: () => void): Item[] {
     const pending: Pending[] = [], ctx = makeCtx(st, pending);
-    const silk = world(ctx);
+    const silk = world(ctx, wide);
     stations01(ctx);
     stations02(ctx);
     labels(r, ctx, wide, () => st.T > st.lv + 30, redraw, silk);

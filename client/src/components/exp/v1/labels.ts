@@ -54,15 +54,24 @@ function paint(cv: HTMLCanvasElement, eyebrow: [string, string], title: string, 
 // a floor sign: hinged at its near edge, tilted up, turned to face the camera angle `ang`
 const sign = (w: number, h: number) => grid((u, v) => [(u - 0.5) * w, 0, -v * h], 1, 1);
 const place = (base: V3, ang: number, local: V3, tilt: number) => chain(T(...base), RY(ang), T(...local), RX(tilt));
+// desktop: front-left of the station; phone: straight in front (the view is tall and narrow)
+const frame = (wide: boolean) => { const w = wide ? 1.2 : 1.0; return { w, h: (w * H) / W, local: (wide ? [-0.95, 0.02, 1.15] : [0, 0.02, 1.25]) as V3 }; };
+// is the board point (x, z) within d of a station's sign? The parts printed on the board keep off the words
+export const underSign = (wide: boolean) => {
+    const { w, h, local } = frame(wide);
+    const at = STATIONS.map((base, i) => chain(T(...base), RY(REST_ANG[i]), T(...local)));
+    return (x: number, z: number, d: number) => at.some((m) => {
+        const qx = (x - m[12]) * m[0] + (z - m[14]) * m[2], qz = (x - m[12]) * m[8] + (z - m[14]) * m[10];
+        return Math.abs(qx) < w / 2 + d && qz < d && qz > -h - d;
+    });
+};
 
 // silkscreen marks: [x, y, z, text, width, facing angle if printed upright (else flat on the board), always dark ink]
 export type Silk = [number, number, number, string, number, number?, boolean?][];
 
 export function labels(r: Renderer, { st, add }: Ctx, wide: boolean, printedAt: () => boolean, redraw: () => void, silk: Silk) {
     const sys01 = pipelines.filter((p) => p.chapter === "01"), all = pipelines;
-    const w = wide ? 1.2 : 1.0, h = (w * H) / W, geo = sign(w, h), tilt = 0.22;
-    // desktop: front-left of the station; phone: straight in front (the view is tall and narrow)
-    const local: V3 = wide ? [-0.95, 0.02, 1.15] : [0, 0.02, 1.25];
+    const { w, h, local } = frame(wide), geo = sign(w, h), tilt = 0.22;
     const jobs: (() => void)[] = [];
     const make = (text: () => void, ang: number, base: V3, tint: () => V3, fade?: () => number) => {
         const cv = document.createElement("canvas"), tex = r.texture(false);

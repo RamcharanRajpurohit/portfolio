@@ -1,6 +1,6 @@
 import { apply, chain, cylinder, grid, hex, m4, merge, rbox, RX, RY, RZ, S, T, tube, type Geo, type M4, type Mat, type V3 } from "./gl";
 import { BLOT, C, cone, curve, frac, STATIONS, type Ctx } from "./kit";
-import type { Silk } from "./labels";
+import { underSign, type Silk } from "./labels";
 
 const TAU = Math.PI * 2;
 const seg = (t: number, a: number, b: number) => Math.min(1, Math.max(0, (t - a) / (b - a)));
@@ -41,7 +41,7 @@ const coil = (R: number, r: number): Geo => grid((u, v) => {
 // The world: the board and its depth (giant capacitor towers and a copper coil sweeping past on the right,
 // ribbon cables arching overhead, a heat-sink city and a huge chip on the horizon, swarms of tiny parts),
 // the level-up joy (see joy()), and the line (graphite pencil up to the blot, ink after it).
-export function world(ctx: Ctx) {
+export function world(ctx: Ctx, wide: boolean) {
     const { st, add, M, at, fixed } = ctx, still = fixed(m4());
     // the board everything stands on
     add(rbox(7.4, 0.05, 22, 0.02), M(C.board, { tone: 0.1, dot: hex("#1b3a2c") }), fixed(T(0.1, -0.025, -7.4)));
@@ -73,7 +73,8 @@ export function world(ctx: Ctx) {
 
     // static parts, merged per material
     const ink: [Geo, M4][] = [], forest: [Geo, M4][] = [], mustard: [Geo, M4][] = [], cream: [Geo, M4][] = [], sand: [Geo, M4][] = [], gold: [Geo, M4][] = [], cable: [Geo, M4][] = [], orange: [Geo, M4][] = [];
-    const clear = (x: number, z: number, m: number) => STATIONS.every(([sx, , sz]) => Math.hypot(x - sx, z - sz) > 0.52 + m) && Math.abs(x + 0.3) > 0.16 + m && Math.hypot(x - BLOT[0], z - BLOT[2]) > 0.5 + m;
+    const under = underSign(wide);
+    const clear = (x: number, z: number, m: number) => STATIONS.every(([sx, , sz]) => Math.hypot(x - sx, z - sz) > 0.52 + m) && Math.abs(x + 0.3) > 0.16 + m && Math.hypot(x - BLOT[0], z - BLOT[2]) > 0.5 + m && !under(x, z, m);
 
     // printed traces: a bus running the length of the board on the right, with 45° jogs, and short stubs
     const tr = box(1, 0.004, 0.016), pad = cylinder(0.02, 0.005, 12);
@@ -96,10 +97,12 @@ export function world(ctx: Ctx) {
     // short stubs, each ending in a round solder pad
     for (let k = 0; k < 40; k++) {
         const x = 2.0 + ((k * 7) % 5) * 0.14, z = 1.5 - k * 0.48, l = 0.4 + ((k * 13) % 5) * 0.12;
+        if (![-1, 0, 1].every((s) => clear(x + (s * l) / 2, z, 0.03))) continue;
         gold.push([tr, chain(T(x, 0.003, z), S(l, 1, 1))], [pad, T(x - l / 2, 0.003, z)], [pad, T(x + l / 2, 0.003, z)]);
     }
     for (let k = 0; k < 24; k++) {
         const x = -0.95 - ((k * 5) % 3) * 0.1, z = 1.2 - k * 0.7, l = 0.3 + ((k * 11) % 4) * 0.1;
+        if (![-1, 0, 1].every((s) => clear(x, z + (s * l) / 2, 0.03))) continue;
         gold.push([tr, chain(T(x, 0.003, z), RY(Math.PI / 2), S(l, 1, 1))], [pad, T(x, 0.003, z - l / 2)], [pad, T(x, 0.003, z + l / 2)]);
     }
     // vias: a copper ring with a drilled hole
