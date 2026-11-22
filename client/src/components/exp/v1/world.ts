@@ -252,6 +252,10 @@ export function world(ctx: Ctx) {
     add(cylinder(0.03, 0.3, 6), M(C.mustard, { tone: 0.1 }), () => chain(pencil(), T(0, 0.25, 0)), sketching);
     add(cylinder(0.031, 0.03, 12), M(C.bezel, { tone: 0.2 }), () => chain(pencil(), T(0, 0.415, 0)), sketching);
     add(cylinder(0.029, 0.04, 12), M(C.orange), () => chain(pencil(), T(0, 0.45, 0)), sketching);
+    // chapter 01 is still a draft: as you reach each of its stations a compass arc is swung round it, a tick at each end
+    const arc = merge([[grid((u, v) => { const a = 0.25 + u * 1.7, r = 0.7 + v * 0.012; return [r * Math.cos(a), 0.004, r * Math.sin(a)]; }, 32, 1), m4()] as [Geo, M4],
+        ...[0.25, 1.95].map((a) => [box(0.12, 0.002, 0.012), chain(T(0.7 * Math.cos(a), 0.004, 0.7 * Math.sin(a)), RY(-a))] as [Geo, M4])]);
+    STATIONS.forEach(([x, , z], k) => { if (st.stops[k] < st.lv) add(arc, graphite, fixed(T(x, 0, z)), () => st.T > st.stops[k] - 8, () => seg(st.T, st.stops[k] - 8, st.stops[k] + 2)); });
     const inkCol = () => (st.dark ? hex("#f5c435") : hex("#24493a"));
     const inkM = () => Object.defineProperties({ tone: 0.1 } as Mat, { proof: { get: inkCol }, print: { get: inkCol } });
     const line = WIRE.slice(BLOT_AT);
