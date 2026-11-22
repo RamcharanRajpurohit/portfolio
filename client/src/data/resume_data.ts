@@ -11,7 +11,7 @@ export const resume: { name: string; contact: string[]; sections: { title: strin
         { title: "Education", items: [{ head: "**IIT Jodhpur**", right: "Sep 2023 – May 2027", sub: "Bachelor of Technology", place: "Jodhpur, Rajasthan" }] },
         { title: "Work Experience", items: [
             {
-                head: "**Lead AI Engineer at PowersMy.biz**", right: "Oct 2026 – Present",
+                head: "**AI Engineer at PowersMy.biz**", right: "Oct 2026 – Present",
                 points: [
                     "**Digital Homework:** built Classroom-style homework where teachers assign AI questions, PDFs or learning modes and grade with AI, and students get marks, feedback, notifications and deadline reminders.",
                     "**Revision & Remedy:** teachers generate a cheat sheet and questions from the periods they taught, and students attempt them, get **remedial practice** where they fall short, and keep notes per chapter.",
