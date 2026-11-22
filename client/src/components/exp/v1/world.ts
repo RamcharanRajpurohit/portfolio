@@ -227,7 +227,8 @@ export function world(ctx: Ctx) {
     // the pen drawing it: rides the head of the line, leaning back the way it came
     const head = () => {
         const u = Math.min(1, st.ink) * (line.length - 1), i = Math.min(line.length - 2, Math.floor(u)), a = line[i], b = line[i + 1], f = u - i;
-        return chain(T(a[0] + (b[0] - a[0]) * f, 0.03, a[2] + (b[2] - a[2]) * f), RY(Math.atan2(a[0] - b[0], a[2] - b[2])), RX(0.55));
+        // a hand's small side-to-side wobble as it writes
+        return chain(T(a[0] + (b[0] - a[0]) * f, 0.03, a[2] + (b[2] - a[2]) * f), RY(Math.atan2(a[0] - b[0], a[2] - b[2])), RX(0.55), RZ(Math.sin(st.T * 0.9) * 0.07));
     };
     const drawing = () => st.ink > 0 && st.ink < 1;
     // signal beads run along the inked line from the blot to the pen: chapter 02's line is live
@@ -238,6 +239,7 @@ export function world(ctx: Ctx) {
     add(cylinder(0.036, 0.03, 20), M(C.orange), () => chain(head(), T(0, 0.42, 0)), drawing);
     const blot = grid((u, v) => { const a = u * TAU, b = (v - 0.5) * Math.PI, rr = 0.16 * (1 + 0.1 * Math.sin(a * 5) + 0.06 * Math.sin(a * 11)); return [rr * Math.cos(b) * Math.cos(a), Math.max(0, rr * Math.sin(b)) * 0.12, rr * Math.cos(b) * Math.sin(a)]; }, 40, 10, true);
     add(blot, inkM(), () => chain(T(...BLOT), S(Math.max(0.001, st.blot))), () => st.blot > 0.01);
+    add(blot, inkM(), () => { const h = head(); return chain(T(h[12], 0.03, h[14]), S(0.2, 1, 0.2)); }, drawing); // the wet bead at the nib
     return silk;
 }
 
