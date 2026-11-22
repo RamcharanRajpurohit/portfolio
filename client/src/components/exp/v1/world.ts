@@ -1,5 +1,6 @@
 import { apply, chain, cylinder, grid, hex, m4, merge, rbox, RX, RY, RZ, S, T, tube, type Geo, type M4, type Mat, type V3 } from "./gl";
 import { BLOT, C, cone, curve, frac, STATIONS, type Ctx } from "./kit";
+import type { Silk } from "./labels";
 
 const TAU = Math.PI * 2;
 const seg = (t: number, a: number, b: number) => Math.min(1, Math.max(0, (t - a) / (b - a)));
@@ -46,6 +47,16 @@ export function world(ctx: Ctx) {
     add(rbox(7.4, 0.05, 22, 0.02), M(C.board, { tone: 0.1, dot: hex("#1b3a2c") }), fixed(T(0.1, -0.025, -7.4)));
     const plinth = cylinder(0.52, 0.035, 40);
     STATIONS.forEach((_, k) => add(plinth, M(C.cream, { tone: 0.05 }), at(k, T(0, 0.018, 0))));
+    // a status LED on the board beside each plinth: dark until you reach the station, lit from then on
+    const led = rbox(0.06, 0.05, 0.06, 0.026), bezel = cylinder(0.045, 0.02, 16);
+    STATIONS.forEach((_, k) => {
+        const lit = () => st.T > st.stops[k] - 12;
+        add(bezel, M(C.ink, { tone: 0.6 }), at(k, T(0.44, 0.01, 0.44)));
+        add(led, Object.defineProperties(M(C.orange, { tone: 0.1, outline: false }), { print: { get: () => hex(lit() ? C.orange : C.brown) }, glow: { get: () => (lit() ? 0.7 : 0) } }), at(k, T(0.44, 0.035, 0.44)));
+    });
+    // silkscreen: part designators printed beside the parts, part numbers on the chip tops (drawn in labels.ts)
+    const silk: Silk = [], count: Record<string, number> = {};
+    const tag = (p: string, x: number, y: number, z: number, w = 0.2, chip = false) => silk.push([x, y, z, `${p}${(count[p] = (count[p] ?? 0) + 1)}`, w, chip]);
 
     // static parts, merged per material
     const ink: [Geo, M4][] = [], forest: [Geo, M4][] = [], mustard: [Geo, M4][] = [], cream: [Geo, M4][] = [], sand: [Geo, M4][] = [], gold: [Geo, M4][] = [], orange: [Geo, M4][] = [];
@@ -78,6 +89,7 @@ export function world(ctx: Ctx) {
     for (let c = 0; c < 90; c++) {
         const x = -3.3 + rnd() * 7.0, z = 3.3 - rnd() * 21.2, along = rnd() < 0.5, kind = rnd(), n = 2 + Math.floor(rnd() * 5);
         if (!clear(x, z, 0.25)) continue;
+        if (c % 3 === 0) tag(kind < 0.45 ? "R" : kind < 0.8 ? "C" : "U", x - (along ? 0.16 : 0), 0.004, z + (along ? 0 : 0.1));
         for (let k = 0; k < n; k++) {
             const px = x + (along ? 0 : k * 0.11), pz = z - (along ? k * 0.11 : 0);
             if (kind < 0.45) sand.push([res, chain(T(px, 0.02, pz), RY(along ? 0 : Math.PI / 2), RZ(Math.PI / 2))]);
@@ -97,6 +109,7 @@ export function world(ctx: Ctx) {
         [3.3, -6.6, 0.22, 0.8, C.mustard], [-3.0, -5.9, 0.24, 0.9, C.forest], [-1.6, -15.2, 0.3, 1.4, C.forest],
     ];
     for (const [x, z, r, h, col] of towers) {
+        tag("C", x, 0.004, z + r + 0.14, 0.24);
         (col === C.forest ? forest : mustard).push([cylinder(r, h, 36), T(x, h / 2, z)]);
         ink.push([cylinder(r * 1.015, 0.05, 36), T(x, h - 0.2, z)]); // the crimp groove
         ink.push([box(r * 1.4, 0.02, 0.05), T(x, h + 0.01, z)], [box(0.05, 0.02, r * 1.4), T(x, h + 0.01, z)]);
@@ -113,6 +126,8 @@ export function world(ctx: Ctx) {
     const leg = box(0.04, 0.08, 0.1);
     const chip = (x: number, z: number, w: number, d: number, h: number, legs: number, quad = false) => {
         ink.push([rbox(w, h, d, 0.03), T(x, 0.03 + h / 2, z)]);
+        tag("U", x - w / 2 + 0.12, 0.004, z + d / 2 + 0.2, 0.24);
+        tag("RC0", x + w * 0.08, 0.032 + h, z, Math.min(w, d) * 0.6, true);
         cream.push([cylinder(Math.min(w, d) * 0.07, 0.01, 16), T(x - w * 0.36, 0.03 + h, z + d * 0.3)]);
         for (let k = 0; k < legs; k++) {
             const t = -0.44 + (k / (legs - 1)) * 0.88;
@@ -161,6 +176,7 @@ export function world(ctx: Ctx) {
     add(coil(0.62, 0.24), M(C.orange, { tone: 0.12, hatch: 30 }), fixed(chain(T(2.95, 0.86, -10.1), RY(0.4), RX(Math.PI / 2))));
 
     joy(ctx);
+    return silk;
 
     // the line: graphite pencil up to the blot, ink after it (revealed as you travel)
     add(pipe(WIRE.slice(0, BLOT_AT + 1), 0.009, 6), M("#54422a", { tone: 0.9, outline: false }), still);
@@ -174,7 +190,7 @@ export function world(ctx: Ctx) {
         return chain(T(a[0] + (b[0] - a[0]) * f, 0.03, a[2] + (b[2] - a[2]) * f), RY(Math.atan2(a[0] - b[0], a[2] - b[2])), RX(0.55));
     };
     const drawing = () => st.ink > 0 && st.ink < 1;
-    add(cone(0.034, 0.13, 16), M(C.mustard, { tone: 0.1 }), () => chain(head(), T(0, 0.13, 0), RX(Math.PI)), drawing);
+    add(cone(0.034, 0.13, 16), M(C.mustard, { tone: 0.1, glow: 0.18 }), () => chain(head(), T(0, 0.13, 0), RX(Math.PI)), drawing);
     add(merge([[cylinder(0.03, 0.06, 20), T(0, 0.16, 0)], [cylinder(0.034, 0.3, 20), T(0, 0.34, 0)]]), M(C.ink, { tone: 0.6 }), head, drawing);
     add(cylinder(0.036, 0.03, 20), M(C.orange), () => chain(head(), T(0, 0.42, 0)), drawing);
     const blot = grid((u, v) => { const a = u * TAU, b = (v - 0.5) * Math.PI, rr = 0.16 * (1 + 0.1 * Math.sin(a * 5) + 0.06 * Math.sin(a * 11)); return [rr * Math.cos(b) * Math.cos(a), Math.max(0, rr * Math.sin(b)) * 0.12, rr * Math.cos(b) * Math.sin(a)]; }, 40, 10, true);

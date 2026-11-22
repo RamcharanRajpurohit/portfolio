@@ -287,7 +287,7 @@ function Dive({ onFail }: { onFail: () => void }) {
         cv.width = Math.round(vw * dpr); cv.height = Math.round(vh * dpr);
         let r: Renderer;
         try { r = new Renderer(cv); } catch (e) { console.warn("v1: WebGL2 unavailable, static layout", e); onFail(); return; }
-        const st: State = { T: 0, lv: LV, ink: 0, blot: 0, dark: document.documentElement.dataset.theme === "dark" };
+        const st: State = { T: 0, lv: LV, stops: [...P01, ...P02], ink: 0, blot: 0, dark: document.documentElement.dataset.theme === "dark" };
         const KEYS = makeKeys(wide), keyIndex = timing(KEYS);
         let raf = 0, visible = true, p = 0, target = 0, last = 0, settled = false, lastReg = -1, lastInk = -1;
         // scroll only sets a target; each frame the rendered progress p eases toward it (exponential, frame-rate

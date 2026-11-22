@@ -1,4 +1,4 @@
-import { chain, grid, hex, RX, RY, T, type M4, type Renderer, type V3 } from "./gl";
+import { chain, grid, hex, m4, merge, RX, RY, S, T, type Geo, type M4, type Renderer, type V3 } from "./gl";
 import { BLOT, REST_ANG, STATIONS, type Ctx } from "./kit";
 import { chapters, pipelines } from "../../../data/experience_data";
 
@@ -55,18 +55,21 @@ function paint(cv: HTMLCanvasElement, eyebrow: [string, string], title: string, 
 const sign = (w: number, h: number) => grid((u, v) => [(u - 0.5) * w, 0, -v * h], 1, 1);
 const place = (base: V3, ang: number, local: V3, tilt: number) => chain(T(...base), RY(ang), T(...local), RX(tilt));
 
-export function labels(r: Renderer, { st, add }: Ctx, wide: boolean, printedAt: () => boolean, redraw: () => void) {
+// silkscreen marks: [x, y, z, text, width, on a chip top]
+export type Silk = [number, number, number, string, number, boolean][];
+
+export function labels(r: Renderer, { st, add }: Ctx, wide: boolean, printedAt: () => boolean, redraw: () => void, silk: Silk) {
     const sys01 = pipelines.filter((p) => p.chapter === "01"), all = pipelines;
     const w = wide ? 1.2 : 1.0, h = (w * H) / W, geo = sign(w, h), tilt = 0.22;
     // desktop: front-left of the station; phone: straight in front (the view is tall and narrow)
     const local: V3 = wide ? [-0.95, 0.012, 1.15] : [0, 0.012, 1.25];
     const jobs: (() => void)[] = [];
-    const make = (text: () => void, ang: number, base: V3, tint: () => V3) => {
+    const make = (text: () => void, ang: number, base: V3, tint: () => V3, fade?: () => number) => {
         const cv = document.createElement("canvas"), tex = r.texture(false);
         cv.width = W; cv.height = H;
         jobs.push(() => { drawTo = cv; text(); r.upload(tex, cv); r.mipmap(tex); });
         const m: M4 = place(base, ang, local, tilt);
-        add(geo, Object.defineProperties({ proof: hex("#ffffff"), mode: 3, tex, alpha: 0.999, outline: false, cull: "none" } as Parameters<Ctx["add"]>[1], { print: { get: tint } }), () => m);
+        add(geo, Object.defineProperties({ proof: hex("#ffffff"), mode: 3, tex, alpha: 0.999, outline: false, cull: "none" } as Parameters<Ctx["add"]>[1], { print: { get: tint }, ...(fade && { alpha: { get: fade } }) }), () => m);
     };
     let drawTo: HTMLCanvasElement;
     const ink = () => (st.dark ? hex("#f3e6c4") : hex("#26201a")), cream = hex("#f3e6c4");
@@ -77,7 +80,30 @@ export function labels(r: Renderer, { st, add }: Ctx, wide: boolean, printedAt: 
             () => (print || printedAt() ? cream : ink()));
     });
     const [intern, lead] = chapters;
-    make(() => paint(drawTo, ["Level up", "01 → 02"], lead.role, [lead.period], undefined, intern.role), -0.55, BLOT, () => hex("#ff6509"));
+    // the level-up sign fades in as you near it, so it doesn't give itself away from the start
+    make(() => paint(drawTo, ["Level up", "01 → 02"], lead.role, [lead.period], undefined, intern.role), -0.55, BLOT, () => hex("#ff6509"),
+        () => Math.min(0.999, Math.max(0, (st.T - st.lv + 60) / 30)));
+    // silkscreen: one atlas of 128x64 cells, flat quads on the board (and on the chip tops), two meshes
+    const cols = 8, rows = Math.ceil(silk.length / cols), atlas = document.createElement("canvas"), stex = r.texture(false);
+    atlas.width = cols * 128; atlas.height = rows * 64;
+    jobs.push(() => {
+        const c = atlas.getContext("2d")!, font = (px: number) => (c.font = `700 ${px}px ui-monospace, Menlo, Consolas, monospace`);
+        c.clearRect(0, 0, atlas.width, atlas.height);
+        c.fillStyle = "#fff"; c.textAlign = "center"; c.textBaseline = "middle";
+        silk.forEach(([, , , t], i) => { font(44); font(Math.floor(44 * Math.min(1, 116 / c.measureText(t).width))); c.fillText(t, (i % cols) * 128 + 64, Math.floor(i / cols) * 64 + 34); });
+        r.upload(stex, atlas); r.mipmap(stex);
+    });
+    const cell = (i: number): Geo => {
+        const g = grid((u, v) => [u - 0.5, 0, (0.5 - v) * 0.5], 1, 1), col = i % cols, row = Math.floor(i / cols);
+        g.uv = g.uv.map((t, k) => (k % 2 ? 1 - (row + 1 - t) / rows : (col + t) / cols));
+        return g;
+    };
+    const flat = m4();
+    for (const chip of [false, true]) {
+        const parts = silk.flatMap(([x, y, z, , w, c], i) => (c === chip ? [[cell(i), chain(T(x, y, z), S(w))] as [Geo, M4]] : []));
+        add(merge(parts), Object.defineProperties({ proof: hex("#ffffff"), mode: 3, tex: stex, alpha: 0.999, outline: false, cull: "none" } as Parameters<Ctx["add"]>[1],
+            { print: { get: chip ? () => cream : () => (printedAt() ? cream : ink()) } }), () => flat);
+    }
     const run = () => jobs.forEach((j) => j());
     run();
     // Manrope may still be loading: repaint once it is in

@@ -3,7 +3,7 @@ import { chain, grid, hex, T, type Geo, type M4, type Mat, type V3 } from "./gl"
 // Shared kit for the inside of the machine: palette, layout, small helpers and the build context.
 // Each part of the scene (world.ts, stations01.ts, stations02.ts) gets a Ctx and adds meshes through it.
 
-export type State = { T: number; lv: number; ink: number; blot: number; dark: boolean };
+export type State = { T: number; lv: number; stops: number[]; ink: number; blot: number; dark: boolean };
 
 export const C = {
     cream: "#f3e6c4", bezel: "#d6c08a", top: "#e9cf86", forest: "#24493a", mustard: "#f0c43a",
