@@ -136,18 +136,21 @@ export function tube(pts: V3[], r: number, rs = 8): Geo {
     return g;
 }
 
+// bakes each part's matrix into its vertices (normals by the matrix's linear part); runs over every static
+// vertex at build time, so it is written allocation-free
 export function merge(list: [Geo, M4][]): Geo {
     const o = empty();
     for (const [g, m] of list) {
-        const base = o.p.length / 3;
+        const base = o.p.length / 3, id = m.every((v, i) => v === (i % 5 ? 0 : 1));
         for (let k = 0; k < g.p.length; k += 3) {
-            const p = apply(m, [g.p[k], g.p[k + 1], g.p[k + 2]]);
-            const q = apply(m, [g.p[k] + g.n[k], g.p[k + 1] + g.n[k + 1], g.p[k + 2] + g.n[k + 2]]);
-            o.p.push(p[0], p[1], p[2]);
-            o.n.push(...norm([q[0] - p[0], q[1] - p[1], q[2] - p[2]]));
+            const x = g.p[k], y = g.p[k + 1], z = g.p[k + 2], nx = g.n[k], ny = g.n[k + 1], nz = g.n[k + 2];
+            if (id) { o.p.push(x, y, z); o.n.push(nx, ny, nz); continue; }
+            o.p.push(m[0] * x + m[4] * y + m[8] * z + m[12], m[1] * x + m[5] * y + m[9] * z + m[13], m[2] * x + m[6] * y + m[10] * z + m[14]);
+            const a = m[0] * nx + m[4] * ny + m[8] * nz, b = m[1] * nx + m[5] * ny + m[9] * nz, c = m[2] * nx + m[6] * ny + m[10] * nz, l = Math.hypot(a, b, c) || 1;
+            o.n.push(a / l, b / l, c / l);
         }
-        o.uv.push(...g.uv);
-        for (const i of g.i) o.i.push(i + base);
+        for (let k = 0; k < g.uv.length; k++) o.uv.push(g.uv[k]);
+        for (let k = 0; k < g.i.length; k++) o.i.push(g.i[k] + base);
     }
     return o;
 }
