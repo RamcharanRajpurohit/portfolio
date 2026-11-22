@@ -50,9 +50,9 @@ export function world(ctx: Ctx) {
     // a status LED on the board beside each plinth: dark until you reach the station, lit from then on
     const led = rbox(0.06, 0.05, 0.06, 0.026), bezel = cylinder(0.045, 0.02, 16);
     STATIONS.forEach((_, k) => {
-        const lit = () => st.T > st.stops[k] - 12;
+        const lit = () => st.T > st.stops[k] - 12, flash = () => Math.max(0, 1 - (st.T - st.stops[k] + 12) / 10);
         add(bezel, M(C.ink, { tone: 0.6 }), at(k, T(0.44, 0.01, 0.44)));
-        add(led, Object.defineProperties(M(C.orange, { tone: 0.1, outline: false }), { print: { get: () => hex(lit() ? C.orange : C.brown) }, glow: { get: () => (lit() ? 0.7 : 0) } }), at(k, T(0.44, 0.035, 0.44)));
+        add(led, Object.defineProperties(M(C.orange, { tone: 0.1, outline: false }), { print: { get: () => hex(lit() ? C.orange : C.brown) }, glow: { get: () => (lit() ? 0.7 + 0.8 * flash() : 0) } }), at(k, T(0.44, 0.035, 0.44)));
     });
     // silkscreen: part designators printed beside the parts, part numbers on the chip tops (drawn in labels.ts)
     const silk: Silk = [], count: Record<string, number> = {};
@@ -135,6 +135,15 @@ export function world(ctx: Ctx) {
             if (quad) ink.push([leg, chain(T(x + w / 2 + 0.03, 0.04, z + t * d), RY(Math.PI / 2))], [leg, chain(T(x - w / 2 - 0.03, 0.04, z + t * d), RY(Math.PI / 2))]);
         }
     };
+    // a cooling fan on the small CPU by the path: it turns as you travel
+    const fan = (x: number, z: number, s: number, y: number) => {
+        const bar = box(s, 0.05, 0.06), side = box(0.06, 0.05, s), place = T(x, y, z);
+        ink.push([bar, chain(place, T(0, 0, (s - 0.06) / 2))], [bar, chain(place, T(0, 0, -(s - 0.06) / 2))], [side, chain(place, T((s - 0.06) / 2, 0, 0))], [side, chain(place, T(-(s - 0.06) / 2, 0, 0))]);
+        const blades = merge(Array.from({ length: 7 }, (_, k) => [box(s * 0.36, 0.006, s * 0.15), chain(RY((k * TAU) / 7), T(s * 0.24, 0, 0), RX(0.4))] as [Geo, M4]));
+        add(blades, M(C.cream, { tone: 0.05 }), () => chain(place, RY(-st.T * 0.35)));
+        add(cylinder(s * 0.13, 0.03, 20), M(C.orange), () => chain(place, T(0, 0.01, 0), RY(-st.T * 0.35)));
+    };
+    fan(-1.7, -9.4, 0.46, 0.17);
     chip(-1.9, -0.9, 1.1, 0.62, 0.2, 9); chip(-2.15, -5.1, 1.3, 0.75, 0.24, 11); chip(-2.15, -11.9, 1.3, 0.75, 0.24, 11); chip(2.9, -7.2, 0.7, 0.7, 0.12, 6, true); chip(-1.7, -9.4, 0.5, 0.5, 0.1, 5, true);
     chip(0.5, -17.5, 2.4, 1.2, 0.26, 16);
     sand.push([box(1.4, 0.012, 0.6), T(0.5, 0.295, -17.5)]); // the die window on top of it

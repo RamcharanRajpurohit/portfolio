@@ -372,7 +372,7 @@ function Dive({ onFail }: { onFail: () => void }) {
             const proj = perspective(fov, aspect, 0.02, 60);
             const roll = seg(T, LV + 4, LV + 30), snap = 1 - out3(seg(T, LV + 18, LV + 46)), printed = T > LV + 30;
             st.blot = T < LV + 2 ? 0 : out3(seg(T, LV + 2, LV + 16)) * (1 + 0.15 * Math.sin(seg(T, LV + 2, LV + 20) * Math.PI));
-            st.ink = seg(T, LV + 10, P02[P02.length - 1] + 30);
+            st.ink = seg(T, LV + 16, P02[P02.length - 1] + 11); // at each stop the pen is beside the plinth, clear of its sign
             r.draw(items, lookAt(eye, at), proj, {
                 eye, shadowAt: wide ? at : undefined, shadowSize: 3.2, far: 12, // phones: no shadow pass
                 ink: st.dark ? hex("#f3e6c4") : hex("#26201a"), light: [-0.55, 0.85, 0.42], dot: 4.2 * dpr,
