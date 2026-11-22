@@ -22,12 +22,12 @@ export const resume: { name: string; contact: string[]; sections: { title: strin
             {
                 head: "**AI Engineering Intern at PowersMy.biz**", right: "Nov 2025 – Sep 2026",
                 points: [
-                    "Built a production AI assessment platform for JEE and NEET coaching institutes serving **1,000+ concurrent exam-takers** (FastAPI, LangGraph, React, Flutter, MongoDB, Redis, GCP).",
-                    "**Agentic AI (Amigo):** architected a LangGraph student companion where a supervisor routes **5 specialist agents** over **18 scoped tools**, with LiveKit voice for code-switching Hindi and English speech and barge-in.",
-                    "**AI Safety & Access Control:** gated every agent data access behind a **scope-checked broker** with an append-only audit ledger, screening each turn with PII tokenisation and a fail-closed risk classifier.",
-                    "**Handwritten Evaluation:** engineered a pipeline using vision models to grade handwritten subjective answers across 8 question formats and identify learning gaps.",
-                    "**Document AI:** shipped a pipeline turning exam PDFs into a structured question bank, running **Mistral OCR** and a **DocLayout-YOLO** figure detector in parallel with per-subject Gemini extraction.",
-                    "**Backend & Cloud:** optimized exam APIs (Redis caching, atomic MongoDB operations, off-thread bcrypt), built an async grading queue across 2 services, and led GCP Cloud Run deployment with auto-scaling.",
+                    "Owned an AI assessment platform from zero to production, now part of the daily study routine of 1,000+ students preparing for JEE, NEET, KCET, and board exams.",
+                    "**Handwritten Evaluation:** engineered a vision-based grader that awards step-wise partial marks against teachers’ model solutions and explains each mark, cutting result turnaround from 3 to 4 days of manual checking to under 5 minutes.",
+                    "**Question Generation:** designed a pipeline assembling papers from generative, syllabus, PYQ, and bank sources into competitive, school, or custom patterns, plus a PDF importer (Mistral OCR, DocLayout-YOLO, Gemini) that digitizes full 180-question sets with diagrams intact.",
+                    "**Agentic AI (Amigo):** architected a conversational companion where a LangGraph supervisor routes 5 specialist agents over 18 scoped tools, serving text chat and LiveKit voice in Hindi and English.",
+                    "**Distributed Systems:** split evaluation into an asynchronous queue across 2 services that returns objective scores instantly while subjective responses are processed in the background.",
+                    "**Cloud & DevOps:** led GCP deployment on Cloud Run with a VPC connector, autoscaling, and concurrency tuning to absorb traffic spikes, shipped through GitHub Actions pipelines.",
                 ],
             },
         ] },
