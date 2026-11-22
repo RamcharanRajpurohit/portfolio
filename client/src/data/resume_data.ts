@@ -40,10 +40,10 @@ export const resume: { name: string; contact: string[]; sections: { title: strin
                 ],
             },
             {
-                head: "**DSA Visualizer:** Interactive Algorithm Learning Platform", right: "[Live Site](https://algolab.rajpurohit.me/) | [GitHub](https://github.com/RamcharanRajpurohit/DSAVisualizer)",
+                head: "**AlgoLab (DSA Visualizer):** Interactive Algorithm Learning Platform", right: "[Live Site](https://algolab.rajpurohit.me/) | [GitHub](https://github.com/RamcharanRajpurohit/DSAVisualizer)",
                 points: [
-                    "Developed a framework-free algorithm visualizer in raw ES6 and HTML5 Canvas, animating 15+ sorting, graph, and tree algorithms step by step.",
-                    "Architected a class-based OOP rendering engine where each algorithm is a self-contained plug-in subclass, with frame-by-frame controls for recursion tracing and backward stepping.",
+                    "Developed an interactive algorithm learning platform in **Next.js** and TypeScript that animates 40+ algorithms step by step across sorting, stacks and queues, linked lists, heaps, BST, AVL, B-trees and graphs.",
+                    "Built playback with pause, step back and scrub, live pseudocode and variables, an explanation for every step, quizzes and a sorting race mode.",
                 ],
             },
         ] },
