@@ -22,7 +22,7 @@ export const resume: { name: string; contact: string[]; sections: { title: strin
             {
                 head: "**AI Engineering Intern at PowersMy.biz**", right: "Nov 2025 – Sep 2026",
                 points: [
-                    "Owned an AI assessment platform from zero to production, now part of the daily study routine of 1,000+ students preparing for JEE, NEET, KCET, and board exams.",
+                    "Owned an AI assessment platform from zero to production, now part of the daily study routine of 2,000+ students preparing for JEE, NEET, KCET, and board exams.",
                     "**Handwritten Evaluation:** engineered a vision-based grader that awards step-wise partial marks against teachers’ model solutions and explains each mark, cutting result turnaround from 3 to 4 days of manual checking to under 5 minutes.",
                     "**Question Generation:** designed a pipeline assembling papers from generative, syllabus, PYQ, and bank sources into competitive, school, or custom patterns, plus a PDF importer (Mistral OCR, DocLayout-YOLO, Gemini) that digitizes full 180-question sets with diagrams intact.",
                     "**Agentic AI (Amigo):** architected a conversational companion where a LangGraph supervisor routes 5 specialist agents over 18 scoped tools, serving text chat and LiveKit voice in Hindi and English.",
