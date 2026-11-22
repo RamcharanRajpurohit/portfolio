@@ -36,13 +36,14 @@ export const resume: { name: string; contact: string[]; sections: { title: strin
                 head: "**DyPol** – Engineering Activity & Insights", right: "[Live Site](https://www.dypol.dev/) | [GitHub](https://github.com/RamcharanRajpurohit/DyPol)",
                 points: [
                     "Built a platform to track engineering activity across teams and projects, generating weekly reports, contributor insights, PR tracking, and stalled-work alerts from GitHub data.",
-                    "Developed a natural-language engineering assistant with LangGraph agents, Chroma and MongoDB vector embeddings, and GitHub REST and GraphQL APIs, with tool scoping, delegation limits, and cost tracking.",
+                    "Developed a natural-language engineering assistant using LangGraph orchestration, specialized agents, vector embeddings with Chroma and MongoDB, and GitHub REST and GraphQL APIs, with tool scoping, delegation limits, and cost tracking.",
                 ],
             },
             {
                 head: "**DSA Visualizer** – Interactive Algorithm Learning Platform", right: "[Live Site](https://algolab.rajpurohit.me/) | [GitHub](https://github.com/RamcharanRajpurohit/DSAVisualizer)",
                 points: [
-                    "Developed a framework-free visualizer in raw ES6 and HTML5 Canvas, animating 15+ sorting, graph, and tree algorithms on a plug-in OOP engine with frame-by-frame recursion tracing and backward stepping.",
+                    "Developed a framework-free algorithm visualizer in raw ES6 and HTML5 Canvas, animating 15+ sorting, graph, and tree algorithms step by step.",
+                    "Architected a class-based OOP rendering engine where each algorithm is a self-contained plug-in subclass, with frame-by-frame controls for recursion tracing and backward stepping.",
                 ],
             },
         ] },
