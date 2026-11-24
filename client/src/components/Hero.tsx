@@ -1,4 +1,5 @@
-import { ArrowDown, FileText } from 'lucide-react';
+import { ArrowDown, FileText, Github, Linkedin, Instagram } from 'lucide-react';
+import { TbBrandLeetcode } from 'react-icons/tb';
 import { Scenery } from './ui';
 
 function Hero(){
@@ -14,8 +15,11 @@ function Hero(){
                     <a href="#projects" className="pill-light">See my work <ArrowDown size={16} aria-hidden="true" /></a>
                     <a href="#resume" className="pill-dark"><FileText size={16} aria-hidden="true" /> Resume</a>
                 </div>
-
-
+                <div className="mt-4 flex justify-center gap-3">
+                    {([["GitHub", "https://github.com/RamcharanRajpurohit", Github], ["LeetCode", "https://leetcode.com/u/b23ci1032/", TbBrandLeetcode], ["LinkedIn", "https://www.linkedin.com/in/ramcharan-rajpurohit-1314b7289/", Linkedin], ["Instagram", "https://www.instagram.com/ramcharanpurohit/", Instagram]] as const).map(([name, href, Icon]) => (
+                        <a key={name} href={href} className="pill-light !p-2.5" target="_blank" rel="noopener noreferrer" aria-label={`Visit Ramcharan's ${name} profile`}><Icon size={20} aria-hidden="true" /></a>
+                    ))}
+                </div>
             </div>
 
             <Scenery>
